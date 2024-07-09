@@ -3,6 +3,8 @@ package br.com.fiap.tech_challenge.infra.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "CLIENTE")
@@ -20,5 +22,9 @@ public class ClienteEntity {
 
     @Column(nullable = false, length = 20)
     private String telefone;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_cpf")
+    private List<EnderecoEntity> enderecos;
 
 }

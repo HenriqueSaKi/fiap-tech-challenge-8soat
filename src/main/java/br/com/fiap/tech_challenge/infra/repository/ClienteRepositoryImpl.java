@@ -17,7 +17,7 @@ public class ClienteRepositoryImpl implements ClienteRepositoryPort {
     }
 
     @Override
-    public Optional<ClienteEntity> findById(String cpf) {
+    public Optional<ClienteEntity> findByCpf(String cpf) {
         return repository.findById(cpf);
     }
 
@@ -27,7 +27,7 @@ public class ClienteRepositoryImpl implements ClienteRepositoryPort {
     }
 
     @Override
-    public void deleteById(String cpf) {
+    public void deleteByCpf(String cpf) {
         repository.deleteById(cpf);
     }
 

@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface ClienteRepositoryPort {
 
-    Optional<ClienteEntity> findById(String cpf);
+    Optional<ClienteEntity> findByCpf(String cpf);
     void save(ClienteEntity cliente);
-    void deleteById(String cpf);
+    void deleteByCpf(String cpf);
 
 }

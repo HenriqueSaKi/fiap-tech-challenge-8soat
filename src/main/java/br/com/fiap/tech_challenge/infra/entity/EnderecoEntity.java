@@ -12,6 +12,9 @@ public class EnderecoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private ClienteEntity cliente;
+
     @Column(nullable = false, length = 8)
     private String cep;
 
