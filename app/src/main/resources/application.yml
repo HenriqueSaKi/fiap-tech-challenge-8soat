@@ -13,6 +13,6 @@ spring:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     show-sql: false
-    database-platform: org.hibernate.dialect.SQLServer2012Dialect
+    database-platform: org.hibernate.dialect.SQLServerDialect
     hibernate:
       ddl-auto: update
