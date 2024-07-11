@@ -53,7 +53,7 @@ public interface ClienteApi {
             value = "/{cpf}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<Cliente> buscarClientePorCPF(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable String cpf);
+    ResponseEntity<Object> buscarClientePorCPF(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable String cpf);
 
     @Operation(description = "Atualiza informações do cliente")
     @ApiResponses(value = {
@@ -67,7 +67,7 @@ public interface ClienteApi {
             value = "/",
             produces = {"application/json"},
             method = RequestMethod.PUT)
-    ResponseEntity<Cliente> atualizarCliente(@RequestBody Cliente cliente);
+    ResponseEntity<Object> atualizarCliente(@RequestBody Cliente cliente);
 
     @Operation(description = "Exclui as informações do cliente")
     @ApiResponses(value = {
@@ -82,6 +82,6 @@ public interface ClienteApi {
             value = "/id/{id}",
             produces = {"application/json"},
             method = RequestMethod.DELETE)
-    ResponseEntity<String> excluirCliente(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable Long id);
+    ResponseEntity<String> excluirCliente(@Parameter(in = ParameterIn.PATH, description = "Id do cliente", required = true, schema = @Schema()) @PathVariable Long id);
 
 }

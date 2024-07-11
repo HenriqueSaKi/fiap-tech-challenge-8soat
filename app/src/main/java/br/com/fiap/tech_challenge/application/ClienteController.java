@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("/cliente")
-public class ClienteController implements ClienteApi{
+public class ClienteController implements ClienteApi {
 
     private ClienteService service;
 
@@ -28,24 +28,24 @@ public class ClienteController implements ClienteApi{
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<Cliente> buscarClientePorCPF(@PathVariable String cpf) {
+    public ResponseEntity<Object> buscarClientePorCPF(@PathVariable String cpf) {
         Cliente cliente = service.buscarClientePorCPF(cpf);
         if(cliente != null) {
             return new ResponseEntity<>(cliente, HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Cliente não encontrado", HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping
-    public ResponseEntity<Cliente> atualizarCliente(@RequestBody Cliente cliente) {
+    public ResponseEntity<Object> atualizarCliente(@RequestBody Cliente cliente) {
         try {
             service.atualizarCliente(cliente);
             return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
         }
         catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Erro ao atualizar as informações do cliente.", HttpStatus.BAD_REQUEST);
         }
 
     }
