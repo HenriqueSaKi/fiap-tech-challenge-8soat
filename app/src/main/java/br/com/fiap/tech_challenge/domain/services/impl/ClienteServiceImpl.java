@@ -6,6 +6,8 @@ import br.com.fiap.tech_challenge.domain.repository.ClienteRepositoryPort;
 import br.com.fiap.tech_challenge.domain.services.ClienteService;
 import br.com.fiap.tech_challenge.infra.entity.ClienteEntity;
 import br.com.fiap.tech_challenge.infra.entity.EnderecoEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Optional;
 
 public class ClienteServiceImpl implements ClienteService {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(ClienteServiceImpl.class);
     private final ClienteRepositoryPort repository;
 
     public ClienteServiceImpl(ClienteRepositoryPort clienteRepositoryPort) {
@@ -43,7 +46,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente buscarClientePorCPF(String cpf) {
-        Optional<ClienteEntity> clienteEntity = repository.findByCpf(cpf);
+        Optional<ClienteEntity> clienteEntity = repository.buscarPorCpf(cpf);
         if(clienteEntity.isPresent()) {
             Cliente cliente = new Cliente();
             BeanUtils.copyProperties(clienteEntity.get(), cliente);
@@ -77,7 +80,12 @@ public class ClienteServiceImpl implements ClienteService {
             List<EnderecoEntity> enderecoEntities = new ArrayList<>(cliente.getEnderecos().size());
             cliente.getEnderecos().forEach(e -> {
                 EnderecoEntity enderecoEntity = new EnderecoEntity();
-                BeanUtils.copyProperties(e, enderecoEntities);
+                enderecoEntity.setCep(e.getCep());
+                enderecoEntity.setLogradouro(e.getLogradouro());
+                enderecoEntity.setComplemento(e.getComplemento());
+                enderecoEntity.setBairro(e.getBairro());
+                enderecoEntity.setCidade(e.getCidade());
+                enderecoEntity.setEstado(e.getEstado());
                 enderecoEntities.add(enderecoEntity);
             });
 
@@ -95,7 +103,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void excluirCliente(Long id) {
-        repository.deleteById(id);
+        repository.excluirPorId(id);
     }
 
 

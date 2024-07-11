@@ -27,8 +27,8 @@ public class ClienteEntity {
     @Column(name = "telefone", nullable = false, length = 20)
     private String telefone;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
-    private List<EnderecoEntity> enderecos;
+    private List<EnderecoEntity> enderecos = new ArrayList<>();
 
 }

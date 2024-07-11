@@ -22,7 +22,7 @@ public class ClienteRepositoryImpl implements ClienteRepositoryPort {
     }
 
     @Override
-    public Optional<ClienteEntity> findByCpf(String cpf) {
+    public Optional<ClienteEntity> buscarPorCpf(String cpf) {
         return repository.findByCpf(cpf);
     }
 
@@ -37,8 +37,8 @@ public class ClienteRepositoryImpl implements ClienteRepositoryPort {
     }
 
     @Override
-    public void deleteById(Long id) {
-        deleteById(id);
+    public void excluirPorId(Long id) {
+        repository.deleteById(id);
     }
 
 }
