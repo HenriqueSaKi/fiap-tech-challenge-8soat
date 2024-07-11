@@ -79,9 +79,9 @@ public interface ClienteApi {
                 @ExampleObject(value = "Cliente não encontrado.")))
     })
     @RequestMapping(
-            value = "/{cpf}",
+            value = "/id/{id}",
             produces = {"application/json"},
             method = RequestMethod.DELETE)
-    ResponseEntity<String> excluirCliente(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable String cpf);
+    ResponseEntity<String> excluirCliente(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable Long id);
 
 }

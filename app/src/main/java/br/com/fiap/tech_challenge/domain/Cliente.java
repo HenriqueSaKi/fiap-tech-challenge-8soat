@@ -8,6 +8,9 @@ import java.util.List;
 @Data
 public class Cliente {
 
+    @Schema(name = "id do cliente", description = "Número de identificação do cliente", example = "1L")
+    private Long id;
+
     @Schema(name = "cpf", description = "Número de documento", example = "12345678910")
     private String cpf;
 

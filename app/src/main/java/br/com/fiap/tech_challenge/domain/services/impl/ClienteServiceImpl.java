@@ -21,7 +21,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public void save(Cliente cliente) {
+    public void cadastrarCliente(Cliente cliente) {
         ClienteEntity clienteEntity = new ClienteEntity();
         BeanUtils.copyProperties(cliente, clienteEntity);
 
@@ -42,7 +42,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Cliente findById(String cpf) {
+    public Cliente buscarClientePorCPF(String cpf) {
         Optional<ClienteEntity> clienteEntity = repository.findByCpf(cpf);
         if(clienteEntity.isPresent()) {
             Cliente cliente = new Cliente();
@@ -68,8 +68,35 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public void deleteById(String cpf) {
-        repository.deleteByCpf(cpf);
+    public void atualizarCliente(Cliente cliente) {
+        Optional<ClienteEntity> clienteEntity = repository.findById(cliente.getId());
+        if(clienteEntity.isPresent()) {
+            ClienteEntity entity = clienteEntity.get();
+            BeanUtils.copyProperties(cliente, entity);
+
+            List<EnderecoEntity> enderecoEntities = new ArrayList<>(cliente.getEnderecos().size());
+            cliente.getEnderecos().forEach(e -> {
+                EnderecoEntity enderecoEntity = new EnderecoEntity();
+                BeanUtils.copyProperties(e, enderecoEntities);
+                enderecoEntities.add(enderecoEntity);
+            });
+
+            entity.setEnderecos(enderecoEntities);
+            repository.save(entity);
+
+        }
+
     }
+
+    @Override
+    public boolean existeCliente(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public void excluirCliente(Long id) {
+        repository.deleteById(id);
+    }
+
 
 }

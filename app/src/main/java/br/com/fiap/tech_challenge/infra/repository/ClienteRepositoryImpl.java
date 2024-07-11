@@ -17,8 +17,13 @@ public class ClienteRepositoryImpl implements ClienteRepositoryPort {
     }
 
     @Override
+    public Optional<ClienteEntity> findById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
     public Optional<ClienteEntity> findByCpf(String cpf) {
-        return repository.findById(cpf);
+        return repository.findByCpf(cpf);
     }
 
     @Override
@@ -27,8 +32,13 @@ public class ClienteRepositoryImpl implements ClienteRepositoryPort {
     }
 
     @Override
-    public void deleteByCpf(String cpf) {
-        repository.deleteById(cpf);
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        deleteById(id);
     }
 
 }

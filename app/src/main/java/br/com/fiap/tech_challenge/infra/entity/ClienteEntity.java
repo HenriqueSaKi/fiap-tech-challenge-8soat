@@ -3,6 +3,7 @@ package br.com.fiap.tech_challenge.infra.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -11,20 +12,23 @@ import java.util.List;
 public class ClienteEntity {
 
     @Id
-    @Column(nullable = false, length = 11)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "cpf", nullable = false, length = 11)
     private String cpf;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "nome_completo", nullable = false, length = 100)
     private String nomeCompleto;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "telefone", nullable = false, length = 20)
     private String telefone;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_cpf")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
     private List<EnderecoEntity> enderecos;
 
 }

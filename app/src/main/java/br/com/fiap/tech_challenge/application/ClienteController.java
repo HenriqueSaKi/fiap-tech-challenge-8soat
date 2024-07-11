@@ -23,13 +23,13 @@ public class ClienteController implements ClienteApi{
 
     @PostMapping
     public ResponseEntity<String> cadastrarCliente(@RequestBody Cliente cliente) {
-        service.save(cliente);
+        service.cadastrarCliente(cliente);
         return new ResponseEntity<>("Cliente cadastrado com sucesso!", HttpStatus.CREATED);
     }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<Cliente> buscarClientePorCPF(@PathVariable String cpf) {
-        Cliente cliente = service.findById(cpf);
+        Cliente cliente = service.buscarClientePorCPF(cpf);
         if(cliente != null) {
             return new ResponseEntity<>(cliente, HttpStatus.OK);
         }
@@ -41,7 +41,7 @@ public class ClienteController implements ClienteApi{
     @PutMapping
     public ResponseEntity<Cliente> atualizarCliente(@RequestBody Cliente cliente) {
         try {
-            service.save(cliente);
+            service.atualizarCliente(cliente);
             return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
         }
         catch (Exception e) {
@@ -50,10 +50,10 @@ public class ClienteController implements ClienteApi{
 
     }
 
-    @DeleteMapping("/{cpf}")
-    public ResponseEntity<String> excluirCliente (@PathVariable String cpf) {
-        if(service.findById(cpf) != null) {
-            service.deleteById(cpf);
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<String> excluirCliente (@PathVariable Long id) {
+        if(service.existeCliente(id)) {
+            service.excluirCliente(id);
             return new ResponseEntity<>("Cliente excluído com sucesso!", HttpStatus.OK);
         }
         else {

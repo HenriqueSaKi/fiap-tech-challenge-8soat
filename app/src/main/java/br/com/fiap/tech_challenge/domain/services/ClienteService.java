@@ -3,9 +3,10 @@ package br.com.fiap.tech_challenge.domain.services;
 import br.com.fiap.tech_challenge.domain.Cliente;
 
 public interface ClienteService {
-
-    void save(Cliente cliente);
-    Cliente findById(String cpf);
-    void deleteById(String cpf);
+    void cadastrarCliente(Cliente cliente);
+    Cliente buscarClientePorCPF(String cpf);
+    void atualizarCliente(Cliente cliente);
+    boolean existeCliente(Long id);
+    void excluirCliente(Long id);
 
 }
