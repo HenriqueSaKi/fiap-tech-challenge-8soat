@@ -21,7 +21,7 @@ public class ClienteEntity {
     @Column(name = "nome_completo", nullable = false, length = 100)
     private String nomeCompleto;
 
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
     @Column(name = "telefone", nullable = false, length = 20)
