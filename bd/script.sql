@@ -2,20 +2,22 @@ USE lanchonete;
 
 CREATE TABLE cliente (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(120) NOT NULL,
-    cpf BIGINT NOT NULL,
-	data_nascimento DATE NOT NULL,
-	genero ENUM('Feminino', 'Masculino', 'Não binário') NOT NULL,
-    email VARCHAR(50)
+    cpf CHAR(11) NOT NULL,
+    nomeCompleto VARCHAR(100) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    telefone VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE telefone (
+CREATE TABLE endereco (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,
-    tipo_telefone ENUM('Celular', 'Residencial', 'Trabalho', 'Recado') NOT NULL,
-    ddd CHAR(2) NOT NULL,
-    numero CHAR(8) NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES cliente(id),
-	CONSTRAINT uk_telefone_cliente UNIQUE (cliente_id, tipo_telefone, ddd, numero)
+    cep CHAR(8) NOT NULL,
+    logradouro VARCHAR(50) NOT NULL,
+    complemento VARCHAR(15),
+    bairro VARCHAR(30) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    estado VARCHAR(30) NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id)
 );
 
 CREATE TABLE categoria_produto (
