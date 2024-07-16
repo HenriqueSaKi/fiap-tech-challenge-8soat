@@ -24,8 +24,9 @@ public class ClienteEntity {
     @Column(name = "email", nullable = false, length = 50)
     private String email;
 
-    @Column(name = "telefone", nullable = false, length = 20)
-    private String telefone;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
+    private List<TelefoneEntity> telefone = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
