@@ -20,8 +20,8 @@ public class Cliente {
     @Schema(name = "email", description = "E-mail", example = "teste@exemplo.com")
     private String email;
 
-    @Schema(name = "telefone", description = "Telefone/celular", example = "+55 11 91234-1234")
-    private String telefone;
+    @Schema(name = "telefones", description = "Números de telefone")
+    private List<Telefone> telefones;
 
     @Schema(name = "enderecos", description = "Endereços do cliente")
     private List<Endereco> enderecos;
