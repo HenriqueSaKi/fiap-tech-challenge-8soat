@@ -8,6 +8,15 @@ CREATE TABLE cliente (
     telefone VARCHAR(20) NOT NULL
 );
 
+CREATE TABLE telefone (
+    cliente_id INT NOT NULL,
+    tipo_telefone ENUM('Celular', 'Residencial', 'Trabalho', 'Recado') NOT NULL,
+    ddd CHAR(2) NOT NULL,
+    numero CHAR(8) NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id),
+	CONSTRAINT uk_telefone_cliente UNIQUE (cliente_id, tipo_telefone, ddd, numero)
+);
+
 CREATE TABLE endereco (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,
