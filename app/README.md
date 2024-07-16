@@ -55,10 +55,10 @@
    Por fim, podemos habilitar a visualização do console do H2 adicionando a seguinte configuração:
    ``` YAML
    spring:
-   h2:
-      console:
-         enabled: true
-         path: /h2-console
+      h2:
+         console:
+            enabled: true
+            path: /h2-console
    ```
 
    **Observação:** Após subir sua aplicação com o banco de dados H2, você poderá acessar o console do banco de dados através desse link: http://localhost:8080/api/v1/h2-console
