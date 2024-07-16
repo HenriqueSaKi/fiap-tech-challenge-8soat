@@ -12,7 +12,7 @@ CREATE TABLE telefone (
     cliente_id INT NOT NULL,
     tipo_telefone ENUM('Celular', 'Residencial', 'Trabalho', 'Recado') NOT NULL,
     ddd CHAR(2) NOT NULL,
-    numero CHAR(8) NOT NULL,
+    numero CHAR(9) NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id),
 	CONSTRAINT uk_telefone_cliente UNIQUE (cliente_id, tipo_telefone, ddd, numero)
 );
