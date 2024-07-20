@@ -9,7 +9,6 @@ public class ClienteEntityMock {
         clienteEntity.setCpf("10987654321");
         clienteEntity.setNomeCompleto("Teste Entity");
         clienteEntity.setEmail("teste@entity.com.br");
-        clienteEntity.setTelefone("+55 12 98765-1234");
         return clienteEntity;
 
     }

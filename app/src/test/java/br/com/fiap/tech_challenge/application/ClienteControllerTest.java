@@ -50,7 +50,6 @@ public class ClienteControllerTest {
         cliente.setCpf("12345678910");
         cliente.setNomeCompleto("Teste Teste");
         cliente.setEmail("teste@exemplo.com.br");
-        cliente.setTelefone("+55 12 91234-1234");
 
         mockMvc.perform(
                         post("/cliente")
@@ -87,7 +86,6 @@ public class ClienteControllerTest {
         cliente.setCpf("12345678910");
         cliente.setNomeCompleto("Teste Atualizar");
         cliente.setEmail("teste@exemplo.com.br");
-        cliente.setTelefone("+55 12 94321-3421");
 
         mockMvc.perform(
                         put("/cliente")

@@ -2,10 +2,12 @@ package br.com.fiap.tech_challenge.domain.services.impl;
 
 import br.com.fiap.tech_challenge.domain.Cliente;
 import br.com.fiap.tech_challenge.domain.Endereco;
+import br.com.fiap.tech_challenge.domain.Telefone;
 import br.com.fiap.tech_challenge.domain.repository.ClienteRepositoryPort;
 import br.com.fiap.tech_challenge.domain.services.ClienteService;
 import br.com.fiap.tech_challenge.infra.entity.ClienteEntity;
 import br.com.fiap.tech_challenge.infra.entity.EnderecoEntity;
+import br.com.fiap.tech_challenge.infra.entity.TelefoneEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +29,17 @@ public class ClienteServiceImpl implements ClienteService {
     public void cadastrarCliente(Cliente cliente) {
         ClienteEntity clienteEntity = new ClienteEntity();
         BeanUtils.copyProperties(cliente, clienteEntity);
+        clienteEntity.setCpf(cliente.getCpf());
+
+        List<TelefoneEntity> telefoneEntity = new ArrayList<>(cliente.getTelefones().size());
+        cliente.getTelefones().forEach(telefone -> {
+            TelefoneEntity entity = new TelefoneEntity();
+            entity.setTipoTelefone(telefone.getTipoTelefone());
+            entity.setDdd(telefone.getDdd());
+            entity.setNumero(telefone.getNumero());
+            telefoneEntity.add(entity);
+
+        });
 
         List<EnderecoEntity> enderecoEntity = new ArrayList<>(cliente.getEnderecos().size());
         cliente.getEnderecos().forEach(endereco -> {
@@ -40,6 +53,7 @@ public class ClienteServiceImpl implements ClienteService {
             enderecoEntity.add(entity);
         });
 
+        clienteEntity.setTelefones(telefoneEntity);
         clienteEntity.setEnderecos(enderecoEntity);
         repository.save(clienteEntity);
     }
@@ -50,6 +64,17 @@ public class ClienteServiceImpl implements ClienteService {
         if(clienteEntity.isPresent()) {
             Cliente cliente = new Cliente();
             BeanUtils.copyProperties(clienteEntity.get(), cliente);
+
+            List<Telefone> telefones = new ArrayList<>(clienteEntity.get().getTelefones().size());
+            clienteEntity.get().getTelefones().forEach(t -> {
+                Telefone telefone = new Telefone();
+                telefone.setTipoTelefone(t.getTipoTelefone());
+                telefone.setDdd(t.getDdd());
+                telefone.setNumero(t.getNumero());
+                telefones.add(telefone);
+
+            });
+
 
             List<Endereco> enderecos = new ArrayList<>(clienteEntity.get().getEnderecos().size());
             clienteEntity.get().getEnderecos().forEach(e -> {
@@ -64,6 +89,7 @@ public class ClienteServiceImpl implements ClienteService {
 
             });
 
+            cliente.setTelefones(telefones);
             cliente.setEnderecos(enderecos);
             return cliente;
         }

@@ -9,7 +9,6 @@ public class ClienteMock {
         cliente.setCpf("12345678910");
         cliente.setNomeCompleto("Teste Teste");
         cliente.setEmail("teste@exemplo.com.br");
-        cliente.setTelefone("+55 12 91234-1234");
         return cliente;
 
     }

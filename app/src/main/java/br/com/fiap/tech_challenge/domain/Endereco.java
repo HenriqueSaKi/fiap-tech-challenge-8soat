@@ -24,4 +24,7 @@ public class Endereco {
     @Schema(name = "estado", description = "Estado", examples = "SP")
     private String estado;
 
+    public String getCep() {
+        return cep.replace("-", "");
+    }
 }

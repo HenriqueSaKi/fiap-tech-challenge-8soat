@@ -26,7 +26,7 @@ public class ClienteEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
-    private List<TelefoneEntity> telefone = new ArrayList<>();
+    private List<TelefoneEntity> telefones = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")

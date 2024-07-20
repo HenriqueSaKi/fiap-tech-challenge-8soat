@@ -16,4 +16,7 @@ public class Telefone {
     @Schema(name = "numero", description = "Número de telefone", example = "912341234")
     private String numero;
 
+    public String getNumero() {
+        return numero.replace("-", "");
+    }
 }
