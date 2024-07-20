@@ -10,3 +10,6 @@ ENV MYSQL_ROOT_HOST=%
 
 # Copie o script SQL para o diretório de inicialização do MySQL
 COPY script.sql /docker-entrypoint-initdb.d/
+
+# não falta criar a porta 3306?
+# EXPOSE 3306

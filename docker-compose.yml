@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: ./app
+    image: tech-challenge-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./bd
+    container_name: bd-lanchonete
+    ports:
+      - "4567:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: lanchonete
+      MYSQL_USER: user_fiap
+      MYSQL_PASSWORD: password_fiap
+      MYSQL_ROOT_HOST: "%"
+    volumes:
+      - ./bd/script.sql:/docker-entrypoint-initdb.d/script.sql
+      # :/docker-entrypoint-initdb.d/script.sql - é o caminho dentro do container onde o arquivo script.sql será montado. É um especial para containers MySQL.
+
+      # command: ["mysqld"] - não precisamos de command pois já tem o entrypoint e cmd nos Dockerfile
+
+volumes:
+  mysql-data:
