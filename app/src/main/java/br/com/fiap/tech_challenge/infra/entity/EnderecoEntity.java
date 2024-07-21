@@ -21,7 +21,7 @@ public class EnderecoEntity {
     @Column(nullable = false, length = 50)
     private String logradouro;
 
-    @Column(length = 15)
+    @Column(length = 30)
     private String complemento;
 
     @Column(nullable = false, length = 30)
