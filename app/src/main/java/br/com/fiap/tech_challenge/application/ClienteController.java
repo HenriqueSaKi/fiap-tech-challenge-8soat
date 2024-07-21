@@ -17,18 +17,18 @@ public class ClienteController implements ClienteSwaggerInterface {
         this.service = service;
     }
 
-    @GetMapping("/health")
+    @Override
     public ResponseEntity<String> heathCheck() {
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
-    @PostMapping
+    @Override
     public ResponseEntity<String> cadastrarCliente(@RequestBody Cliente cliente) {
         service.cadastrarCliente(cliente);
         return new ResponseEntity<>("Cliente cadastrado com sucesso!", HttpStatus.CREATED);
     }
 
-    @GetMapping("/{cpf}")
+    @Override
     public ResponseEntity<Object> buscarClientePorCPF(@PathVariable String cpf) {
         Cliente cliente = service.buscarClientePorCPF(cpf);
         if(cliente != null) {
@@ -39,7 +39,7 @@ public class ClienteController implements ClienteSwaggerInterface {
         }
     }
 
-    @PutMapping
+    @Override
     public ResponseEntity<Object> atualizarCliente(@RequestBody Cliente cliente) {
         try {
             service.atualizarCliente(cliente);
@@ -51,7 +51,7 @@ public class ClienteController implements ClienteSwaggerInterface {
 
     }
 
-    @DeleteMapping("/id/{id}")
+    @Override
     public ResponseEntity<String> excluirCliente (@PathVariable Long id) {
         if(service.existeCliente(id)) {
             service.excluirCliente(id);
