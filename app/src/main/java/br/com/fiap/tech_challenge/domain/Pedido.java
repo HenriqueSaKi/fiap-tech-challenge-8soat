@@ -1,6 +1,7 @@
 package br.com.fiap.tech_challenge.domain;
 
 import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
