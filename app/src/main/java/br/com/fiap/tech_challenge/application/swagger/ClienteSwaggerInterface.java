@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.application;
+package br.com.fiap.tech_challenge.application.swagger;
 
 import br.com.fiap.tech_challenge.domain.Cliente;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public interface ClienteApi {
+public interface ClienteSwaggerInterface {
 
     @Operation(description = "Verifica se o serviço está disponível.")
     @ApiResponses(value = {
