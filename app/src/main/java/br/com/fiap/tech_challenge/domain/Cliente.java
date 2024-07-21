@@ -14,7 +14,7 @@ public class Cliente {
     @Schema(name = "cpf", description = "Número de documento", example = "12345678910")
     private String cpf;
 
-    @Schema(name = "nome completo", description = "Nome completo", example = "Nome Teste")
+    @Schema(name = "nomeCompleto", description = "Nome completo", example = "Nome Teste")
     private String nomeCompleto;
 
     @Schema(name = "email", description = "E-mail", example = "teste@exemplo.com")
