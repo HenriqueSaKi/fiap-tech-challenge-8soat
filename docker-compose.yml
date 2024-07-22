@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  bd_lanchonete:
+    container_name: bd_lanchonete
+    build:
+      context: .
+      dockerfile: Dockerfile.bd
+    env_file:
+      - .env
+    ports:
+      - "4050:3306"
+      ## A porta 4050 é do host e a 3306 a do container
+    networks:
+      - lanchonete_net
+    volumes:
+      -   lanchonete_dados:/var/lib/mysql
+    command: ["mysqld"]
+    
+  app:
+    container_name: app_lanchonete
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    networks:
+      - lanchonete_net
+    depends_on:
+      - bd_lanchonete
+
+volumes:
+  lanchonete_dados:
+
+networks:
+  lanchonete_net:
+
