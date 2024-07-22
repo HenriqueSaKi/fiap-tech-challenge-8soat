@@ -48,6 +48,7 @@ Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pel
 ###  Crie as imagens e suba os containeres
 Execute os comandos abaixo pelo terminal na pasta raiz do projeto:
 
+```sh
 # Crie a imagem docker e suba o container
 docker-compose build --no-cache && docker-compose up -d
 
@@ -62,9 +63,11 @@ http://localhost:8080/api/v1/swagger-ui/index.html
 docker exec -it bd_lanchonete mysql -u user_fiap -p
 use lanchonete;
 show tables;
+```
 
-###  Outras informações úteis
+###  Outros comandos úteis
 
+```sh
 # Comandos para reiniciar os containeres
 # Para e remove os containeres, recria as imagens e sobe tudo novamente
 docker-compose down
@@ -85,3 +88,4 @@ docker-compose build --no-cache && docker-compose up -d
 # Use os comandos abaixo para visualizar os logs dos containeres
 docker logs bd_lanchonete
 docker logs app_lanchonete
+```
