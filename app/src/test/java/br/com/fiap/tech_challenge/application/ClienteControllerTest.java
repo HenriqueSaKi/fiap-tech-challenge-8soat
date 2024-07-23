@@ -52,7 +52,7 @@ public class ClienteControllerTest {
         cliente.setEmail("teste@exemplo.com.br");
 
         mockMvc.perform(
-                        post("/cliente")
+                        post("/cliente/")
                                 .contentType("application/json")
                                 .content(new Gson().toJson(cliente)))
                 .andExpect(status().isCreated());
@@ -88,7 +88,7 @@ public class ClienteControllerTest {
         cliente.setEmail("teste@exemplo.com.br");
 
         mockMvc.perform(
-                        put("/cliente")
+                        put("/cliente/")
                                 .contentType("application/json")
                                 .content(new Gson().toJson(cliente)))
                 .andExpect(status().isAccepted());
@@ -97,7 +97,7 @@ public class ClienteControllerTest {
 
     @Test
     public void testAtualizarClienteBadRequest() throws Exception {
-        mockMvc.perform(put("/cliente"))
+        mockMvc.perform(put("/cliente/"))
                 .andExpect(status().isBadRequest());
 
     }

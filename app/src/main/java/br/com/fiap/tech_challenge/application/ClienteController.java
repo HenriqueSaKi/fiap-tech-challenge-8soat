@@ -1,5 +1,6 @@
 package br.com.fiap.tech_challenge.application;
 
+import br.com.fiap.tech_challenge.application.swagger.ClienteSwaggerInterface;
 import br.com.fiap.tech_challenge.domain.Cliente;
 import br.com.fiap.tech_challenge.domain.services.ClienteService;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("/cliente")
-public class ClienteController implements ClienteApi {
+public class ClienteController implements ClienteSwaggerInterface {
 
     private ClienteService service;
 
@@ -16,18 +17,18 @@ public class ClienteController implements ClienteApi {
         this.service = service;
     }
 
-    @GetMapping("/health")
+    @Override
     public ResponseEntity<String> heathCheck() {
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
-    @PostMapping
+    @Override
     public ResponseEntity<String> cadastrarCliente(@RequestBody Cliente cliente) {
         service.cadastrarCliente(cliente);
         return new ResponseEntity<>("Cliente cadastrado com sucesso!", HttpStatus.CREATED);
     }
 
-    @GetMapping("/{cpf}")
+    @Override
     public ResponseEntity<Object> buscarClientePorCPF(@PathVariable String cpf) {
         Cliente cliente = service.buscarClientePorCPF(cpf);
         if(cliente != null) {
@@ -38,7 +39,7 @@ public class ClienteController implements ClienteApi {
         }
     }
 
-    @PutMapping
+    @Override
     public ResponseEntity<Object> atualizarCliente(@RequestBody Cliente cliente) {
         try {
             service.atualizarCliente(cliente);
@@ -50,7 +51,7 @@ public class ClienteController implements ClienteApi {
 
     }
 
-    @DeleteMapping("/id/{id}")
+    @Override
     public ResponseEntity<String> excluirCliente (@PathVariable Long id) {
         if(service.existeCliente(id)) {
             service.excluirCliente(id);

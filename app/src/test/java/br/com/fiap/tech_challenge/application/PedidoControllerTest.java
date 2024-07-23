@@ -1,0 +1,78 @@
+package br.com.fiap.tech_challenge.application;
+
+import br.com.fiap.tech_challenge.domain.ItemPedido;
+import br.com.fiap.tech_challenge.domain.Pedido;
+import br.com.fiap.tech_challenge.domain.mock.ItemPedidoMock;
+import br.com.fiap.tech_challenge.domain.services.PedidoService;
+import com.google.gson.Gson;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@ExtendWith(MockitoExtension.class)
+public class PedidoControllerTest {
+
+    @Mock private PedidoService service;
+    @InjectMocks private PedidoController controller;
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    public void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .alwaysDo(print())
+                .build();
+
+    }
+
+    @Test
+    public void testCadastrarPedido() throws Exception {
+        ItemPedido itemPedido = ItemPedidoMock.getItemPedido();
+
+        Pedido pedido = new Pedido();
+        pedido.setItens(List.of(itemPedido));
+
+        mockMvc.perform(
+                        post("/pedido/")
+                                .contentType("application/json")
+                                .content(new Gson().toJson(pedido)))
+                .andExpect(status().isCreated());
+
+    }
+
+    @Test
+    public void testListarPedidosSuccess() throws Exception {
+        ItemPedido itemPedido = ItemPedidoMock.getItemPedido();
+        Pedido pedido = new Pedido();
+
+        pedido.setItens(List.of(itemPedido));
+
+
+        when(service.listarPedidos()).thenReturn(List.of(pedido));
+        mockMvc.perform(get("/pedido/listar"))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void testListarPedidosNotFound() throws Exception {
+        when(service.listarPedidos()).thenReturn(new ArrayList<>());
+        mockMvc.perform(get("/pedido/listar"))
+                .andExpect(status().isNotFound());
+
+    }
+
+}
