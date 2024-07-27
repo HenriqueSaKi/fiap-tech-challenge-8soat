@@ -16,4 +16,4 @@ ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
 ENV MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
 
 # Copia o script SQL para o diretório de inicialização do MySQL
-COPY bd/script.sql /docker-entrypoint-initdb.d/
+# COPY bd/script.sql /docker-entrypoint-initdb.d/
