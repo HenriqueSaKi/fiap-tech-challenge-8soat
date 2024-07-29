@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d48bc047-6c11-4e1b-8df9-7ec5440473a1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Pedido.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +38,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "fila__pedidos",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/felip/dev/pos/fiap-tech-challenge-8soat/bd",
