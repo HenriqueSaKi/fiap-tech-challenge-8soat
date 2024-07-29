@@ -1,56 +1,74 @@
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.math.BigDecimal;
 
-public class FilaPedidos {
+import br.com.fiap.tech_challenge.domain.ItemPedido;
+import br.com.fiap.tech_challenge.domain.Pedido;
+import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
+
+public class FilaDePedidos {
     private Queue<Pedido> fila;
 
-    public FilaPedidos() {
+    public FilaDePedidos() {
         this.fila = new LinkedList<>();
     }
 
-    // adiciona um pedido à fila
+    // Adicionar um pedido à fila
     public void adicionarPedido(Pedido pedido) {
         fila.add(pedido);
-        System.out.printIn("Pedido adicionado: " + pedido);
+        System.out.println("Pedido adicionado: " + pedido);
     }
 
-    // processar o próximo pedido na fila
+    // Processar o próximo pedido na fila
     public Pedido processarProximoPedido() {
         Pedido pedido = fila.poll();
         if (pedido != null) {
-            System.out.printIn("Processando pedido: " + pedido);
+            System.out.println("Processando pedido: " + pedido);
         } else {
-            System.out.printIn("Nenhum pedido na fila");
+            System.out.println("Nenhum pedido na fila.");
         }
         return pedido;
     }
-    // ver o pedido sem remove-lo da fila
+
+    // Ver o próximo pedido sem remover da fila
     public Pedido verProximoPedido() {
         return fila.peek();
     }
 
-    // checar se a fila está vazia
-    public boolean isVazia() {
+    // Verificar se a fila está vazia
+    public boolean isFilaVazia() {
         return fila.isEmpty();
     }
 
     public static void main(String[] args) {
-        FilaPedidos filaPedidos = new FilaPedidos();
+        FilaDePedidos filaDePedidos = new FilaDePedidos();
 
-        // pedidos de exemplo
-        Pedido pedido1 = new Pedido(new Date(), SituacaoPedido.PENDENTE, List.of(new ItemPedido("Item1", 2, BigDecimal.valueOf(50.00))));
-        Pedido pedido2 = new Pedido(new Date(), SituacaoPedido.PENDENTE, List.of(new ItemPedido("Item2", 1, BigDecimal.valueOf(30.00))));
-        Pedido pedido3 = new Pedido(new Date(), SituacaoPedido.PENDENTE, List.of(new ItemPedido("Item3", 3, BigDecimal.valueOf(20.00))));
+        // Criar alguns pedidos de exemplo
+        ItemPedido item1 = new ItemPedido();
+        item1.setDescricao("Hamburguer");
+        item1.setValorUnitario(BigDecimal.valueOf(20.00));
+        item1.setQuantidade(2);
 
-        // adicionando-os à fila
-        filaPedidos.adicionarPedido(pedido1);
-        filaPedidos.adicionarPedido(pedido1);
-        filaPedidos.adicionarPedido(pedido1);
+        ItemPedido item2 = new ItemPedido();
+        item2.setDescricao("Batata Frita");
+        item2.setValorUnitario(BigDecimal.valueOf(10.00));
+        item2.setQuantidade(1);
 
-        // processar pedidos na fila
-        filaPedidos.processarProximoPedido();
-        filaPedidos.processarProximoPedido();
-        filaPedidos.processarProximoPedido();
-        filaPedidos.processarProximoPedido();
+        Pedido pedido1 = new Pedido(new Date(), SituacaoPedido.PENDENTE, List.of(item1, item2));
+        Pedido pedido2 = new Pedido(new Date(), SituacaoPedido.PENDENTE, List.of(item1));
+        Pedido pedido3 = new Pedido(new Date(), SituacaoPedido.PENDENTE, List.of(item2));
+
+        // Adicionar pedidos à fila
+        filaDePedidos.adicionarPedido(pedido1);
+        filaDePedidos.adicionarPedido(pedido2);
+        filaDePedidos.adicionarPedido(pedido3);
+
+        // Processar pedidos na fila
+        filaDePedidos.processarProximoPedido();
+        filaDePedidos.processarProximoPedido();
+        filaDePedidos.processarProximoPedido();
+        filaDePedidos.processarProximoPedido(); // Tentativa de processar um pedido quando a fila está vazia
     }
 }
