@@ -5,64 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c2e3011-d478-45d3-99f3-1c4e62b9a7b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/fiap/tech_challenge/infra/entity/SituacaoPedido.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/TechChallengeApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/application/ClienteController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/application/PedidoController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/application/swagger/ClienteSwaggerInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/application/swagger/PedidoSwaggerInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Cliente.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Endereco.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/FilaPedidos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/ItemPedido.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Pedido.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/SituacaoPedido.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Telefone.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/enums/CategoriaProduto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/enums/SituacaoPedido.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/enums/TipoTelefone.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/repository/ClienteRepositoryPort.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/repository/PedidoRepositoryPort.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/services/ClienteService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/services/PedidoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/services/impl/ClienteServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/services/impl/PedidoServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/config/ClienteRepositoryConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/config/ClienteServiceConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/config/PedidoRepositoryConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/config/PedidoServiceConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/ClienteEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/EnderecoEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/ItemPedidoEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/PedidoEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/ProdutoEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/TelefoneEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/repository/ClienteRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/repository/ClienteRepositoryImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/repository/PedidoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/repository/PedidoRepositoryImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/application/ClienteControllerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/application/PedidoControllerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/mock/ClienteMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/mock/EnderecoMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/mock/ItemPedidoMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/mock/TelefoneMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/services/impl/ClienteServiceImplTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/services/impl/PedidoServiceImplTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/ClienteEntityMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/EnderecoEntityMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/ItemPedidoEntityMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/PedidoEntityMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/TelefoneEntityMock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/repository/ClienteRepositoryImplTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/repository/PedidoRepositoryImplTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
