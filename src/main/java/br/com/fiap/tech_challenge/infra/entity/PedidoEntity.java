@@ -1,6 +1,5 @@
 package br.com.fiap.tech_challenge.infra.entity;
 
-import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
 import jakarta.persistence.*;
 import lombok.Data;
 

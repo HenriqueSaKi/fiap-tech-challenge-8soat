@@ -1,12 +1,11 @@
+package br.com.fiap.tech_challenge.domain;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.math.BigDecimal;
 
-import br.com.fiap.tech_challenge.domain.ItemPedido;
-import br.com.fiap.tech_challenge.domain.Pedido;
-import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
 
 public class FilaDePedidos {
     private Queue<Pedido> fila;
@@ -25,11 +24,11 @@ public class FilaDePedidos {
     public Pedido processarProximoPedido() {
         Pedido pedido = fila.poll();
         if (pedido != null) {
-            System.out.println("Processando pedido: " + pedido);
+            return pedido;
         } else {
-            System.out.println("Nenhum pedido na fila.");
+            // retornar um erro para lidar na próxima camada
+            throw new RuntimeException("Nenhum pedido na fila.");
         }
-        return pedido;
     }
 
     // Ver o próximo pedido sem remover da fila
@@ -69,6 +68,6 @@ public class FilaDePedidos {
         filaDePedidos.processarProximoPedido();
         filaDePedidos.processarProximoPedido();
         filaDePedidos.processarProximoPedido();
-        filaDePedidos.processarProximoPedido(); // Tentativa de processar um pedido quando a fila está vazia
+        filaDePedidos.processarProximoPedido(); // testando processar um pedido quando a fila estiver vazia
     }
 }

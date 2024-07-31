@@ -1,22 +1,21 @@
 package br.com.fiap.tech_challenge.domain;
 
-import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
+@NoArgsConstructor
 @Data
 public class Pedido {
 
-    private static final AtomicInteger count = new AtomicInteger(0);
-
     @Schema(name = "id", description = "Identificador único do pedido", example = "000001")
-    private int id;
+    private String id;
 
     @Schema(name = "dataPedido", description = "Data em que o pedido foi atualizado")
     private Date dataPedido;
@@ -31,7 +30,7 @@ public class Pedido {
     private List<ItemPedido> itens;
 
     public Pedido(Date dataPedido, SituacaoPedido situacaoPedido, List<ItemPedido> itens) {
-        this.id = count.incrementAndGet();
+        this.id = UUID.randomUUID().toString();
         this.dataPedido = dataPedido;
         this.situacaoPedido = situacaoPedido;
         this.itens = itens;

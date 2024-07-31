@@ -2,7 +2,7 @@ package br.com.fiap.tech_challenge.domain.services.impl;
 
 import br.com.fiap.tech_challenge.domain.ItemPedido;
 import br.com.fiap.tech_challenge.domain.Pedido;
-import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
+import br.com.fiap.tech_challenge.domain.SituacaoPedido;
 import br.com.fiap.tech_challenge.domain.repository.PedidoRepositoryPort;
 import br.com.fiap.tech_challenge.domain.services.PedidoService;
 import br.com.fiap.tech_challenge.infra.entity.ItemPedidoEntity;
@@ -25,7 +25,7 @@ public class PedidoServiceImpl implements PedidoService {
     public void cadastrarPedido(Pedido pedido) {
         PedidoEntity entity = new PedidoEntity();
         entity.setDataPedido(new Date());
-        entity.setSituacao(SituacaoPedido.RECEBIDO);
+        converteSituacaoPedido(SituacaoPedido.PENDENTE.name());
         entity.setValorTotalPedido(pedido.getValorTotalPedido());
 
         List<ItemPedidoEntity> itensEntity = new ArrayList<>();
@@ -46,26 +46,26 @@ public class PedidoServiceImpl implements PedidoService {
         List<PedidoEntity> pedidoEntity = repositoryPort.listaPedidos();
 
         List<Pedido> pedidos = new ArrayList<>();
-        if(!pedidoEntity.isEmpty()) {
-            List<PedidoEntity> pedidosEntity = pedidoEntity.stream().toList();
-            pedidosEntity.forEach(entity -> {
-                Pedido pedido = new Pedido();
-                BeanUtils.copyProperties(entity, pedido);
-                pedido.setSituacaoPedido(entity.getSituacao());
+        pedidoEntity.forEach(entity -> {
+            Pedido pedido = new Pedido();
+            BeanUtils.copyProperties(entity, pedido);
+            pedido.setSituacaoPedido(converteSituacaoPedido(entity.getSituacao().toString()));
 
-                List<ItemPedido> itens = new ArrayList<>();
-                entity.getItensPedido().forEach(item -> {
-                    ItemPedido itemPedido = new ItemPedido();
-                    BeanUtils.copyProperties(item, itemPedido);
-                    itens.add(itemPedido);
-                });
-
-                pedido.setItens(itens);
-                pedidos.add(pedido);
+            List<ItemPedido> itens = new ArrayList<>();
+            entity.getItensPedido().forEach(item -> {
+                ItemPedido itemPedido = new ItemPedido();
+                BeanUtils.copyProperties(item, itemPedido);
+                itens.add(itemPedido);
             });
 
-        }
+            pedido.setItens(itens);
+            pedidos.add(pedido);
+        });
 
         return pedidos;
+    }
+
+    public SituacaoPedido converteSituacaoPedido(String value) {
+        return SituacaoPedido.valueOf(value);
     }
 }

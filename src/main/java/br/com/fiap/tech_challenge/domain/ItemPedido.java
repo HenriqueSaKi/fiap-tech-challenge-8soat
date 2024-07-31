@@ -25,8 +25,7 @@ public class ItemPedido {
     private BigDecimal valorTotalItem;
 
     public BigDecimal getValorTotalItem() {
-        return valorUnitario.multiply(
-                BigDecimal.valueOf(quantidade, 0));
+        return valorUnitario.multiply(BigDecimal.valueOf(quantidade, 0));
     }
 
 }

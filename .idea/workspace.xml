@@ -4,53 +4,109 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d48bc047-6c11-4e1b-8df9-7ec5440473a1" name="Changes" comment="" />
+    <list default="true" id="5c2e3011-d478-45d3-99f3-1c4e62b9a7b2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/com/fiap/tech_challenge/infra/entity/SituacaoPedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/TechChallengeApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/application/ClienteController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/application/PedidoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/application/swagger/ClienteSwaggerInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/application/swagger/PedidoSwaggerInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Cliente.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Endereco.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/FilaPedidos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/ItemPedido.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Pedido.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/SituacaoPedido.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/Telefone.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/enums/CategoriaProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/enums/SituacaoPedido.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/enums/TipoTelefone.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/repository/ClienteRepositoryPort.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/repository/PedidoRepositoryPort.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/services/ClienteService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/services/PedidoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/services/impl/ClienteServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/domain/services/impl/PedidoServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/config/ClienteRepositoryConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/config/ClienteServiceConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/config/PedidoRepositoryConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/config/PedidoServiceConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/ClienteEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/EnderecoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/ItemPedidoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/PedidoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/ProdutoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/entity/TelefoneEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/repository/ClienteRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/repository/ClienteRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/repository/PedidoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/fiap/tech_challenge/infra/repository/PedidoRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/application/ClienteControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/application/PedidoControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/mock/ClienteMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/mock/EnderecoMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/mock/ItemPedidoMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/mock/TelefoneMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/services/impl/ClienteServiceImplTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/domain/services/impl/PedidoServiceImplTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/ClienteEntityMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/EnderecoEntityMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/ItemPedidoEntityMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/PedidoEntityMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/entity/mock/TelefoneEntityMock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/repository/ClienteRepositoryImplTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/br/com/fiap/tech_challenge/infra/repository/PedidoRepositoryImplTest.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Dockerfile" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
-  <component name="ProjectId" id="2j1xegW2ApXMkwdh5Jy8Q4K0UlL" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2jzOR9Ok0FgFkqN6bNlEHZbCRgX" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Maven.tech-challenge [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "fila__pedidos",
-    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/felip/dev/pos/fiap-tech-challenge-8soat/bd",
     "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
+    "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\felip\dev\pos\fiap-tech-challenge-8soat\bd" />
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="br.com.fiap.tech_challenge.infra.entity" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="fiap-tech-challenge-8soat" />
       <method v="2">
@@ -63,6 +119,37 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="tech-challenge [package]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="package" />
+                <option value="-DskipTests" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="fiap-tech-challenge-8soat" />
@@ -96,6 +183,18 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration default="true" type="docs" factoryName="Docutils task">
@@ -132,27 +231,35 @@
       <option name="docutils_open_in_browser" value="false" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d48bc047-6c11-4e1b-8df9-7ec5440473a1" name="Changes" comment="" />
-      <created>1720568480345</created>
+      <changelist id="5c2e3011-d478-45d3-99f3-1c4e62b9a7b2" name="Changes" comment="" />
+      <created>1722386428058</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1720568480345</updated>
+      <updated>1722386428058</updated>
     </task>
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.app" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/fiap/tech_challenge/infra/repository/ClienteRepositoryImpl.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
