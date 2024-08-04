@@ -1,6 +1,5 @@
 package br.com.fiap.tech_challenge.application;
 
-import br.com.fiap.tech_challenge.adapters.controllers.PedidoController;
 import br.com.fiap.tech_challenge.domain.ItemPedido;
 import br.com.fiap.tech_challenge.domain.Pedido;
 import br.com.fiap.tech_challenge.domain.mock.ItemPedidoMock;

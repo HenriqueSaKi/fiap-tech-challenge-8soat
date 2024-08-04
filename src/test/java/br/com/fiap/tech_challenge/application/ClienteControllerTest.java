@@ -1,6 +1,5 @@
 package br.com.fiap.tech_challenge.application;
 
-import br.com.fiap.tech_challenge.adapters.controllers.ClienteController;
 import br.com.fiap.tech_challenge.domain.Cliente;
 import br.com.fiap.tech_challenge.domain.service.ClienteService;
 import com.google.gson.Gson;

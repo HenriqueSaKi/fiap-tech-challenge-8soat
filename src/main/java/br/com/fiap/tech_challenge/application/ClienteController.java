@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.adapters.controllers;
+package br.com.fiap.tech_challenge.application;
 
 import br.com.fiap.tech_challenge.application.swagger.ClienteSwaggerInterface;
 import br.com.fiap.tech_challenge.domain.Cliente;
