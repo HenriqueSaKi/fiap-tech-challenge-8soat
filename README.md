@@ -50,7 +50,7 @@ De livre escolha (utilizamos o MySQL).
       ```
 
 3. Acesse o Swagger da aplicação, pelo link abaixo</br>
-   http://localhot:8080/api/v1/swagger-ui/index.html
+   http://localhost:8080/api/v1/swagger-ui/index.html
 
 ## Outros comandos relacionados a containeres, aplicação e banco de dados.
 
