@@ -1,13 +1,13 @@
 # PosTech - Software Architecture
-#### Projeto relacionado ao Tech Challenge fornecido como atividade avaliativa do curso de pós graduação em Arquitetura de Software da FIAP.
+#### Projeto relacionado ao Tech Challenge fornecido como atividade avaliativa do curso de pós graduação em Arquitetura de Software da FIAP.  
 
 ## Objetivos
-Desenvolver um sistema para uma lanchonete, seguindo os pré-requisitos do Tech Challenge.
+Desenvolver um sistema para uma lanchonete, seguindo os pré-requisitos do Tech Challenge.  
 
-## Pré-requisitos do Tech Challenge:
+## Requisitos do Tech Challenge
 #### Arquitetura:
-&emsp;Uma das premissas para esse projeto, foi desenvolver um sistema monolito, seguindo a arquitetura hexagonal.</br>
-&emsp;Ou seja, a ideia principal é conseguir fornecer um sistema que favorece reusabilidade de código, alta coesão, baixo acoplamento, independência de tecnologia e que são mais fáceis de serem testados.
+Uma das premissas para esse projeto, foi desenvolver um sistema monolito, seguindo a arquitetura hexagonal.</br>
+Ou seja, a ideia principal é conseguir fornecer um sistema que favorece reusabilidade de código, alta coesão, baixo acoplamento, independência de tecnologia e que são mais fáceis de serem testados.
 
 #### API's:
 - Cadastro do Cliente
@@ -17,27 +17,24 @@ Desenvolver um sistema para uma lanchonete, seguindo os pré-requisitos do Tech 
 - Fake checkout, apenas enviar os produtos escolhidos para a fila. O checkout é a finalização do pedido.
 - Listar os pedidos
 
-### Banco de dados
-De livre escolha (utilizamos o MySQL).
+#### Banco de dados:
+De livre escolha (utilizamos o MySQL).  
 
-## Pré-requisitos para executar os comandos Docker:
-<details>
-  <summary>Clique para expandir</summary>
-  Você precisa ter o docker e o docker-compose instalados na sua máquina para poder rodar o projeto.
-  Você também vai precisar do git para poder clonar o projeto.
+## Pré-requisitos para executar a aplicação
+  Você precisa ter o docker e o docker-compose instalados na sua máquina para poder rodar o projeto.<br>
+  Também vai precisar do git para poder clonar o projeto.<br>
+  As instruções citadas nesse documento foram testadas com:
+  - Linux Ubuntu 22.04.4 LTS;
+  - Docker 27.0.2;
+  - Docker Compose 1.26.0.
 
-As instruções executadas no próximo tópico foram testadas com:
-- Linux Ubuntu 22.04.4 LTS;
-- Docker 27.0.2;
-- Docker Compose 1.26.0.
-</details>
-
-## Como executar a aplicação?
+## Roteiro para executar a aplicação
 1. Clone o projeto na sua máquina </br>
-   ``git clone https://github.com/HenriqueSaKi/fiap-tech-challenge-8soat.git``
-#### &emsp;&emsp;Obs: Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pelo terminal.
+**Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pelo terminal:**  
+``git clone https://github.com/HenriqueSaKi/fiap-tech-challenge-8soat.git``
 
-2. Crie as imagens e suba os containeres:</br>
+
+2. Crie as imagens e suba os containeres</br>
    **Acesse a pasta raiz do projeto e execute os comandos abaixo:**
 
       ```sh
@@ -52,14 +49,14 @@ As instruções executadas no próximo tópico foram testadas com:
       docker-compose ps -a
       ```
 
-3. Acesse o Swagger da aplicação, pelo link abaixo:</br>
+3. Acesse o Swagger da aplicação, pelo link abaixo</br>
    http://localhot:8080/api/v1/swagger-ui/index.html
 
-## Outras dicas relacionadas ao Docker, aplicação e banco de dados.
+## Outros comandos relacionados a containeres, aplicação e banco de dados.
 
 #### 1. [Docker] Comando para reiniciar os containeres
 ```sh
-# Para e sobe os containeres novamente
+# Reinicializa os containeres
 docker-compose restart
 ```
 
@@ -90,8 +87,8 @@ docker-compose down -v && docker-compose up -d
 ```
 
 #### 5. [Aplicação] Atualizar a aplicação
-Após alterar o código da aplicação, será necessário gerar um novo arquivo .jar na pasta 'target', atualizar a imagem da aplicação e subir os containeres novamente.
-Cuidado ao alterar alguma entidade JPA na aplicação, pois, se isso ocorrer, a estrutura do banco de dados também será afetada e os registros gravados no volume de dados poderão não ser carregados corretamente na nova estrutura.
+Após alterar o código da aplicação, será necessário gerar um novo arquivo .jar na pasta 'target', atualizar a imagem da aplicação e subir os containeres novamente.  
+Cuidado ao alterar alguma entidade JPA na aplicação, pois, se isso ocorrer, a estrutura do banco de dados também será afetada e os registros gravados no volume de dados poderão não ser carregados corretamente na nova estrutura.  
 Caso seja necessário, use a flag '-v' no final do segundo comando para apagar o volume de dados. Todos os registros salvos serão perdidos: faça um backup, se desejar.
 
 ```sh
@@ -160,4 +157,3 @@ docker-compose up -d
   </details>
 
 4. Tudo pronto, só dar um <i>Run</i> :arrow_forward: na aplicação!
-
