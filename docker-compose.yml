@@ -3,14 +3,11 @@ version: '3'
 services:
   bd_lanchonete:
     container_name: bd_lanchonete
-    build:
-      context: .
-      dockerfile: Dockerfile.bd
-#    image: mysql:8.4.0
+    image: mysql:8.4.0
     env_file:
       - .env
     ports:
-      ## A porta 4050 édo host e a 3306 a do container
+    ## A porta 4050 é a do host e a 3306 a do container
       - "4050:3306"
     networks:
       - lanchonete_net
