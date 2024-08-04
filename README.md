@@ -52,7 +52,7 @@ As instruções executadas no próximo tópico foram testadas com:
       ```
 
 3. Acesse o Swagger da aplicação, pelo link abaixo:</br>
-   http://localhot:8080/api/v1/swagger-ui/index.html
+   http://localhost:8080/api/v1/swagger-ui/index.html
 
 ## Outras dicas relacionadas ao Docker, aplicação e banco de dados.
 
