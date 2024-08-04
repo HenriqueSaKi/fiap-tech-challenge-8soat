@@ -38,13 +38,13 @@ De livre escolha (utilizamos o MySQL).
    **Acesse a pasta raiz do projeto e execute os comandos abaixo:**
 
       ```sh
-      # Crie a imagem docker
+      # Crie as imagens docker
       docker-compose build
       
-      # Suba o container
+      # Suba os containeres
       docker-compose up -d
       
-      # Confira se o container foi iniciado corretamente
+      # Confira se os containeres foram iniciados corretamente
       # O status deve estar 'Up'
       docker-compose ps -a
       ```
