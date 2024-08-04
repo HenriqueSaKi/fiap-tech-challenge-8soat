@@ -2,8 +2,8 @@ package br.com.fiap.tech_challenge.infra.config;
 
 import br.com.fiap.tech_challenge.TechChallengeApplication;
 import br.com.fiap.tech_challenge.domain.repository.PedidoRepositoryPort;
-import br.com.fiap.tech_challenge.domain.services.PedidoService;
-import br.com.fiap.tech_challenge.domain.services.impl.PedidoServiceImpl;
+import br.com.fiap.tech_challenge.domain.service.PedidoService;
+import br.com.fiap.tech_challenge.domain.service.impl.PedidoServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

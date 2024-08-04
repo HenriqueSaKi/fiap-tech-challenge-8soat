@@ -1,7 +1,8 @@
 package br.com.fiap.tech_challenge.application;
 
+import br.com.fiap.tech_challenge.adapters.controllers.ClienteController;
 import br.com.fiap.tech_challenge.domain.Cliente;
-import br.com.fiap.tech_challenge.domain.services.ClienteService;
+import br.com.fiap.tech_challenge.domain.service.ClienteService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.NoSuchElementException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

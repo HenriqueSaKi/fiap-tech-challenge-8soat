@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.domain.services;
+package br.com.fiap.tech_challenge.domain.service;
 
 import br.com.fiap.tech_challenge.domain.Cliente;
 

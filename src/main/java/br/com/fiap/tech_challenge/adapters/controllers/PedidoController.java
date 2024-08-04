@@ -1,8 +1,8 @@
-package br.com.fiap.tech_challenge.application;
+package br.com.fiap.tech_challenge.adapters.controllers;
 
 import br.com.fiap.tech_challenge.application.swagger.PedidoSwaggerInterface;
 import br.com.fiap.tech_challenge.domain.Pedido;
-import br.com.fiap.tech_challenge.domain.services.PedidoService;
+import br.com.fiap.tech_challenge.domain.service.PedidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/pedido")
 public class PedidoController implements PedidoSwaggerInterface {
 
-    private PedidoService service;
+    private final PedidoService service;
 
     public PedidoController(PedidoService service) {
         this.service = service;

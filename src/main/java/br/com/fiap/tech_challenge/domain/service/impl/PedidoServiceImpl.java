@@ -1,10 +1,10 @@
-package br.com.fiap.tech_challenge.domain.services.impl;
+package br.com.fiap.tech_challenge.domain.service.impl;
 
 import br.com.fiap.tech_challenge.domain.ItemPedido;
 import br.com.fiap.tech_challenge.domain.Pedido;
 import br.com.fiap.tech_challenge.domain.SituacaoPedido;
 import br.com.fiap.tech_challenge.domain.repository.PedidoRepositoryPort;
-import br.com.fiap.tech_challenge.domain.services.PedidoService;
+import br.com.fiap.tech_challenge.domain.service.PedidoService;
 import br.com.fiap.tech_challenge.infra.entity.ItemPedidoEntity;
 import br.com.fiap.tech_challenge.infra.entity.PedidoEntity;
 import org.springframework.beans.BeanUtils;

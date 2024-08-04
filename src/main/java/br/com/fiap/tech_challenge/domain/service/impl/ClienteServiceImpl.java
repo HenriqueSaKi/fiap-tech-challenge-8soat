@@ -1,10 +1,10 @@
-package br.com.fiap.tech_challenge.domain.services.impl;
+package br.com.fiap.tech_challenge.domain.service.impl;
 
 import br.com.fiap.tech_challenge.domain.Cliente;
 import br.com.fiap.tech_challenge.domain.Endereco;
 import br.com.fiap.tech_challenge.domain.Telefone;
 import br.com.fiap.tech_challenge.domain.repository.ClienteRepositoryPort;
-import br.com.fiap.tech_challenge.domain.services.ClienteService;
+import br.com.fiap.tech_challenge.domain.service.ClienteService;
 import br.com.fiap.tech_challenge.infra.entity.ClienteEntity;
 import br.com.fiap.tech_challenge.infra.entity.EnderecoEntity;
 import br.com.fiap.tech_challenge.infra.entity.TelefoneEntity;
@@ -61,7 +61,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente buscarClientePorCPF(String cpf) {
         Optional<ClienteEntity> clienteEntity = repository.buscarPorCpf(cpf);
-        if(clienteEntity.isPresent()) {
+        if (clienteEntity.isPresent()) {
             Cliente cliente = new Cliente();
             BeanUtils.copyProperties(clienteEntity.get(), cliente);
 
@@ -99,7 +99,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public void atualizarCliente(Cliente cliente) {
         Optional<ClienteEntity> clienteEntity = repository.findById(cliente.getId());
-        if(clienteEntity.isPresent()) {
+        if (clienteEntity.isPresent()) {
             ClienteEntity entity = clienteEntity.get();
             BeanUtils.copyProperties(cliente, entity);
 
@@ -131,6 +131,4 @@ public class ClienteServiceImpl implements ClienteService {
     public void excluirCliente(Long id) {
         repository.excluirPorId(id);
     }
-
-
 }

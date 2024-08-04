@@ -1,9 +1,10 @@
 package br.com.fiap.tech_challenge.application;
 
+import br.com.fiap.tech_challenge.adapters.controllers.PedidoController;
 import br.com.fiap.tech_challenge.domain.ItemPedido;
 import br.com.fiap.tech_challenge.domain.Pedido;
 import br.com.fiap.tech_challenge.domain.mock.ItemPedidoMock;
-import br.com.fiap.tech_challenge.domain.services.PedidoService;
+import br.com.fiap.tech_challenge.domain.service.PedidoService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

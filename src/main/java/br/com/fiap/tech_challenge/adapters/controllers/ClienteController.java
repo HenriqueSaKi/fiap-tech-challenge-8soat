@@ -1,8 +1,8 @@
-package br.com.fiap.tech_challenge.application;
+package br.com.fiap.tech_challenge.adapters.controllers;
 
 import br.com.fiap.tech_challenge.application.swagger.ClienteSwaggerInterface;
 import br.com.fiap.tech_challenge.domain.Cliente;
-import br.com.fiap.tech_challenge.domain.services.ClienteService;
+import br.com.fiap.tech_challenge.domain.service.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cliente")
 public class ClienteController implements ClienteSwaggerInterface {
 
-    private ClienteService service;
+    private final ClienteService service;
 
     public ClienteController(ClienteService service) {
         this.service = service;

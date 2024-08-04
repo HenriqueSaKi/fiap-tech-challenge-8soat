@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Component
 public class ClienteRepositoryImpl implements ClienteRepositoryPort {
-    // precisa retirar a redundância
 
     private final ClienteRepository repository;
 
