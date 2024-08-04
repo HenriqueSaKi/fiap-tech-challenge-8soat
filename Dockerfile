@@ -1,4 +1,17 @@
-# Usa uma imagem base do OpenJDK 17
+# Usa uma imagem base como builder para baixar as dependencias
+FROM maven:3.8.7-eclipse-temurin-19-alpine AS builder
+
+WORKDIR /app
+
+# copia arquivo de configuração do pom.xml e baixa dependencias
+COPY src /app/src
+COPY pom.xml /app
+
+# baixa as dependencias no pom
+RUN mvn dependency:go-offline && \
+    mvn clean package
+
+# constrói a imagem final
 FROM openjdk:17-jdk-slim
 
 # Define os argumentos de build
@@ -14,13 +27,13 @@ ENV DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
 ENV DATASOURCE_DRIVER_CLASS_NAME=${DATASOURCE_DRIVER_CLASS_NAME}
 
 # Define o diretório de trabalho dentro do container
-WORKDIR /app
+# WORKDIR /app
 
-# Copia o projeto para o diretório de trabalho
-COPY . /app
+# copia o resultado de cima aqui
+COPY --from=builder /target/tech-challenge-0.0.1-SNAPSHOT.jar .
 
 # Compila o projeto
-RUN ./mvnw clean package
+RUN mvn clean package
 
 # Executa a aplicação
-ENTRYPOINT ["java", "-jar", "./target/tech-challenge-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "tech-challenge-0.0.1-SNAPSHOT.jar"]
