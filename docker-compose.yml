@@ -19,7 +19,7 @@ services:
     container_name: app_lanchonete
     build:
       context: .
-      dockerfile: Dockerfile.app
+      dockerfile: Dockerfile
     env_file:
       - .env
     ports:
