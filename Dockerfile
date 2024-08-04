@@ -16,8 +16,11 @@ ENV DATASOURCE_DRIVER_CLASS_NAME=${DATASOURCE_DRIVER_CLASS_NAME}
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia o arquivo JAR do seu projeto para o diretório de trabalho
-COPY app/target/tech-challenge-0.0.1-SNAPSHOT.jar /app/tech-challenge.jar
+# Copia o projeto para o diretório de trabalho
+COPY . /app
+
+# Compila o projeto
+RUN ./mvnw clean package
 
 # Executa a aplicação
-ENTRYPOINT ["java", "-jar", "tech-challenge.jar"]
+ENTRYPOINT ["java", "-jar", "./target/tech-challenge-0.0.1-SNAPSHOT.jar"]
