@@ -24,6 +24,7 @@ De livre escolha (utilizamos o MySQL).
 <details>
   <summary>Clique para expandir</summary>
   Você precisa ter o docker e o docker-compose instalados na sua máquina para poder rodar o projeto.
+  Você também vai precisar do git para poder clonar o projeto.
 
 As instruções executadas no próximo tópico foram testadas com:
 - Linux Ubuntu 22.04.4 LTS;
@@ -41,7 +42,7 @@ As instruções executadas no próximo tópico foram testadas com:
 
       ```sh
       # Crie a imagem docker
-      docker-compose build --no-cache 
+      docker-compose build
       
       # Suba o container
       docker-compose up -d
@@ -56,44 +57,59 @@ As instruções executadas no próximo tópico foram testadas com:
 
 ## Outras dicas relacionadas ao Docker, aplicação e banco de dados.
 
-#### 1. [Docker] Comandos para reiniciar os containeres
+#### 1. [Docker] Comando para reiniciar os containeres
 ```sh
-# Para os containeres
-docker-compose down
-
-# Recria as imagens e sobe tudo novamente
-docker-compose build --no-cache && docker-compose up -d
+# Para e sobe os containeres novamente
+docker-compose restart
 ```
 
-#### 2. [Docker] Se desejar voltar o banco de dados ao seu estado inicial, apague os volume de dados
+#### 2. [Docker] Comandos para visualizar os logs dos containeres
 ```sh
-# Para os containeres
-docker-compose down
-
-# Recria as imagens e sobe tudo novamente
-docker-compose build --no-cache && docker-compose up -d
-```
-
-#### 3. [Docker] Use os comandos abaixo para visualizar os logs dos containeres
-```sh
+# Log do banco de dados
 docker logs bd_lanchonete
+
+# Log da aplicação
 docker logs app_lanchonete
 ```
 
-#### 4. [Banco de dados] Após subir o container, caso queira testar apenas o MySQL, abra o terminal e execute:
+#### 3. [Banco de dados] Testar o banco de dados individualmente
+Suba o container do banco de dados, abra o terminal e execute o comando abaixo.
 ```sh
+# Executa o mysql pela interface de linha de comando (CLI)
 docker exec -it bd_lanchonete mysql -u user_fiap -p
 use lanchonete;
-show tables;
+```
+Nota: se você subiu apenas o banco de dados e tentou testá-lo, provavelmente não encontrou nenhuma tabela no banco de dados. Isso ocorre porque as tabelas são criadas pela aplicação usando JPA.
+
+#### 4. [Banco de dados] Comando para apagar o volume de dados
+Cuidado: o procedimento abaixo apagará todos os registros do banco.
+```sh
+# Reinicia todos os containeres
+# Um novo volume de dados será criado durante a reinicialização
+docker-compose down -v && docker-compose up -d
 ```
 
-#### 5. [Aplicação] Se desejar alterar a aplicação, será necessário gerar um novo arquivo .jar na pasta app/target
-O comando abaixo compila, testa e empacota (cria o .jar) da aplicação</br>
-``mvn clean install``</br>
-Após usá-lo, reinicialize os containeres</br>
+#### 5. [Aplicação] Atualizar a aplicação
+Após alterar o código da aplicação, será necessário gerar um novo arquivo .jar na pasta 'target', atualizar a imagem da aplicação e subir os containeres novamente.
+Cuidado ao alterar alguma entidade JPA na aplicação, pois, se isso ocorrer, a estrutura do banco de dados também será afetada e os registros gravados no volume de dados poderão não ser carregados corretamente na nova estrutura.
+Caso seja necessário, use a flag '-v' no final do segundo comando para apagar o volume de dados. Todos os registros salvos serão perdidos: faça um backup, se desejar.
 
-#### 6. [Aplicação] Caso queira executar apenas a aplicação localmente, siga os passos abaixo:
-1. Instale as dependências </br>
+```sh
+# Compila, testa e empacota (cria o .jar) a aplicação:
+mvn clean install
+
+# Para e remove os containeres
+docker-compose down
+
+# Recria a imagem da aplicação
+docker-compose build --no-cache app_lanchonete
+
+# Adiciona e sobe os containeres novamente
+docker-compose up -d
+```
+
+#### 7. [Aplicação] Caso queira executar apenas a aplicação localmente, siga os passos abaixo:
+1. Instale as dependências:</br>
    ``mvn clean install``
 2. Inclua as variáveis de ambiente relacionados ao banco de dados na sua IDE. </br>
       ```
