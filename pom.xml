@@ -83,6 +83,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+	    <finalName>tech-challenge-fase-1</finalName>
+
 	</build>
 
 </project>

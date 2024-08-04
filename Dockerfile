@@ -1,39 +1,40 @@
-# Usa uma imagem base como builder para baixar as dependencias
+# ETAPA 1: Compilação do projeto
+## Usa uma imagem base como builder
 FROM maven:3.8.7-eclipse-temurin-19-alpine AS builder
 
+## Define o diretório de trabalho do builder
 WORKDIR /app
 
-# copia arquivo de configuração do pom.xml e baixa dependencias
+## Copia o projeto para o builder
 COPY src /app/src
 COPY pom.xml /app
 
-# baixa as dependencias no pom
+## Baixa as dependências do projeto
 RUN mvn dependency:go-offline && \
     mvn clean package
 
-# constrói a imagem final
+
+# ETAPA 2: Criação da imagem do projeto
+## Define a imagem base
 FROM openjdk:17-jdk-slim
 
-# Define os argumentos de build
+## Define os argumentos de build
 ARG DATASOURCE_URL
 ARG DATASOURCE_USERNAME
 ARG DATASOURCE_PASSWORD
 ARG DATASOURCE_DRIVER_CLASS_NAME
 
-# Define as variáveis de ambiente
+## Define as variáveis de ambiente
 ENV DATASOURCE_URL=${DATASOURCE_URL}
 ENV DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
 ENV DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
 ENV DATASOURCE_DRIVER_CLASS_NAME=${DATASOURCE_DRIVER_CLASS_NAME}
 
-# Define o diretório de trabalho dentro do container
-# WORKDIR /app
+## Define o diretório de trabalho da imagem
+WORKDIR /app
 
-# copia o resultado de cima aqui
-COPY --from=builder /target/tech-challenge-0.0.1-SNAPSHOT.jar .
+## Copia o projeto compilado no builder para dentro da imagem
+COPY --from=builder /app/target/tech-challenge-fase-1.jar .
 
-# Compila o projeto
-RUN mvn clean package
-
-# Executa a aplicação
-ENTRYPOINT ["java", "-jar", "tech-challenge-0.0.1-SNAPSHOT.jar"]
+## Executa a aplicação
+ENTRYPOINT ["java", "-jar", "tech-challenge-fase-1.jar"]
