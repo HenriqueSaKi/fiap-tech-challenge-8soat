@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.infra.entity.mock;
 
-import br.com.fiap.tech_challenge.infra.entity.SituacaoPedido;
-import br.com.fiap.tech_challenge.infra.entity.PedidoEntity;
+import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
+import br.com.fiap.tech_challenge.domain.repository.entity.PedidoEntity;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,7 @@ public class PedidoEntityMock {
         entity.setItensPedido(List.of(
                 ItemPedidoEntityMock.getItemPedidoEntity()
         ));
-        entity.setSituacao(SituacaoPedido.PENDENTE);
+        entity.setSituacao(SituacaoPedido.PAGO);
 
         return entity;
     }

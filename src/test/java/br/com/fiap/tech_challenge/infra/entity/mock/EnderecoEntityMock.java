@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.infra.entity.mock;
 
-import br.com.fiap.tech_challenge.infra.entity.EnderecoEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.EnderecoEntity;
 
 public class EnderecoEntityMock {
     public static EnderecoEntity getEstadoEntity() {
