@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.application;
 
-import br.com.fiap.tech_challenge.domain.Cliente;
+import br.com.fiap.tech_challenge.domain.ClienteDTO;
 import br.com.fiap.tech_challenge.domain.services.ClienteService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.NoSuchElementException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -46,26 +44,26 @@ public class ClienteControllerTest {
 
     @Test
     public void testCadastrarCliente() throws Exception {
-        Cliente cliente = new Cliente();
-        cliente.setCpf("12345678910");
-        cliente.setNomeCompleto("Teste Teste");
-        cliente.setEmail("teste@exemplo.com.br");
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setCpf("12345678910");
+        clienteDTO.setNomeCompleto("Teste Teste");
+        clienteDTO.setEmail("teste@exemplo.com.br");
 
         mockMvc.perform(
                         post("/cliente/")
                                 .contentType("application/json")
-                                .content(new Gson().toJson(cliente)))
+                                .content(new Gson().toJson(clienteDTO)))
                 .andExpect(status().isCreated());
 
     }
 
     @Test
     public void testBuscarClientePorCpfSuccess() throws Exception {
-        Cliente cliente = new Cliente();
-        cliente.setCpf("12345678910");
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setCpf("12345678910");
 
 
-        when(service.buscarClientePorCPF(any())).thenReturn(cliente);
+        when(service.buscarClientePorCPF(any())).thenReturn(clienteDTO);
         mockMvc.perform(get("/cliente/{cpf}", "12345678910"))
                 .andExpect(status().isOk());
 
@@ -81,16 +79,16 @@ public class ClienteControllerTest {
 
     @Test
     public void testAtualizarCliente() throws Exception {
-        Cliente cliente = new Cliente();
-        cliente.setId(1L);
-        cliente.setCpf("12345678910");
-        cliente.setNomeCompleto("Teste Atualizar");
-        cliente.setEmail("teste@exemplo.com.br");
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setId(1L);
+        clienteDTO.setCpf("12345678910");
+        clienteDTO.setNomeCompleto("Teste Atualizar");
+        clienteDTO.setEmail("teste@exemplo.com.br");
 
         mockMvc.perform(
                         put("/cliente/")
                                 .contentType("application/json")
-                                .content(new Gson().toJson(cliente)))
+                                .content(new Gson().toJson(clienteDTO)))
                 .andExpect(status().isAccepted());
 
     }

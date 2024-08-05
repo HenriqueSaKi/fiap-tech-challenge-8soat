@@ -1,15 +1,15 @@
 package br.com.fiap.tech_challenge.domain.mock;
 
-import br.com.fiap.tech_challenge.domain.Cliente;
+import br.com.fiap.tech_challenge.domain.ClienteDTO;
 
 public class ClienteMock {
 
-    public static Cliente getCliente() {
-        Cliente cliente = new Cliente();
-        cliente.setCpf("12345678910");
-        cliente.setNomeCompleto("Teste Teste");
-        cliente.setEmail("teste@exemplo.com.br");
-        return cliente;
+    public static ClienteDTO getCliente() {
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setCpf("12345678910");
+        clienteDTO.setNomeCompleto("Teste Teste");
+        clienteDTO.setEmail("teste@exemplo.com.br");
+        return clienteDTO;
 
     }
 

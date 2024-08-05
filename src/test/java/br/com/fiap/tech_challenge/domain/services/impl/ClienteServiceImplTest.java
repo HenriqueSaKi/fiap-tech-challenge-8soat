@@ -1,15 +1,15 @@
 package br.com.fiap.tech_challenge.domain.services.impl;
 
-import br.com.fiap.tech_challenge.domain.Cliente;
-import br.com.fiap.tech_challenge.domain.Endereco;
-import br.com.fiap.tech_challenge.domain.Telefone;
+import br.com.fiap.tech_challenge.domain.ClienteDTO;
+import br.com.fiap.tech_challenge.domain.EnderecoDTO;
+import br.com.fiap.tech_challenge.domain.TelefoneDTO;
 import br.com.fiap.tech_challenge.domain.mock.ClienteMock;
 import br.com.fiap.tech_challenge.domain.mock.EnderecoMock;
 import br.com.fiap.tech_challenge.domain.mock.TelefoneMock;
 import br.com.fiap.tech_challenge.domain.repository.ClienteRepositoryPort;
-import br.com.fiap.tech_challenge.infra.entity.ClienteEntity;
-import br.com.fiap.tech_challenge.infra.entity.EnderecoEntity;
-import br.com.fiap.tech_challenge.infra.entity.TelefoneEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.ClienteEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.EnderecoEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.TelefoneEntity;
 import br.com.fiap.tech_challenge.infra.entity.mock.ClienteEntityMock;
 import br.com.fiap.tech_challenge.infra.entity.mock.EnderecoEntityMock;
 import br.com.fiap.tech_challenge.infra.entity.mock.TelefoneEntityMock;
@@ -42,13 +42,13 @@ public class ClienteServiceImplTest {
 
     @Test
     public void testCadastrarCliente() {
-        Cliente cliente = ClienteMock.getCliente();
-        Telefone telefone = TelefoneMock.getTelefone();
-        Endereco endereco = EnderecoMock.getEndereco();
-        cliente.setTelefones(List.of(telefone));
-        cliente.setEnderecos(List.of(endereco));
+        ClienteDTO clienteDTO = ClienteMock.getCliente();
+        TelefoneDTO telefoneDTO = TelefoneMock.getTelefone();
+        EnderecoDTO enderecoDTO = EnderecoMock.getEndereco();
+        clienteDTO.setTelefoneDTOS(List.of(telefoneDTO));
+        clienteDTO.setEnderecoDTOS(List.of(enderecoDTO));
 
-        service.cadastrarCliente(cliente);
+        service.cadastrarCliente(clienteDTO);
         verify(repositoryPort, times(1))
                 .save(any());
 
@@ -67,7 +67,7 @@ public class ClienteServiceImplTest {
         var cliente = service.buscarClientePorCPF(clienteEntity.getCpf());
 
         assertNotNull(cliente);
-        assertInstanceOf(Cliente.class, cliente);
+        assertInstanceOf(ClienteDTO.class, cliente);
 
     }
 
@@ -89,15 +89,15 @@ public class ClienteServiceImplTest {
         clienteEntity.setTelefones(List.of(telefoneEntity));
         clienteEntity.setEnderecos(List.of(enderecoEntity));
 
-        Cliente cliente = ClienteMock.getCliente();
-        Telefone telefone = TelefoneMock.getTelefone();
-        Endereco endereco = EnderecoMock.getEndereco();
-        cliente.setTelefones(List.of(telefone));
-        cliente.setEnderecos(List.of(endereco));
+        ClienteDTO clienteDTO = ClienteMock.getCliente();
+        TelefoneDTO telefoneDTO = TelefoneMock.getTelefone();
+        EnderecoDTO enderecoDTO = EnderecoMock.getEndereco();
+        clienteDTO.setTelefoneDTOS(List.of(telefoneDTO));
+        clienteDTO.setEnderecoDTOS(List.of(enderecoDTO));
 
         when(repositoryPort.findById(any()))
                 .thenReturn(Optional.of(clienteEntity));
-        service.atualizarCliente(cliente);
+        service.atualizarCliente(clienteDTO);
 
         verify(repositoryPort, times(1))
                 .findById(any());
@@ -108,14 +108,14 @@ public class ClienteServiceImplTest {
 
     @Test
     public void testAtualizarCliente_whenClienteEntityIsNotPresent() {
-        Cliente cliente = ClienteMock.getCliente();
-        Telefone telefone = TelefoneMock.getTelefone();
-        Endereco endereco = EnderecoMock.getEndereco();
-        cliente.setTelefones(List.of(telefone));
-        cliente.setEnderecos(List.of(endereco));
+        ClienteDTO clienteDTO = ClienteMock.getCliente();
+        TelefoneDTO telefoneDTO = TelefoneMock.getTelefone();
+        EnderecoDTO enderecoDTO = EnderecoMock.getEndereco();
+        clienteDTO.setTelefoneDTOS(List.of(telefoneDTO));
+        clienteDTO.setEnderecoDTOS(List.of(enderecoDTO));
 
         when(repositoryPort.findById(any())).thenReturn(Optional.empty());
-        service.atualizarCliente(cliente);
+        service.atualizarCliente(clienteDTO);
 
         verify(repositoryPort, times(1))
                 .findById(any());

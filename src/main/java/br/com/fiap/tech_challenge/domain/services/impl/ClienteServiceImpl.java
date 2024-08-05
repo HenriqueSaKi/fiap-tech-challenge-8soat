@@ -1,13 +1,13 @@
 package br.com.fiap.tech_challenge.domain.services.impl;
 
-import br.com.fiap.tech_challenge.domain.Cliente;
-import br.com.fiap.tech_challenge.domain.Endereco;
-import br.com.fiap.tech_challenge.domain.Telefone;
+import br.com.fiap.tech_challenge.domain.ClienteDTO;
+import br.com.fiap.tech_challenge.domain.EnderecoDTO;
+import br.com.fiap.tech_challenge.domain.TelefoneDTO;
 import br.com.fiap.tech_challenge.domain.repository.ClienteRepositoryPort;
 import br.com.fiap.tech_challenge.domain.services.ClienteService;
-import br.com.fiap.tech_challenge.infra.entity.ClienteEntity;
-import br.com.fiap.tech_challenge.infra.entity.EnderecoEntity;
-import br.com.fiap.tech_challenge.infra.entity.TelefoneEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.ClienteEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.EnderecoEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.TelefoneEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -26,30 +26,30 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public void cadastrarCliente(Cliente cliente) {
+    public void cadastrarCliente(ClienteDTO clienteDTO) {
         ClienteEntity clienteEntity = new ClienteEntity();
-        BeanUtils.copyProperties(cliente, clienteEntity);
-        clienteEntity.setCpf(cliente.getCpf());
+        BeanUtils.copyProperties(clienteDTO, clienteEntity);
+        clienteEntity.setCpf(clienteDTO.getCpf());
 
-        List<TelefoneEntity> telefoneEntity = new ArrayList<>(cliente.getTelefones().size());
-        cliente.getTelefones().forEach(telefone -> {
+        List<TelefoneEntity> telefoneEntity = new ArrayList<>(clienteDTO.getTelefoneDTOS().size());
+        clienteDTO.getTelefoneDTOS().forEach(telefoneDTO -> {
             TelefoneEntity entity = new TelefoneEntity();
-            entity.setTipoTelefone(telefone.getTipoTelefone());
-            entity.setDdd(telefone.getDdd());
-            entity.setNumero(telefone.getNumero());
+            entity.setTipoTelefone(telefoneDTO.getTipoTelefone());
+            entity.setDdd(telefoneDTO.getDdd());
+            entity.setNumero(telefoneDTO.getNumero());
             telefoneEntity.add(entity);
 
         });
 
-        List<EnderecoEntity> enderecoEntity = new ArrayList<>(cliente.getEnderecos().size());
-        cliente.getEnderecos().forEach(endereco -> {
+        List<EnderecoEntity> enderecoEntity = new ArrayList<>(clienteDTO.getEnderecoDTOS().size());
+        clienteDTO.getEnderecoDTOS().forEach(enderecoDTO -> {
             EnderecoEntity entity = new EnderecoEntity();
-            entity.setCep(endereco.getCep());
-            entity.setLogradouro(endereco.getLogradouro());
-            entity.setComplemento(endereco.getComplemento());
-            entity.setBairro(endereco.getBairro());
-            entity.setCidade(endereco.getCidade());
-            entity.setEstado(endereco.getEstado());
+            entity.setCep(enderecoDTO.getCep());
+            entity.setLogradouro(enderecoDTO.getLogradouro());
+            entity.setComplemento(enderecoDTO.getComplemento());
+            entity.setBairro(enderecoDTO.getBairro());
+            entity.setCidade(enderecoDTO.getCidade());
+            entity.setEstado(enderecoDTO.getEstado());
             enderecoEntity.add(entity);
         });
 
@@ -59,52 +59,52 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Cliente buscarClientePorCPF(String cpf) {
+    public ClienteDTO buscarClientePorCPF(String cpf) {
         Optional<ClienteEntity> clienteEntity = repository.buscarPorCpf(cpf);
         if(clienteEntity.isPresent()) {
-            Cliente cliente = new Cliente();
-            BeanUtils.copyProperties(clienteEntity.get(), cliente);
+            ClienteDTO clienteDTO = new ClienteDTO();
+            BeanUtils.copyProperties(clienteEntity.get(), clienteDTO);
 
-            List<Telefone> telefones = new ArrayList<>(clienteEntity.get().getTelefones().size());
+            List<TelefoneDTO> telefoneDTOS = new ArrayList<>(clienteEntity.get().getTelefones().size());
             clienteEntity.get().getTelefones().forEach(t -> {
-                Telefone telefone = new Telefone();
-                telefone.setTipoTelefone(t.getTipoTelefone());
-                telefone.setDdd(t.getDdd());
-                telefone.setNumero(t.getNumero());
-                telefones.add(telefone);
+                TelefoneDTO telefoneDTO = new TelefoneDTO();
+                telefoneDTO.setTipoTelefone(t.getTipoTelefone());
+                telefoneDTO.setDdd(t.getDdd());
+                telefoneDTO.setNumero(t.getNumero());
+                telefoneDTOS.add(telefoneDTO);
 
             });
 
 
-            List<Endereco> enderecos = new ArrayList<>(clienteEntity.get().getEnderecos().size());
+            List<EnderecoDTO> enderecoDTOS = new ArrayList<>(clienteEntity.get().getEnderecos().size());
             clienteEntity.get().getEnderecos().forEach(e -> {
-                Endereco endereco = new Endereco();
-                endereco.setCep(e.getCep());
-                endereco.setLogradouro(e.getLogradouro());
-                endereco.setComplemento(e.getComplemento());
-                endereco.setBairro(e.getBairro());
-                endereco.setCidade(e.getCidade());
-                endereco.setEstado(e.getEstado());
-                enderecos.add(endereco);
+                EnderecoDTO enderecoDTO = new EnderecoDTO();
+                enderecoDTO.setCep(e.getCep());
+                enderecoDTO.setLogradouro(e.getLogradouro());
+                enderecoDTO.setComplemento(e.getComplemento());
+                enderecoDTO.setBairro(e.getBairro());
+                enderecoDTO.setCidade(e.getCidade());
+                enderecoDTO.setEstado(e.getEstado());
+                enderecoDTOS.add(enderecoDTO);
 
             });
 
-            cliente.setTelefones(telefones);
-            cliente.setEnderecos(enderecos);
-            return cliente;
+            clienteDTO.setTelefoneDTOS(telefoneDTOS);
+            clienteDTO.setEnderecoDTOS(enderecoDTOS);
+            return clienteDTO;
         }
         return null;
     }
 
     @Override
-    public void atualizarCliente(Cliente cliente) {
-        Optional<ClienteEntity> clienteEntity = repository.findById(cliente.getId());
+    public void atualizarCliente(ClienteDTO clienteDTO) {
+        Optional<ClienteEntity> clienteEntity = repository.findById(clienteDTO.getId());
         if(clienteEntity.isPresent()) {
             ClienteEntity entity = clienteEntity.get();
-            BeanUtils.copyProperties(cliente, entity);
+            BeanUtils.copyProperties(clienteDTO, entity);
 
-            List<EnderecoEntity> enderecoEntities = new ArrayList<>(cliente.getEnderecos().size());
-            cliente.getEnderecos().forEach(e -> {
+            List<EnderecoEntity> enderecoEntities = new ArrayList<>(clienteDTO.getEnderecoDTOS().size());
+            clienteDTO.getEnderecoDTOS().forEach(e -> {
                 EnderecoEntity enderecoEntity = new EnderecoEntity();
                 enderecoEntity.setCep(e.getCep());
                 enderecoEntity.setLogradouro(e.getLogradouro());

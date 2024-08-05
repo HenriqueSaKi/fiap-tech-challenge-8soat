@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Cliente {
+public class ClienteDTO {
 
     @Schema(name = "id do cliente", description = "Número de identificação do cliente", example = "1L")
     private Long id;
@@ -25,10 +25,10 @@ public class Cliente {
     private String email;
 
     @Schema(name = "telefones", description = "Números de telefone")
-    private List<Telefone> telefones;
+    private List<TelefoneDTO> telefoneDTOS;
 
     @Schema(name = "enderecos", description = "Endereços do cliente")
-    private List<Endereco> enderecos;
+    private List<EnderecoDTO> enderecoDTOS;
 
     public String getCpf() {
         return cpf.replaceAll("[./-]", "");

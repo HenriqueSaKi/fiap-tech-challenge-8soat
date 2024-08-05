@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @NoArgsConstructor
 @Data
-public class Pedido {
+public class PedidoDTO {
 
     @Schema(name = "id", description = "Identificador único do pedido", example = "000001")
     private String id;
@@ -27,9 +27,9 @@ public class Pedido {
     private SituacaoPedido situacaoPedido;
 
     @Schema(name = "itens", description = "Lista de itens do pedido")
-    private List<ItemPedido> itens;
+    private List<ItemPedidoDTO> itens;
 
-    public Pedido(Date dataPedido, SituacaoPedido situacaoPedido, List<ItemPedido> itens) {
+    public PedidoDTO(Date dataPedido, SituacaoPedido situacaoPedido, List<ItemPedidoDTO> itens) {
         this.id = UUID.randomUUID().toString();
         this.dataPedido = dataPedido;
         this.situacaoPedido = situacaoPedido;
@@ -39,7 +39,7 @@ public class Pedido {
 
     public BigDecimal getValorTotalPedido() {
         return itens.stream()
-                .map(ItemPedido::getValorTotalItem)
+                .map(ItemPedidoDTO::getValorTotalItem)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

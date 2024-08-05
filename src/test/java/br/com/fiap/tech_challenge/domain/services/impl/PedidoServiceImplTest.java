@@ -1,11 +1,11 @@
 package br.com.fiap.tech_challenge.domain.services.impl;
 
-import br.com.fiap.tech_challenge.domain.ItemPedido;
-import br.com.fiap.tech_challenge.domain.Pedido;
+import br.com.fiap.tech_challenge.domain.ItemPedidoDTO;
+import br.com.fiap.tech_challenge.domain.PedidoDTO;
 import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
 import br.com.fiap.tech_challenge.domain.mock.ItemPedidoMock;
 import br.com.fiap.tech_challenge.domain.repository.PedidoRepositoryPort;
-import br.com.fiap.tech_challenge.infra.entity.PedidoEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.PedidoEntity;
 import br.com.fiap.tech_challenge.infra.entity.mock.PedidoEntityMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,11 +35,11 @@ public class PedidoServiceImplTest {
 
     @Test
     public void testCadastrarPedido() {
-        ItemPedido itemPedido = ItemPedidoMock.getItemPedido();
-        Pedido pedido = new Pedido();
-        pedido.setItens(List.of(itemPedido));
+        ItemPedidoDTO itemPedidoDTO = ItemPedidoMock.getItemPedido();
+        PedidoDTO pedidoDTO = new PedidoDTO();
+        pedidoDTO.setItens(List.of(itemPedidoDTO));
 
-        service.cadastrarPedido(pedido);
+        service.cadastrarPedido(pedidoDTO);
         verify(repositoryPort, times(1))
                 .cadastrarPedidos(any());
 
@@ -50,23 +50,23 @@ public class PedidoServiceImplTest {
         PedidoEntity pedidoEntity = PedidoEntityMock.getPedidoEntity();
 
         when(repositoryPort.listaPedidos()).thenReturn(List.of(pedidoEntity));
-        List<Pedido> pedidos = service.listarPedidos();
+        List<PedidoDTO> pedidoDTOS = service.listarPedidos();
 
-        assertFalse(pedidos.isEmpty());
-        // assertEquals(SituacaoPedido.RECEBIDO, pedidos.get(0).getSituacaoPedido());
-        assertEquals("Item Entity Teste", pedidos.get(0).getItens().get(0).getDescricao());
-        assertEquals(2, pedidos.get(0).getItens().get(0).getQuantidade());
-        assertEquals(new BigDecimal("22.44"), pedidos.get(0).getItens().get(0).getValorUnitario());
-        assertEquals(new BigDecimal("44.88"), pedidos.get(0).getItens().get(0).getValorTotalItem());
+        assertFalse(pedidoDTOS.isEmpty());
+        assertEquals(SituacaoPedido.PAGO, pedidoDTOS.get(0).getSituacaoPedido());
+        assertEquals("Item Entity Teste", pedidoDTOS.get(0).getItens().get(0).getDescricao());
+        assertEquals(2, pedidoDTOS.get(0).getItens().get(0).getQuantidade());
+        assertEquals(new BigDecimal("22.44"), pedidoDTOS.get(0).getItens().get(0).getValorUnitario());
+        assertEquals(new BigDecimal("44.88"), pedidoDTOS.get(0).getItens().get(0).getValorTotalItem());
 
     }
 
     @Test
     public void whenListaPedidosEmpty_thenReturnEmptyList() {
         when(repositoryPort.listaPedidos()).thenReturn(new ArrayList<>());
-        List<Pedido> pedidos = service.listarPedidos();
+        List<PedidoDTO> pedidoDTOS = service.listarPedidos();
 
-        assertTrue(pedidos.isEmpty());
+        assertTrue(pedidoDTOS.isEmpty());
 
     }
 

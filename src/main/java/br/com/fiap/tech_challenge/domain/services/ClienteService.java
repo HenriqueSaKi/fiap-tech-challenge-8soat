@@ -1,11 +1,11 @@
 package br.com.fiap.tech_challenge.domain.services;
 
-import br.com.fiap.tech_challenge.domain.Cliente;
+import br.com.fiap.tech_challenge.domain.ClienteDTO;
 
 public interface ClienteService {
-    void cadastrarCliente(Cliente cliente);
-    Cliente buscarClientePorCPF(String cpf);
-    void atualizarCliente(Cliente cliente);
+    void cadastrarCliente(ClienteDTO clienteDTO);
+    ClienteDTO buscarClientePorCPF(String cpf);
+    void atualizarCliente(ClienteDTO clienteDTO);
     boolean existeCliente(Long id);
     void excluirCliente(Long id);
 

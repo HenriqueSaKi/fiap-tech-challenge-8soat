@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.application.swagger;
 
-import br.com.fiap.tech_challenge.domain.Cliente;
+import br.com.fiap.tech_challenge.domain.ClienteDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -41,13 +41,13 @@ public interface ClienteSwaggerInterface {
             value = "/",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<String> cadastrarCliente(@RequestBody Cliente cliente);
+    ResponseEntity<String> cadastrarCliente(@RequestBody ClienteDTO clienteDTO);
 
     @Operation(description = "Consulta cliente pelo número do documento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Cliente encontrado", content =
                 @Content(mediaType = "application/json", schema =
-                @Schema(implementation = Cliente.class))),
+                @Schema(implementation = ClienteDTO.class))),
             @ApiResponse(responseCode = "404", description = "Cliente não encontrado", content =
                 @Content(mediaType = "application/json"))
     })
@@ -61,7 +61,7 @@ public interface ClienteSwaggerInterface {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "Cliente atualizado com sucesso", content =
                 @Content(mediaType = "application/json", schema =
-                @Schema(implementation = Cliente.class))),
+                @Schema(implementation = ClienteDTO.class))),
             @ApiResponse(responseCode = "400", description = "Erro ao atualizar as informações do cliente.", content =
                 @Content(mediaType = "application/json"))
     })
@@ -69,7 +69,7 @@ public interface ClienteSwaggerInterface {
             value = "/",
             produces = {"application/json"},
             method = RequestMethod.PUT)
-    ResponseEntity<Object> atualizarCliente(@RequestBody Cliente cliente);
+    ResponseEntity<Object> atualizarCliente(@RequestBody ClienteDTO clienteDTO);
 
     @Operation(description = "Exclui as informações do cliente")
     @ApiResponses(value = {

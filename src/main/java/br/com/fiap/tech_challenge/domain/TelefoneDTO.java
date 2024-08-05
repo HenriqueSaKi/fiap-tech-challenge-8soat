@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class Telefone {
+public class TelefoneDTO {
 
     @JsonProperty(required = true)
     @Schema(name = "tipoTelefone", description = "Tipo Telefone")

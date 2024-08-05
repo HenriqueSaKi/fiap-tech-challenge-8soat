@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.infra.repository;
 
 import br.com.fiap.tech_challenge.domain.repository.PedidoRepositoryPort;
-import br.com.fiap.tech_challenge.infra.entity.PedidoEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.PedidoEntity;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
