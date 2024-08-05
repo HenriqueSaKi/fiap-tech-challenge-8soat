@@ -84,7 +84,7 @@
 			</plugin>
 		</plugins>
 
-	    <finalName>tech-challenge-fase-1</finalName>
+	    <finalName>tech-challenge-1-v${project.version}</finalName>
 
 	</build>
 
