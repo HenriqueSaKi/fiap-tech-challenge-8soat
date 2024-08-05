@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.application.swagger;
 
-import br.com.fiap.tech_challenge.domain.Cliente;
-import br.com.fiap.tech_challenge.domain.Pedido;
+import br.com.fiap.tech_challenge.domain.ClienteDTO;
+import br.com.fiap.tech_challenge.domain.PedidoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -27,13 +27,13 @@ public interface PedidoSwaggerInterface {
             value = "/",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<String> cadastrarPedido(@RequestBody Pedido pedido);
+    ResponseEntity<String> cadastrarPedido(@RequestBody PedidoDTO pedidoDTO);
 
     @Operation(description = "Lista todos os pedidos em andamento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista pedidos", content =
             @Content(mediaType = "application/json", schema =
-            @Schema(implementation = Cliente.class))),
+            @Schema(implementation = ClienteDTO.class))),
             @ApiResponse(responseCode = "404", description = "Nenhum pedido foi encontrado", content =
             @Content(mediaType = "application/json"))
     })

@@ -7,7 +7,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class ItemPedido {
+public class ItemPedidoDTO {
 
     @JsonProperty(required = true)
     @Schema(name = "descricao", description = "Valor total do pedido", example = "Item Teste")

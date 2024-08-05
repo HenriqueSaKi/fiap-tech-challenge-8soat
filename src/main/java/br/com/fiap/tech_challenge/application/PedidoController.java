@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.application;
 
 import br.com.fiap.tech_challenge.application.swagger.PedidoSwaggerInterface;
-import br.com.fiap.tech_challenge.domain.Pedido;
+import br.com.fiap.tech_challenge.domain.PedidoDTO;
 import br.com.fiap.tech_challenge.domain.services.PedidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +21,9 @@ public class PedidoController implements PedidoSwaggerInterface {
     }
 
     @Override
-    public ResponseEntity<String> cadastrarPedido(Pedido pedido) {
+    public ResponseEntity<String> cadastrarPedido(PedidoDTO pedidoDTO) {
         try {
-            service.cadastrarPedido(pedido);
+            service.cadastrarPedido(pedidoDTO);
             return new ResponseEntity<>("Pedido cadastrado com sucesso",
                     HttpStatus.CREATED);
         }
@@ -35,12 +35,12 @@ public class PedidoController implements PedidoSwaggerInterface {
 
     @Override
     public ResponseEntity<Object> listarPedidos() {
-        List<Pedido> pedidos = service.listarPedidos();
+        List<PedidoDTO> pedidoDTOS = service.listarPedidos();
 
-        if(pedidos.isEmpty()) {
+        if(pedidoDTOS.isEmpty()) {
             return new ResponseEntity<>("Nenhum pedido foi encontrado", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(pedidos, HttpStatus.OK);
+        return new ResponseEntity<>(pedidoDTOS, HttpStatus.OK);
     }
 
 }

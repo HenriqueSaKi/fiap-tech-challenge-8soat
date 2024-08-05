@@ -1,12 +1,12 @@
 package br.com.fiap.tech_challenge.domain.services.impl;
 
-import br.com.fiap.tech_challenge.domain.ItemPedido;
-import br.com.fiap.tech_challenge.domain.Pedido;
-import br.com.fiap.tech_challenge.domain.SituacaoPedido;
+import br.com.fiap.tech_challenge.domain.ItemPedidoDTO;
+import br.com.fiap.tech_challenge.domain.PedidoDTO;
+import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
 import br.com.fiap.tech_challenge.domain.repository.PedidoRepositoryPort;
 import br.com.fiap.tech_challenge.domain.services.PedidoService;
-import br.com.fiap.tech_challenge.infra.entity.ItemPedidoEntity;
-import br.com.fiap.tech_challenge.infra.entity.PedidoEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.ItemPedidoEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.PedidoEntity;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -22,14 +22,16 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public void cadastrarPedido(Pedido pedido) {
+    public void cadastrarPedido(PedidoDTO pedidoDTO) {
         PedidoEntity entity = new PedidoEntity();
         entity.setDataPedido(new Date());
-        converteSituacaoPedido(SituacaoPedido.PENDENTE.name());
-        entity.setValorTotalPedido(pedido.getValorTotalPedido());
+        entity.setValorTotalPedido(pedidoDTO.getValorTotalPedido());
+
+        // Valor mockado por conta do FAKE CHECKOUT
+        entity.setSituacao(SituacaoPedido.PAGO);
 
         List<ItemPedidoEntity> itensEntity = new ArrayList<>();
-        pedido.getItens().forEach(item -> {
+        pedidoDTO.getItens().forEach(item -> {
             ItemPedidoEntity itemEntity = new ItemPedidoEntity();
             BeanUtils.copyProperties(item, itemEntity);
             itemEntity.setValorTotalItem(item.getValorTotalItem());
@@ -42,30 +44,27 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public List<Pedido> listarPedidos() {
+    public List<PedidoDTO> listarPedidos() {
         List<PedidoEntity> pedidoEntity = repositoryPort.listaPedidos();
 
-        List<Pedido> pedidos = new ArrayList<>();
+        List<PedidoDTO> pedidoDTOS = new ArrayList<>();
         pedidoEntity.forEach(entity -> {
-            Pedido pedido = new Pedido();
-            BeanUtils.copyProperties(entity, pedido);
-            pedido.setSituacaoPedido(converteSituacaoPedido(entity.getSituacao().toString()));
+            PedidoDTO pedidoDTO = new PedidoDTO();
+            BeanUtils.copyProperties(entity, pedidoDTO);
+            pedidoDTO.setSituacaoPedido(entity.getSituacao());
 
-            List<ItemPedido> itens = new ArrayList<>();
+            List<ItemPedidoDTO> itens = new ArrayList<>();
             entity.getItensPedido().forEach(item -> {
-                ItemPedido itemPedido = new ItemPedido();
-                BeanUtils.copyProperties(item, itemPedido);
-                itens.add(itemPedido);
+                ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
+                BeanUtils.copyProperties(item, itemPedidoDTO);
+                itens.add(itemPedidoDTO);
             });
 
-            pedido.setItens(itens);
-            pedidos.add(pedido);
+            pedidoDTO.setItens(itens);
+            pedidoDTOS.add(pedidoDTO);
         });
 
-        return pedidos;
+        return pedidoDTOS;
     }
 
-    public SituacaoPedido converteSituacaoPedido(String value) {
-        return SituacaoPedido.valueOf(value);
-    }
 }

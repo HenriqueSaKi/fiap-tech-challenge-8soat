@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.application;
 
 import br.com.fiap.tech_challenge.application.swagger.ClienteSwaggerInterface;
-import br.com.fiap.tech_challenge.domain.Cliente;
+import br.com.fiap.tech_challenge.domain.ClienteDTO;
 import br.com.fiap.tech_challenge.domain.services.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +23,16 @@ public class ClienteController implements ClienteSwaggerInterface {
     }
 
     @Override
-    public ResponseEntity<String> cadastrarCliente(@RequestBody Cliente cliente) {
-        service.cadastrarCliente(cliente);
+    public ResponseEntity<String> cadastrarCliente(@RequestBody ClienteDTO clienteDTO) {
+        service.cadastrarCliente(clienteDTO);
         return new ResponseEntity<>("Cliente cadastrado com sucesso!", HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Object> buscarClientePorCPF(@PathVariable String cpf) {
-        Cliente cliente = service.buscarClientePorCPF(cpf);
-        if(cliente != null) {
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
+        ClienteDTO clienteDTO = service.buscarClientePorCPF(cpf);
+        if(clienteDTO != null) {
+            return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>("Cliente não encontrado", HttpStatus.NOT_FOUND);
@@ -40,10 +40,10 @@ public class ClienteController implements ClienteSwaggerInterface {
     }
 
     @Override
-    public ResponseEntity<Object> atualizarCliente(@RequestBody Cliente cliente) {
+    public ResponseEntity<Object> atualizarCliente(@RequestBody ClienteDTO clienteDTO) {
         try {
-            service.atualizarCliente(cliente);
-            return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
+            service.atualizarCliente(clienteDTO);
+            return new ResponseEntity<>(clienteDTO, HttpStatus.ACCEPTED);
         }
         catch (Exception e) {
             return new ResponseEntity<>("Erro ao atualizar as informações do cliente.", HttpStatus.BAD_REQUEST);

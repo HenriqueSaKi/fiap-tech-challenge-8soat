@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class Endereco {
+public class EnderecoDTO {
 
     @JsonProperty(required = true)
     @Schema(name = "cep", description = "CEP", example = "12345-12")
