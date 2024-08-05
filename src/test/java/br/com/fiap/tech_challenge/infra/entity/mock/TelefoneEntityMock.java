@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.infra.entity.mock;
 
 import br.com.fiap.tech_challenge.domain.enums.TipoTelefone;
-import br.com.fiap.tech_challenge.infra.entity.TelefoneEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.TelefoneEntity;
 
 public class TelefoneEntityMock {
 

@@ -1,7 +1,6 @@
-package br.com.fiap.tech_challenge.infra.entity;
+package br.com.fiap.tech_challenge.domain.repository.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.infra.repository;
 
 import br.com.fiap.tech_challenge.domain.repository.ClienteRepositoryPort;
-import br.com.fiap.tech_challenge.infra.entity.ClienteEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.ClienteEntity;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 

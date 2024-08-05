@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.infra.entity;
+package br.com.fiap.tech_challenge.domain.repository.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

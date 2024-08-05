@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.infra.repository;
 
-import br.com.fiap.tech_challenge.infra.entity.ClienteEntity;
+import br.com.fiap.tech_challenge.domain.repository.entity.ClienteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
