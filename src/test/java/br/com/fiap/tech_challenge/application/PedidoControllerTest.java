@@ -1,9 +1,10 @@
 package br.com.fiap.tech_challenge.application;
 
-import br.com.fiap.tech_challenge.domain.ItemPedidoDTO;
-import br.com.fiap.tech_challenge.domain.PedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.PedidoController;
+import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
 import br.com.fiap.tech_challenge.domain.mock.ItemPedidoMock;
-import br.com.fiap.tech_challenge.domain.services.PedidoService;
+import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 public class PedidoControllerTest {
 
-    @Mock private PedidoService service;
+    @Mock private PedidoServicePort service;
     @InjectMocks private PedidoController controller;
     private MockMvc mockMvc;
 

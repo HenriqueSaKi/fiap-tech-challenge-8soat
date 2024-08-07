@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.domain.mock;
 
-import br.com.fiap.tech_challenge.domain.ClienteDTO;
+import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
 
 public class ClienteMock {
 

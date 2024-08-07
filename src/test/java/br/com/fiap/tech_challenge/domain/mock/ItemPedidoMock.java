@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.domain.mock;
 
-import br.com.fiap.tech_challenge.domain.ItemPedidoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
 
 import java.math.BigDecimal;
 
