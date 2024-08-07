@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.infra.entity.mock;
 
-import br.com.fiap.tech_challenge.domain.repository.entity.ClienteEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ClienteEntity;
 
 public class ClienteEntityMock {
 

@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.infra.entity.mock;
 
-import br.com.fiap.tech_challenge.domain.enums.SituacaoPedido;
-import br.com.fiap.tech_challenge.domain.repository.entity.PedidoEntity;
+import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
 
 import java.util.Date;
 import java.util.List;

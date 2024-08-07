@@ -1,7 +1,8 @@
 package br.com.fiap.tech_challenge.application;
 
-import br.com.fiap.tech_challenge.domain.ClienteDTO;
-import br.com.fiap.tech_challenge.domain.services.ClienteService;
+import br.com.fiap.tech_challenge.adapters.driver.controller.ClienteController;
+import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
+import br.com.fiap.tech_challenge.core.domain.ports.in.ClienteServicePort;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ClienteControllerTest {
 
     @Mock
-    private ClienteService service;
+    private ClienteServicePort service;
     @InjectMocks
     private ClienteController controller;
     private MockMvc mockMvc;

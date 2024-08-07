@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.domain.mock;
 
-import br.com.fiap.tech_challenge.domain.EnderecoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.EnderecoDTO;
 
 public class EnderecoMock {
 
