@@ -6,12 +6,10 @@ import br.com.fiap.tech_challenge.core.application.ports.repository.ClienteRepos
 import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
 import br.com.fiap.tech_challenge.core.domain.ports.in.ClienteServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@ComponentScan(basePackages = "br.com.fiap.tech_challenge.core.application.mapper")
 @Service
 public class ClienteServicePortImpl implements ClienteServicePort {
 

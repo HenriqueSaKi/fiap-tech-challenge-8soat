@@ -1,5 +1,6 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
+import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
@@ -26,11 +27,12 @@ import static org.mockito.Mockito.*;
 public class PedidoServicePortImplTest {
 
     @Mock private PedidoRepositoryPort repositoryPort;
+    @Mock private PedidoMapper pedidoMapper;
     @InjectMocks private PedidoServicePortImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new PedidoServicePortImpl(repositoryPort);
+        service = new PedidoServicePortImpl(repositoryPort, pedidoMapper);
     }
 
     @Test

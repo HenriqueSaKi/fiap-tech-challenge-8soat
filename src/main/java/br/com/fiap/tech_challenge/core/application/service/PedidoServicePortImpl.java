@@ -1,5 +1,6 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
+import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
@@ -19,31 +20,23 @@ import java.util.List;
 public class PedidoServicePortImpl implements PedidoServicePort {
 
     private PedidoRepositoryPort repositoryPort;
+    private PedidoMapper pedidoMapper;
 
     @Autowired
-    public PedidoServicePortImpl(PedidoRepositoryPort repositoryPort) {
+    public PedidoServicePortImpl(PedidoRepositoryPort repositoryPort, PedidoMapper pedidoMapper) {
         this.repositoryPort = repositoryPort;
+        this.pedidoMapper = pedidoMapper;
     }
 
     @Override
     public void cadastrarPedido(PedidoDTO pedidoDTO) {
-        PedidoEntity entity = new PedidoEntity();
+        PedidoEntity entity = pedidoMapper.toEntity(pedidoDTO);
         entity.setDataPedido(new Date());
         entity.setValorTotalPedido(pedidoDTO.getValorTotalPedido());
 
         // Valor mockado por conta do FAKE CHECKOUT
         entity.setSituacao(SituacaoPedido.PAGO);
 
-        List<ItemPedidoEntity> itensEntity = new ArrayList<>();
-        pedidoDTO.getItens().forEach(item -> {
-            ItemPedidoEntity itemEntity = new ItemPedidoEntity();
-            BeanUtils.copyProperties(item, itemEntity);
-            itemEntity.setValorTotalItem(item.getValorTotalItem());
-            itensEntity.add(itemEntity);
-
-        });
-
-        entity.setItensPedido(itensEntity);
         repositoryPort.cadastrarPedidos(entity);
     }
 
@@ -53,18 +46,7 @@ public class PedidoServicePortImpl implements PedidoServicePort {
 
         List<PedidoDTO> pedidoDTOS = new ArrayList<>();
         pedidoEntity.forEach(entity -> {
-            PedidoDTO pedidoDTO = new PedidoDTO();
-            BeanUtils.copyProperties(entity, pedidoDTO);
-            pedidoDTO.setSituacaoPedido(entity.getSituacao());
-
-            List<ItemPedidoDTO> itens = new ArrayList<>();
-            entity.getItensPedido().forEach(item -> {
-                ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
-                BeanUtils.copyProperties(item, itemPedidoDTO);
-                itens.add(itemPedidoDTO);
-            });
-
-            pedidoDTO.setItens(itens);
+            PedidoDTO pedidoDTO = pedidoMapper.toDTO(entity);
             pedidoDTOS.add(pedidoDTO);
         });
 
