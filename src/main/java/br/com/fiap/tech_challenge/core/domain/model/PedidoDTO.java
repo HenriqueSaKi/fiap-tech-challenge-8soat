@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@NoArgsConstructor
 @Data
 public class PedidoDTO {
 
@@ -29,28 +28,10 @@ public class PedidoDTO {
     @Schema(name = "itens", description = "Lista de itens do pedido")
     private List<ItemPedidoDTO> itens;
 
-    public PedidoDTO(Date dataPedido, SituacaoPedido situacaoPedido, List<ItemPedidoDTO> itens) {
-        this.id = UUID.randomUUID().toString();
-        this.dataPedido = dataPedido;
-        this.situacaoPedido = situacaoPedido;
-        this.itens = itens;
-        this.valorTotalPedido = getValorTotalPedido();
-    }
-
     public BigDecimal getValorTotalPedido() {
         return itens.stream()
                 .map(ItemPedidoDTO::getValorTotalItem)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    @Override
-    public String toString() {
-        return "Pedido{"+
-                "id=" + id +
-                ", dataPedido=" + dataPedido +
-                ", valorTotalPedido=" + valorTotalPedido +
-                ", situacaoPedido=" + situacaoPedido +
-                ", itens=" + itens +
-                "}";
-    }
 }
