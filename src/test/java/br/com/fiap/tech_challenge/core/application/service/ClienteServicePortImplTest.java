@@ -1,19 +1,18 @@
-package br.com.fiap.tech_challenge.domain.services.impl;
+package br.com.fiap.tech_challenge.core.application.service;
 
-import br.com.fiap.tech_challenge.core.application.service.ClienteServicePortImpl;
 import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
 import br.com.fiap.tech_challenge.core.domain.model.EnderecoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.TelefoneDTO;
-import br.com.fiap.tech_challenge.domain.mock.ClienteMock;
-import br.com.fiap.tech_challenge.domain.mock.EnderecoMock;
-import br.com.fiap.tech_challenge.domain.mock.TelefoneMock;
+import br.com.fiap.tech_challenge.core.domain.mock.ClienteMock;
+import br.com.fiap.tech_challenge.core.domain.mock.EnderecoMock;
+import br.com.fiap.tech_challenge.core.domain.mock.TelefoneMock;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ClienteRepositoryPort;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ClienteEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.EnderecoEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.TelefoneEntity;
-import br.com.fiap.tech_challenge.infra.entity.mock.ClienteEntityMock;
-import br.com.fiap.tech_challenge.infra.entity.mock.EnderecoEntityMock;
-import br.com.fiap.tech_challenge.infra.entity.mock.TelefoneEntityMock;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.adapter.mock.ClienteEntityMock;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.adapter.mock.EnderecoEntityMock;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.adapter.mock.TelefoneEntityMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
