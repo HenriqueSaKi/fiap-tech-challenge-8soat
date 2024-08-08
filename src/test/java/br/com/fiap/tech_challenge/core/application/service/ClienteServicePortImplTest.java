@@ -1,5 +1,6 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
+import br.com.fiap.tech_challenge.core.application.mapper.ClienteMapper;
 import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
 import br.com.fiap.tech_challenge.core.domain.model.EnderecoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.TelefoneDTO;
@@ -30,14 +31,13 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class ClienteServicePortImplTest {
 
-    @Mock
-    private ClienteRepositoryPort repositoryPort;
-    @InjectMocks
-    private ClienteServicePortImpl service;
+    @Mock private ClienteRepositoryPort repositoryPort;
+    @Mock private ClienteMapper clienteMapper;
+    @InjectMocks private ClienteServicePortImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new ClienteServicePortImpl(repositoryPort);
+        service = new ClienteServicePortImpl(repositoryPort, clienteMapper);
     }
 
     @Test

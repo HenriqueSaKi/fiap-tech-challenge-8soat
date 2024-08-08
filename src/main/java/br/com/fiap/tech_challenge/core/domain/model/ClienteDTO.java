@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class ClienteDTO {
 
-    @Schema(name = "id do cliente", description = "Número de identificação do cliente", example = "1L")
+    @Schema(name = "id", description = "Número de identificação do cliente", example = "1L")
     private Long id;
 
     @JsonProperty(required = true)
@@ -24,10 +24,10 @@ public class ClienteDTO {
     @Schema(name = "email", description = "E-mail", example = "teste@exemplo.com")
     private String email;
 
-    @Schema(name = "telefones", description = "Números de telefone")
+    @Schema(name = "telefoneDTOS", description = "Números de telefone")
     private List<TelefoneDTO> telefoneDTOS;
 
-    @Schema(name = "enderecos", description = "Endereços do cliente")
+    @Schema(name = "enderecoDTOS", description = "Endereços do cliente")
     private List<EnderecoDTO> enderecoDTOS;
 
     public String getCpf() {
