@@ -17,12 +17,6 @@ RUN mvn dependency:go-offline && mvn clean package
 ## Define a imagem base
 FROM openjdk:17-jdk-slim
 
-## Define os argumentos de build
-ARG DATASOURCE_URL
-ARG DATASOURCE_USERNAME
-ARG DATASOURCE_PASSWORD
-ARG DATASOURCE_DRIVER_CLASS_NAME
-
 ## Define as variáveis de ambiente
 ENV DATASOURCE_URL=${DATASOURCE_URL}
 ENV DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
