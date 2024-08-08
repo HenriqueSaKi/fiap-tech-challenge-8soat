@@ -1,13 +1,12 @@
-package br.com.fiap.tech_challenge.domain.services.impl;
+package br.com.fiap.tech_challenge.core.application.service;
 
-import br.com.fiap.tech_challenge.core.application.service.PedidoServicePortImpl;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
-import br.com.fiap.tech_challenge.domain.mock.ItemPedidoMock;
+import br.com.fiap.tech_challenge.core.domain.mock.ItemPedidoMock;
 import br.com.fiap.tech_challenge.core.application.ports.repository.PedidoRepositoryPort;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
-import br.com.fiap.tech_challenge.infra.entity.mock.PedidoEntityMock;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.adapter.mock.PedidoEntityMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -3,7 +3,7 @@ package br.com.fiap.tech_challenge.application;
 import br.com.fiap.tech_challenge.adapters.driver.controller.PedidoController;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
-import br.com.fiap.tech_challenge.domain.mock.ItemPedidoMock;
+import br.com.fiap.tech_challenge.core.domain.mock.ItemPedidoMock;
 import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;

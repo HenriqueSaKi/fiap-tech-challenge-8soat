@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.domain.mock;
+package br.com.fiap.tech_challenge.core.domain.mock;
 
 import br.com.fiap.tech_challenge.core.domain.model.TelefoneDTO;
 import br.com.fiap.tech_challenge.core.domain.model.enums.TipoTelefone;

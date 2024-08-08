@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.infra.repository;
+package br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.adapter;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.ClienteRepository;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.adapter.ClienteRepositoryAdapter;

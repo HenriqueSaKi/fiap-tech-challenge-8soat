@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.infra.entity.mock;
+package br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.adapter.mock;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ItemPedidoEntity;
 
