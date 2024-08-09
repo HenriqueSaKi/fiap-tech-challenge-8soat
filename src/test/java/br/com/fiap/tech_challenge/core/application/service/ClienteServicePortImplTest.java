@@ -57,13 +57,10 @@ public class ClienteServicePortImplTest {
     @Test
     public void whenBuscarClientePorCPFisPresent_thenReturnCliente() {
         ClienteEntity clienteEntity = ClienteEntityMock.getClienteEntity();
-        TelefoneEntity telefoneEntity = TelefoneEntityMock.getTelefoneEntity();
-        EnderecoEntity enderecoEntity = EnderecoEntityMock.getEstadoEntity();
-        clienteEntity.setTelefones(List.of(telefoneEntity));
-        clienteEntity.setEnderecos(List.of(enderecoEntity));
 
         when(repositoryPort.buscarPorCpf(any()))
                 .thenReturn(Optional.of(clienteEntity));
+        when(clienteMapper.toDTO(any())).thenReturn(new ClienteDTO());
         var cliente = service.buscarClientePorCPF(clienteEntity.getCpf());
 
         assertNotNull(cliente);

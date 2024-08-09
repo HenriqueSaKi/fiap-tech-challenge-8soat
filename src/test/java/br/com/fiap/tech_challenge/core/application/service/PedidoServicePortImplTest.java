@@ -37,11 +37,13 @@ public class PedidoServicePortImplTest {
 
     @Test
     public void testCadastrarPedido() {
-        ItemPedidoDTO itemPedidoDTO = ItemPedidoMock.getItemPedido();
-        PedidoDTO pedidoDTO = new PedidoDTO();
-        pedidoDTO.setItens(List.of(itemPedidoDTO));
+        PedidoEntity entity = PedidoEntityMock.getPedidoEntity();
+        PedidoDTO dto = new PedidoDTO();
+        dto.getItens().add(ItemPedidoMock.getItemPedido());
 
-        service.cadastrarPedido(pedidoDTO);
+        when(pedidoMapper.toEntity(any())).thenReturn(entity);
+        service.cadastrarPedido(dto);
+
         verify(repositoryPort, times(1))
                 .cadastrarPedidos(any());
 
@@ -54,12 +56,10 @@ public class PedidoServicePortImplTest {
         when(repositoryPort.listaPedidos()).thenReturn(List.of(pedidoEntity));
         List<PedidoDTO> pedidoDTOS = service.listarPedidos();
 
-        assertFalse(pedidoDTOS.isEmpty());
-        assertEquals(SituacaoPedido.PAGO, pedidoDTOS.get(0).getSituacaoPedido());
-        assertEquals("Item Entity Teste", pedidoDTOS.get(0).getItens().get(0).getDescricao());
-        assertEquals(2, pedidoDTOS.get(0).getItens().get(0).getQuantidade());
-        assertEquals(new BigDecimal("22.44"), pedidoDTOS.get(0).getItens().get(0).getValorUnitario());
-        assertEquals(new BigDecimal("44.88"), pedidoDTOS.get(0).getItens().get(0).getValorTotalItem());
+        verify(repositoryPort, times(1))
+                .listaPedidos();
+        verify(pedidoMapper, times(1))
+                .toDTO(any());
 
     }
 

@@ -5,6 +5,7 @@ import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.Endereco
 public class EnderecoEntityMock {
     public static EnderecoEntity getEstadoEntity() {
         EnderecoEntity enderecoEntity = new EnderecoEntity();
+        enderecoEntity.setId(1L);
         enderecoEntity.setCep("98765-123");
         enderecoEntity.setLogradouro("Rua Entity Teste");
         enderecoEntity.setLogradouro("Teste");
