@@ -6,6 +6,7 @@ public class ClienteEntityMock {
 
     public static ClienteEntity getClienteEntity() {
         ClienteEntity clienteEntity = new ClienteEntity();
+        clienteEntity.setId(1L);
         clienteEntity.setCpf("10987654321");
         clienteEntity.setNomeCompleto("Teste Entity");
         clienteEntity.setEmail("teste@entity.com.br");

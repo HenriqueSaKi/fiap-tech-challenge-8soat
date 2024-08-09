@@ -7,6 +7,7 @@ public class TelefoneEntityMock {
 
     public static TelefoneEntity getTelefoneEntity() {
         TelefoneEntity telefone = new TelefoneEntity();
+        telefone.setId(1L);
         telefone.setTipoTelefone(TipoTelefone.CELULAR);
         telefone.setDdd("11");
         telefone.setNumero("912341234");
