@@ -1,5 +1,5 @@
 #!/bin/bash
-# Encontra e executa o primeiro arquivo .jar no diretório atual
+# Encontra e executa o primeiro arquivo .jar no diretório
 
 JAR_FILE=$(find . -maxdepth 1 -type f -name "*.jar" | head -n 1)
 

@@ -7,31 +7,32 @@ services:
     env_file:
       - .env
     ports:
-    ## A porta 4050 é a do host e a 3306 a do container
+      ## host:container
       - "4050:3306"
     networks:
-      - lanchonete_net
+      - net_lanchonete
     volumes:
-      - lanchonete_dados:/var/lib/mysql
+      - dados_lanchonete:/var/lib/mysql
     command: ["mysqld"]
-    
+
   app:
     container_name: app_lanchonete
     build:
       context: .
       dockerfile: Dockerfile
+    image: tech-challenge-1
     env_file:
       - .env
     ports:
       - "8080:8080"
     networks:
-      - lanchonete_net
+      - net_lanchonete
     depends_on:
       - bd_lanchonete
 
 volumes:
-  lanchonete_dados:
+  dados_lanchonete:
 
 networks:
-  lanchonete_net:
-
+  net_lanchonete:
+    driver: bridge
