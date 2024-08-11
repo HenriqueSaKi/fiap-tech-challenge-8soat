@@ -28,7 +28,7 @@ public class ClienteController implements ClienteSwaggerInterface {
             service.cadastrarCliente(clienteDTO);
             return new ResponseEntity<>("Cliente cadastrado com sucesso!", HttpStatus.CREATED);
         } catch(Exception e) {
-            return new ResponseEntity<>("Cliente já existente!", HttpStatus.OK);
+            return new ResponseEntity<>("Cliente já existente!", HttpStatus.BAD_REQUEST);
         }
     }
 
