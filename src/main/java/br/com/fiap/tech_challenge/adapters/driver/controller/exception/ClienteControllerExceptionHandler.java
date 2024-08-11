@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.adapters.driver.controller;
+package br.com.fiap.tech_challenge.adapters.driver.controller.exception;
 
 import br.com.fiap.tech_challenge.core.application.exception.*;
 import org.springframework.http.HttpStatus;
