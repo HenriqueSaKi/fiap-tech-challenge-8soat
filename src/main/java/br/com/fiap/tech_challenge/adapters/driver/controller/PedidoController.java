@@ -22,24 +22,14 @@ public class PedidoController implements PedidoSwaggerInterface {
 
     @Override
     public ResponseEntity<String> cadastrarPedido(PedidoDTO pedidoDTO) {
-        try {
-            service.cadastrarPedido(pedidoDTO);
-            return new ResponseEntity<>("Pedido cadastrado com sucesso",
-                    HttpStatus.CREATED);
-        }
-        catch (Exception e) {
-            return new ResponseEntity<>("Erro ao cadastrar pedido. Motivo: " + e.getMessage() ,
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        service.cadastrarPedido(pedidoDTO);
+        return new ResponseEntity<>("Pedido cadastrado com sucesso",
+                HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Object> listarPedidos() {
         List<PedidoDTO> pedidoDTOS = service.listarPedidos();
-
-        if(pedidoDTOS.isEmpty()) {
-            return new ResponseEntity<>("Nenhum pedido foi encontrado", HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(pedidoDTOS, HttpStatus.OK);
     }
 
