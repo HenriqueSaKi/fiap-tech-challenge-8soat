@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.core.application.constant;
 
-public class ClienteConstante {
+public class ClienteExceptionConstante {
     public static final String CLIENTE_JA_CADASTRADO_EXCEPTION = "Este cliente já foi cadastrado.";
     public static final String CLIENTE_NAO_ENCONTRADO_EXCEPTION = "Não foi encontrado nenhum resultado para essa pesquisa.";
     public static final String ERRO_AO_CADASTRAR_CLIENTE_EXCEPTION = "Ocorreu um erro inesperado na hora de cadastrar o cliente.";

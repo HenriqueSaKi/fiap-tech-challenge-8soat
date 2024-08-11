@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ClienteEntity;
-import br.com.fiap.tech_challenge.core.application.exception.*;
+import br.com.fiap.tech_challenge.core.application.exception.cliente.*;
 import br.com.fiap.tech_challenge.core.application.mapper.ClienteMapper;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ClienteRepositoryPort;
 import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static br.com.fiap.tech_challenge.core.application.constant.ClienteConstante.*;
+import static br.com.fiap.tech_challenge.core.application.constant.ClienteExceptionConstante.*;
 
 @Service
 @Log4j2

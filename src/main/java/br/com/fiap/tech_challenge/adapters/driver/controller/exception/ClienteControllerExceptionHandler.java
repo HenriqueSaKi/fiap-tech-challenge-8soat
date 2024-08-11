@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.adapters.driver.controller.exception;
 
-import br.com.fiap.tech_challenge.core.application.exception.*;
+import br.com.fiap.tech_challenge.core.application.exception.cliente.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
