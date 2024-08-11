@@ -74,6 +74,7 @@ Suba o container do banco de dados, abra o terminal e execute o comando abaixo.
 ```sh
 # Executa o mysql pela interface de linha de comando (CLI)
 docker exec -it bd_lanchonete mysql -u user_fiap -p
+# Após inserir a senha, selecione o database
 use lanchonete;
 ```
 Nota: se você subiu apenas o banco de dados e tentou testá-lo, provavelmente não encontrou nenhuma tabela no banco de dados. Isso ocorre porque as tabelas são criadas pela aplicação usando JPA.
@@ -86,26 +87,7 @@ Cuidado: o procedimento abaixo apagará todos os registros do banco.
 docker-compose down -v && docker-compose up -d
 ```
 
-#### 5. [Aplicação] Atualizar a aplicação
-Após alterar o código da aplicação, será necessário gerar um novo arquivo .jar na pasta 'target', atualizar a imagem da aplicação e subir os containeres novamente.  
-Cuidado ao alterar alguma entidade JPA na aplicação, pois, se isso ocorrer, a estrutura do banco de dados também será afetada e os registros gravados no volume de dados poderão não ser carregados corretamente na nova estrutura.  
-Caso seja necessário, use a flag '-v' no final do segundo comando para apagar o volume de dados. Todos os registros salvos serão perdidos: faça um backup, se desejar.
-
-```sh
-# Compila, testa e empacota (cria o .jar) a aplicação:
-mvn clean install
-
-# Para e remove os containeres
-docker-compose down
-
-# Recria a imagem da aplicação
-docker-compose build --no-cache app_lanchonete
-
-# Adiciona e sobe os containeres novamente
-docker-compose up -d
-```
-
-#### 7. [Aplicação] Caso queira executar apenas a aplicação localmente, siga os passos abaixo:
+#### 5. [Aplicação] Caso queira executar apenas a aplicação localmente, siga os passos abaixo:
 1. Instale as dependências:</br>
    ``mvn clean install``
 2. Inclua as variáveis de ambiente relacionados ao banco de dados na sua IDE. </br>
