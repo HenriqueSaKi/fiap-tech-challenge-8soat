@@ -1,16 +1,21 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ClienteEntity;
+import br.com.fiap.tech_challenge.core.application.exception.*;
 import br.com.fiap.tech_challenge.core.application.mapper.ClienteMapper;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ClienteRepositoryPort;
 import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
 import br.com.fiap.tech_challenge.core.domain.ports.in.ClienteServicePort;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static br.com.fiap.tech_challenge.core.application.constant.ClienteConstante.*;
+
 @Service
+@Log4j2
 public class ClienteServicePortImpl implements ClienteServicePort {
 
     private final ClienteRepositoryPort repository;
@@ -24,8 +29,17 @@ public class ClienteServicePortImpl implements ClienteServicePort {
 
     @Override
     public void cadastrarCliente(ClienteDTO clienteDTO) {
-        ClienteEntity clienteEntity = clienteMapper.toEntity(clienteDTO);
-        repository.save(clienteEntity);
+        if(repository.buscarPorCpf(clienteDTO.getCpf()).isPresent()) {
+            throw new ClienteJaCadastradoException(CLIENTE_JA_CADASTRADO_EXCEPTION);
+        }
+
+        try {
+            ClienteEntity clienteEntity = clienteMapper.toEntity(clienteDTO);
+            repository.save(clienteEntity);
+        } catch (Exception e) {
+            log.error(e);
+            throw new ErroAoCadastrarClienteException(ERRO_AO_CADASTRAR_CLIENTE_EXCEPTION);
+        }
     }
 
     @Override
@@ -34,15 +48,28 @@ public class ClienteServicePortImpl implements ClienteServicePort {
         if(clienteEntity.isPresent()) {
             return clienteMapper.toDTO(clienteEntity.get());
         }
-        return null;
+        else {
+            throw new ClienteNaoEncontradoException(CLIENTE_NAO_ENCONTRADO_EXCEPTION);
+        }
     }
 
     @Override
     public void atualizarCliente(ClienteDTO clienteDTO) {
+        if(!repository.existsById(clienteDTO.getId())) {
+            throw new ClienteNaoEncontradoException(CLIENTE_NAO_ENCONTRADO_EXCEPTION);
+        }
+
         Optional<ClienteEntity> clienteEntity = repository.findById(clienteDTO.getId());
         if(clienteEntity.isPresent()) {
-            ClienteEntity entity = clienteMapper.toEntity(clienteDTO);
-            repository.save(entity);
+            try {
+                ClienteEntity entity = clienteMapper.toEntity(clienteDTO);
+                repository.save(entity);
+            }
+            catch (Exception e) {
+                log.error(e);
+                throw new ErroAoAtualizarAsInformacoesDoClienteException(
+                        ERRO_AO_ATUALIZAR_AS_INFORMACOES_DO_CLIENTE_EXCEPTION);
+            }
         }
     }
 
@@ -52,8 +79,19 @@ public class ClienteServicePortImpl implements ClienteServicePort {
     }
 
     @Override
-    public void excluirCliente(Long id) {
-        repository.excluirPorId(id);
+    public String excluirCliente(Long id) {
+        if(!repository.existsById(id)) {
+            throw new ClienteNaoEncontradoException(CLIENTE_NAO_ENCONTRADO_EXCEPTION);
+        }
+
+        try {
+            repository.excluirPorId(id);
+            return "Cliente excluído com sucesso!";
+        }
+        catch (Exception e) {
+            log.error(e);
+            throw new ErroAoExcluirClienteException(ERRO_AO_EXCLUIR_CLIENTE_EXCEPTION);
+        }
     }
 
 
