@@ -19,27 +19,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Tag(name = "Cliente", description = "Serviços relacionados às transações cadastrais do cliente")
 public interface ClienteSwaggerInterface {
 
-    @Operation(description = "Verifica se o serviço está disponível.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Sucesso", content =
-                @Content(mediaType = "application/json", examples =
-                @ExampleObject(value = "OK")))
-    })
-    @RequestMapping(
-            value = "/health",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
-    ResponseEntity<String> heathCheck();
-
     @Operation(description = "Realiza o cadastro do cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Cliente cadastrado com sucesso!", content =
-                @Content(mediaType = "application/json", examples =
-                @ExampleObject(value = "Cliente cadastrado com sucesso!")))
+                @Content(examples = @ExampleObject(
+                        value = "Cliente cadastrado com sucesso!"))),
+            @ApiResponse(responseCode = "400", description = "Cliente já cadastrado.", content =
+                @Content(examples = @ExampleObject(
+                        value = "Este cliente já foi cadastrado."))),
+            @ApiResponse(responseCode = "500", description = "Erro ao cadastrar o cliente.", content =
+                @Content(examples = @ExampleObject(
+                        value = "Ocorreu um erro inesperado na hora de cadastrar o cliente.")))
     })
     @RequestMapping(
             value = "/",
-            produces = {"application/json"},
+            produces = "application/text",
             method = RequestMethod.POST)
     ResponseEntity<String> cadastrarCliente(@RequestBody ClienteDTO clienteDTO);
 
@@ -49,40 +43,43 @@ public interface ClienteSwaggerInterface {
                 @Content(mediaType = "application/json", schema =
                 @Schema(implementation = ClienteDTO.class))),
             @ApiResponse(responseCode = "404", description = "Cliente não encontrado", content =
-                @Content(mediaType = "application/json"))
+                @Content(mediaType = "application/text", examples =
+                @ExampleObject(value = "Não foi encontrado nenhum resultado para essa pesquisa.")))
     })
     @RequestMapping(
             value = "/{cpf}",
-            produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<Object> buscarClientePorCPF(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable String cpf);
+    ResponseEntity<ClienteDTO> buscarClientePorCPF(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable String cpf);
 
     @Operation(description = "Atualiza informações do cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "Cliente atualizado com sucesso", content =
                 @Content(mediaType = "application/json", schema =
                 @Schema(implementation = ClienteDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Erro ao atualizar as informações do cliente.", content =
-                @Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "404", description = "Não foi encontrado nenhum resultado para essa pesquisa.", content =
+                @Content(mediaType = "application/text")),
+            @ApiResponse(responseCode = "500", description = "Erro ao atualizar as informações do cliente.", content =
+                @Content(mediaType = "application/text"))
     })
     @RequestMapping(
             value = "/",
-            produces = {"application/json"},
             method = RequestMethod.PUT)
-    ResponseEntity<Object> atualizarCliente(@RequestBody ClienteDTO clienteDTO);
+    ResponseEntity<ClienteDTO> atualizarCliente(@RequestBody ClienteDTO clienteDTO);
 
     @Operation(description = "Exclui as informações do cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Cliente excluído com sucesso!", content =
-                @Content(mediaType = "application/json", examples =
+                @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Cliente excluído com sucesso!"))),
             @ApiResponse(responseCode = "404", description = "Cliente não encontrado.", content =
-                @Content(mediaType = "application/json", examples =
-                @ExampleObject(value = "Cliente não encontrado.")))
+                @Content(mediaType = "application/text", examples =
+                @ExampleObject(value = "Não foi encontrado nenhum resultado para essa pesquisa."))),
+            @ApiResponse(responseCode = "500", description = "Erro ao atualizar as informações do cliente.", content =
+                @Content(mediaType = "application/text", examples =
+                @ExampleObject(value = "Ocorreu um erro inesperado durante a exclusão do cliente.")))
     })
     @RequestMapping(
             value = "/id/{id}",
-            produces = {"application/json"},
             method = RequestMethod.DELETE)
     ResponseEntity<String> excluirCliente(@Parameter(in = ParameterIn.PATH, description = "Id do cliente", required = true, schema = @Schema()) @PathVariable Long id);
 

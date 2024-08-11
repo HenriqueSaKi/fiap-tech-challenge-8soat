@@ -7,6 +7,6 @@ public interface ClienteServicePort {
     ClienteDTO buscarClientePorCPF(String cpf);
     void atualizarCliente(ClienteDTO clienteDTO);
     boolean existeCliente(Long id);
-    void excluirCliente(Long id);
+    String excluirCliente(Long id);
 
 }
