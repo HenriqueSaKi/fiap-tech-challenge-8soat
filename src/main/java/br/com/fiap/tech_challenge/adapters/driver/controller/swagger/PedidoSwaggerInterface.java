@@ -20,26 +20,28 @@ public interface PedidoSwaggerInterface {
     @Operation(description = "Realiza o cadastro do pedido do cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Pedido cadastrado com sucesso!", content =
-            @Content(mediaType = "application/json", examples =
-            @ExampleObject(value = "Pedido cadastrado com sucesso!")))
+                @Content(mediaType = "application/text", examples =
+                @ExampleObject(value = "Pedido cadastrado com sucesso!"))),
+            @ApiResponse(responseCode = "500", description = "Erro ao cadastrar pedido", content =
+                @Content(mediaType = "application/text", examples =
+                @ExampleObject(value = "Ocorreu um erro inesperado ao cadastrar o pedido.")))
     })
     @RequestMapping(
             value = "/",
-            produces = {"application/json"},
             method = RequestMethod.POST)
     ResponseEntity<String> cadastrarPedido(@RequestBody PedidoDTO pedidoDTO);
 
     @Operation(description = "Lista todos os pedidos em andamento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista pedidos", content =
-            @Content(mediaType = "application/json", schema =
-            @Schema(implementation = ClienteDTO.class))),
+                @Content(mediaType = "application/json", schema =
+                @Schema(implementation = ClienteDTO.class))),
             @ApiResponse(responseCode = "404", description = "Nenhum pedido foi encontrado", content =
-            @Content(mediaType = "application/json"))
+                @Content(mediaType = "application/text", examples =
+                @ExampleObject(value = "Nenhum pedido foi encontrado")))
     })
     @RequestMapping(
             value = "/listar",
-            produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<Object> listarPedidos();
 
