@@ -3,6 +3,7 @@ package br.com.fiap.tech_challenge.adapters.driver.controller;
 import br.com.fiap.tech_challenge.adapters.driver.controller.swagger.PedidoSwaggerInterface;
 import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ public class PedidoController implements PedidoSwaggerInterface {
 
     private PedidoServicePort service;
 
+    @Autowired
     public PedidoController(PedidoServicePort service) {
         this.service = service;
     }
