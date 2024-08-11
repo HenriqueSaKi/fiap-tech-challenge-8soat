@@ -1,16 +1,13 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
 import br.com.fiap.tech_challenge.core.application.exception.pedido.ErroAoCadastrarPedidoException;
 import br.com.fiap.tech_challenge.core.application.exception.pedido.NenhumPedidoEncontradoException;
 import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
-import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
-import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
-import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import br.com.fiap.tech_challenge.core.application.ports.repository.PedidoRepositoryPort;
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ItemPedidoEntity;
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
-import org.springframework.beans.BeanUtils;
+import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
+import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -8,5 +8,4 @@ public interface ClienteServicePort {
     void atualizarCliente(ClienteDTO clienteDTO);
     boolean existeCliente(Long id);
     String excluirCliente(Long id);
-
 }

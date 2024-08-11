@@ -15,23 +15,22 @@ public class ProdutoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer produtoId;
 
     @Column(name = "nome", nullable = false, length = 50)
     @NotBlank(message = "Informe o nome do produto")
-    private String nome;
+    private String nomeProduto;
 
     @Column(name = "descricao", nullable = true, length = 200)
-    private String descricao;
+    private String descricaoProduto;
 
     @Column(name = "preco", nullable = false)
     @DecimalMin(value = "0.01", message = "O preço deve ser maior que zero")
     @Digits(integer = 10, fraction = 2)
-    private BigDecimal preco;
+    private BigDecimal precoProduto;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria", nullable = false)
-    private CategoriaProduto categoria;
-
+    private CategoriaProduto categoriaProduto;
 }
 
