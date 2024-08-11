@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.core.application.exception;
+package br.com.fiap.tech_challenge.core.application.exception.cliente;
 
 public class ErroAoExcluirClienteException extends RuntimeException{
     public ErroAoExcluirClienteException(String message) {
