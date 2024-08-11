@@ -29,8 +29,12 @@ public class ClienteController implements ClienteSwaggerInterface {
 
     @Override
     public ResponseEntity<String> cadastrarCliente(@RequestBody ClienteDTO clienteDTO) {
-        service.cadastrarCliente(clienteDTO);
-        return new ResponseEntity<>("Cliente cadastrado com sucesso!", HttpStatus.CREATED);
+        try {
+            service.cadastrarCliente(clienteDTO);
+            return new ResponseEntity<>("Cliente cadastrado com sucesso!", HttpStatus.CREATED);
+        } catch(Exception e) {
+            return new ResponseEntity<>("Cliente já existente!", HttpStatus.OK);
+        }
     }
 
     @Override
