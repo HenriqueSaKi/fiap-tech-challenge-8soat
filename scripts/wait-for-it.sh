@@ -1,4 +1,5 @@
 #!/bin/bash
+# Bourne-Again shell script, ASCII text executable
 # Use this script to test if a given TCP host/port are available
 
 WAITFORIT_cmdname=${0##*/}

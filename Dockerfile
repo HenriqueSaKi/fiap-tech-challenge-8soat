@@ -28,14 +28,16 @@ ENV JPA_DIALECT=${JPA_DIALECT}
 ## Define o diretório de trabalho da imagem
 WORKDIR /app
 
-## Copia o projeto compilado no builder para dentro da imagem
+## Copia o projeto compilado no builder para o diretório de trabalho da imagem
 COPY --from=builder /app/target/tech-challenge-*.jar .
+
+## Copia os scripts para o diretório de trabalho da imagem
 COPY scripts/wait-for-it.sh .
-COPY scripts/run_project.sh .
+COPY scripts/run-project.sh .
 
 ## Concede permissão de acesso aos scripts
 RUN chmod +x wait-for-it.sh
-RUN chmod +x run_project.sh
+RUN chmod +x run-project.sh
 
 ## Executa a aplicação
-CMD ["sh", "-c", "./wait-for-it.sh bd_lanchonete:3306 -t 0 -- ./run_project.sh"]
+CMD ["sh", "-c", "./wait-for-it.sh bd_lanchonete:3306 -t 0 -- ./run-project.sh"]

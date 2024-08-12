@@ -1,5 +1,6 @@
 #!/bin/bash
-# Encontra e executa o primeiro arquivo .jar no diretório
+# Bourne-Again shell script, ASCII text executable
+# Encontra e executa o primeiro arquivo .jar no diretorio
 
 JAR_FILE=$(find . -maxdepth 1 -type f -name "*.jar" | head -n 1)
 
