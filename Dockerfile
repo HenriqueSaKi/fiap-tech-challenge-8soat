@@ -32,8 +32,8 @@ WORKDIR /app
 COPY --from=builder /app/target/tech-challenge-*.jar .
 
 ## Copia os scripts para o diretório de trabalho da imagem
-COPY scripts/wait-for-it.sh .
-COPY scripts/run-project.sh .
+COPY wait-for-it.sh .
+COPY run-project.sh .
 
 ## Concede permissão de acesso aos scripts
 RUN chmod +x wait-for-it.sh
