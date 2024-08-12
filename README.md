@@ -25,7 +25,7 @@ De livre escolha (utilizamos o MySQL).
   Também vai precisar do git para poder clonar o projeto.<br>
   As instruções citadas nesse documento foram testadas com:
   - Linux Ubuntu 22.04.4 LTS;
-  - Docker 27.0.2;
+  - Docker 27.1.1;
   - Docker Compose 1.26.0.
 
 ## Roteiro para executar a aplicação
