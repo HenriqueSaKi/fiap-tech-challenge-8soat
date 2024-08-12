@@ -12,7 +12,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static br.com.fiap.tech_challenge.core.application.constant.ProdutoExceptionConstante.*;
@@ -37,29 +36,6 @@ public class ProdutoServicePortImpl implements ProdutoServicePort {
     }
 
     @Override
-    public Optional<ProdutoDTO> buscarPorNome(String nomeProduto) {
-        return produtoRepositoryPort.buscarPorNome(nomeProduto)
-                .map(produtoMapper::toDTO)
-                .or(() -> {
-                    log.warn("Produto com nome {} não encontrado", nomeProduto);
-                    throw new ProdutoNaoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
-                });
-    }
-
-    @Override
-    public List<ProdutoDTO> buscarTodosProdutos() {
-        List<ProdutoEntity> produtoEntities = produtoRepositoryPort.findAll();
-        if (produtoEntities.isEmpty()) {
-            log.warn("Nenhum produto encontrado");
-            throw new NenhumProdutoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
-        }
-
-        return produtoEntities.stream()
-                .map(produtoMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<ProdutoDTO> buscarProdutosPorCategoria(CategoriaProduto categoriaProduto) {
         List<ProdutoEntity> produtoEntities = produtoRepositoryPort.findProdutosByCategoria(categoriaProduto);
         if (produtoEntities.isEmpty()) {
@@ -74,8 +50,8 @@ public class ProdutoServicePortImpl implements ProdutoServicePort {
 
     @Override
     public void atualizarProduto(ProdutoDTO produtoDTO) {
-        if (produtoRepositoryPort.buscarPorNome(produtoDTO.getNome()).isEmpty()) {
-            log.warn("Produto com o nome {} não encontrado", produtoDTO.getNome());
+        if (produtoRepositoryPort.findById(produtoDTO.getId()).isEmpty()) {
+            log.warn("Produto com ID {} não encontrado", produtoDTO.getId());
             throw new ProdutoNaoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
         }
 

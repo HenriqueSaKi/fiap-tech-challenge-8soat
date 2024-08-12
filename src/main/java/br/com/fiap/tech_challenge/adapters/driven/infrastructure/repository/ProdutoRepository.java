@@ -6,11 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
-    List<ProdutoEntity> findProdutosByCategoria(CategoriaProduto categoriaProduto);
-    Optional<ProdutoEntity> buscarPorNome(String produtoNome);
-    void deleteById(Long id);
+    List<ProdutoEntity> findAllByCategoriaProduto(CategoriaProduto categoriaProduto);
 }
