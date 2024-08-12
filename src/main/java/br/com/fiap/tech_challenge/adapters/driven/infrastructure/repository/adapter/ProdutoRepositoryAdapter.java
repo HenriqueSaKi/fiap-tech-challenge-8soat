@@ -17,17 +17,22 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
     private final ProdutoRepository produtoRepository;
 
     @Override
-    public void delete(ProdutoEntity produto) {
-        produtoRepository.delete(produto);
+    public void deleteById(Long id) {
+        produtoRepository.deleteById(id);
     }
 
     @Override
-    public ProdutoEntity save(ProdutoEntity produto) {
-        return produtoRepository.save(produto);
+    public void save(ProdutoEntity produto) {
+        produtoRepository.save(produto);
     }
 
     @Override
-    public Optional<ProdutoEntity> findById(Integer produtoId) {
+    public Optional<ProdutoEntity> buscarPorNome(String nomeProduto) {
+        return produtoRepository.buscarPorNome(nomeProduto);
+    }
+
+    @Override
+    public Optional<ProdutoEntity> findById(Long produtoId) {
         return produtoRepository.findById(produtoId);
     }
 
@@ -37,7 +42,7 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
     }
 
     @Override
-    public Optional<ProdutoEntity> findProdutosByCategoria(CategoriaProduto categoriaProduto) {
+    public List<ProdutoEntity> findProdutosByCategoria(CategoriaProduto categoriaProduto) {
         return produtoRepository.findProdutosByCategoria(categoriaProduto);
     }
 }

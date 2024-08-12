@@ -15,7 +15,7 @@ public class ProdutoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer produtoId;
+    private Long produtoId;
 
     @Column(name = "nome", nullable = false, length = 50)
     @NotBlank(message = "Informe o nome do produto")
