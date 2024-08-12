@@ -5,9 +5,12 @@ import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Integer> {
-    Optional<ProdutoEntity> findProdutosByCategoria(CategoriaProduto categoriaProduto);
+public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
+    List<ProdutoEntity> findProdutosByCategoria(CategoriaProduto categoriaProduto);
+    Optional<ProdutoEntity> buscarPorNome(String produtoNome);
+    void deleteById(Long id);
 }

@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class ProdutoDTO {
 
     @Schema(name = "id", description = "Número de identificação do pedido", example = "1L")
-    private Integer id;
+    private Long id;
 
     @JsonProperty(required = true)
     @Schema(name = "nomeProduto", description = "Nome do produto", example = "Nome do Produto")

@@ -1,14 +1,11 @@
 package br.com.fiap.tech_challenge.core.application.mapper;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ProdutoEntity;
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.CategoriaProdutoEntity;
 import br.com.fiap.tech_challenge.core.domain.model.ProdutoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.CategoriaProduto;
-import org.mapstruct.*;
-import org.springframework.beans.BeanUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
@@ -16,23 +13,9 @@ import java.util.List;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProdutoMapper {
 
-    @Mapping(source = "entity.categoria", target = "categoriaProduto", qualifiedByName = "categoriaEntityToCategoriaDto")
+    @Mapping(source = "entity.categoria", target = "categoriaProduto")
     ProdutoDTO toDTO(ProdutoEntity entity);
 
-    @Mapping(source = "produtoDTO.categoriaProduto", target = "categoria", qualifiedByName = "categoriaDtoToCategoriaEntity")
+    @Mapping(source = "produtoDTO.categoriaProduto", target = "categoria")
     ProdutoEntity toEntity(ProdutoDTO produtoDTO);
-
-    @Named("categoriaEntityToCategoriaDto")
-    default CategoriaProduto categoriaEntityToCategoriaDto(CategoriaProdutoEntity categoriaEntity) {
-        CategoriaProduto categoriaProduto = new CategoriaProduto();
-        BeanUtils.copyProperties(categoriaEntity, categoriaProduto);
-        return categoriaProduto;
-    }
-
-    @Named("categoriaDtoToCategoriaEntity")
-    default CategoriaProdutoEntity categoriaDtoToCategoriaEntity(CategoriaProduto categoriaProduto) {
-        CategoriaProdutoEntity categoriaEntity = new CategoriaProdutoEntity();
-        BeanUtils.copyProperties(categoriaProduto, categoriaEntity);
-        return categoriaEntity;
-    }
 }

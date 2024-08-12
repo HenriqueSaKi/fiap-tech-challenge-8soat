@@ -84,7 +84,7 @@ public interface ProdutoSwaggerInterface {
     @RequestMapping(
             value = "/id/{id}",
             method = RequestMethod.DELETE)
-    ResponseEntity<String> excluirProduto(@PathVariable Integer id);
+    ResponseEntity<String> excluirProduto(@PathVariable Long id);
 
 
 }

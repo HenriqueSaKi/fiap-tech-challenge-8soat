@@ -17,34 +17,34 @@ import java.util.List;
 @RequestMapping("/produtos")
 public class ProdutoController implements ProdutoSwaggerInterface {
 
-    private final ProdutoServicePort service;
+    private final ProdutoServicePort produtoServicePort;
 
     @Autowired
     public ProdutoController(ProdutoServicePort service) {
-        this.service = service;
+        this.produtoServicePort = service;
     }
 
     @Override
     public ResponseEntity<String> cadastrarProduto(ProdutoDTO produtoDTO) {
-        service.cadastrarProduto(produtoDTO);
+        produtoServicePort.cadastrarProduto(produtoDTO);
         return new ResponseEntity<>("Produto cadastrado com sucesso!", HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<Object> consultaPorCategoria(CategoriaProduto categoria) {
-        List<ProdutoDTO> produtosPorCategoria = service.buscarProdutosPorCategoria(categoria);
+    public ResponseEntity<Object> consultaPorCategoria(CategoriaProduto categoriaProduto) {
+        List<ProdutoDTO> produtosPorCategoria = produtoServicePort.buscarProdutosPorCategoria(categoriaProduto);
         return new ResponseEntity<>(produtosPorCategoria, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<String> atualizaInformacoesProduto(ProdutoDTO produtoDTO) {
-        service.atualizarProduto(produtoDTO);
+        produtoServicePort.atualizarProduto(produtoDTO);
         return new ResponseEntity<>("Produto atualizado com sucesso!", HttpStatus.ACCEPTED);
     }
 
     @Override
-    public ResponseEntity<String> excluirProduto(Integer id) {
-        service.excluirProduto(id);
+    public ResponseEntity<String> excluirProduto(Long id) {
+        produtoServicePort.excluirProduto(id);
         return new ResponseEntity<>("Produto excluido com sucesso!", HttpStatus.OK);
     }
 }
