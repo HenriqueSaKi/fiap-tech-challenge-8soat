@@ -10,10 +10,6 @@ public interface ProdutoServicePort {
 
     void cadastrarProduto(ProdutoDTO produtoDTO);
 
-    Optional<ProdutoDTO> buscarPorNome(String nomeProduto);
-
-    List<ProdutoDTO> buscarTodosProdutos();
-
     List<ProdutoDTO> buscarProdutosPorCategoria(CategoriaProduto categoriaProduto);
 
     void atualizarProduto(ProdutoDTO produtoDTO);

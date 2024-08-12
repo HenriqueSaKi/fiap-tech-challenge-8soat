@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class PedidoRepositoryAdapter implements PedidoRepositoryPort {
 
-    private PedidoRepository repository;
+    private final PedidoRepository repository;
 
     @Autowired
     public PedidoRepositoryAdapter(PedidoRepository repository) {

@@ -4,17 +4,21 @@ import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ProdutoE
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.ProdutoRepository;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ProdutoRepositoryPort;
 import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
 @Component
-@AllArgsConstructor
 public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
 
     private final ProdutoRepository produtoRepository;
+
+    @Autowired
+    public ProdutoRepositoryAdapter(ProdutoRepository produtoRepository) {
+        this.produtoRepository = produtoRepository;
+    }
 
     @Override
     public void deleteById(Long id) {
@@ -27,22 +31,12 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
     }
 
     @Override
-    public Optional<ProdutoEntity> buscarPorNome(String nomeProduto) {
-        return produtoRepository.buscarPorNome(nomeProduto);
-    }
-
-    @Override
     public Optional<ProdutoEntity> findById(Long produtoId) {
         return produtoRepository.findById(produtoId);
     }
 
     @Override
-    public List<ProdutoEntity> findAll() {
-        return produtoRepository.findAll();
-    }
-
-    @Override
     public List<ProdutoEntity> findProdutosByCategoria(CategoriaProduto categoriaProduto) {
-        return produtoRepository.findProdutosByCategoria(categoriaProduto);
+        return produtoRepository.findAllByCategoriaProduto(categoriaProduto);
     }
 }
