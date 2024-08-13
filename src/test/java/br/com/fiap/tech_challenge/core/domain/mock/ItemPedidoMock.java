@@ -8,9 +8,8 @@ public class ItemPedidoMock {
 
     public static ItemPedido getItemPedido() {
         ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setDescricao("Item Teste");
-        itemPedido.setQuantidade(2);
-        itemPedido.setValorUnitario(new BigDecimal("12.34"));
+        itemPedido.setIdProduto(1L);
+        itemPedido.setQuantidade(2);;
 
         return itemPedido;
 

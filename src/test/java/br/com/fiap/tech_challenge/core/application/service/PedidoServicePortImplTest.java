@@ -1,5 +1,7 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.adapter.mock.ProdutoEntityMock;
+import br.com.fiap.tech_challenge.core.application.exception.pedido.NenhumPedidoEncontradoException;
 import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ProdutoRepositoryPort;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
@@ -16,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -40,7 +43,8 @@ public class PedidoServicePortImplTest {
         Pedido dto = new Pedido();
         dto.getItens().add(ItemPedidoMock.getItemPedido());
 
-        when(pedidoMapper.toEntity(any())).thenReturn(entity);
+        when(produtoRepositoryPort.findById(1L))
+            .thenReturn(Optional.of(ProdutoEntityMock.getProdutoEntity()));
         service.cadastrarPedido(dto);
 
         verify(pedidoRepositoryPort, times(1))
@@ -65,9 +69,7 @@ public class PedidoServicePortImplTest {
     @Test
     public void whenListaPedidosEmpty_thenReturnEmptyList() {
         when(pedidoRepositoryPort.listaPedidos()).thenReturn(new ArrayList<>());
-        List<Pedido> pedidos = service.listarPedidos();
-
-        assertTrue(pedidos.isEmpty());
+        assertThrows(NenhumPedidoEncontradoException.class, () -> service.listarPedidos());
 
     }
 
