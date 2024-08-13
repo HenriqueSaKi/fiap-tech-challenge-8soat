@@ -22,7 +22,7 @@ public class PedidoResponseDTO {
   private BigDecimal valorTotalPedido;
 
   @Schema(name = "situacaoPedido", description = "Status do pedido")
-  private SituacaoPedidoDTO situacaoPedidoDTO;
+  private SituacaoPedidoDTO situacaoPedido;
 
   @Schema(name = "itens", description = "Lista de itens do pedido")
   private List<ItemPedidoResponseDTO> itens = new ArrayList<>();

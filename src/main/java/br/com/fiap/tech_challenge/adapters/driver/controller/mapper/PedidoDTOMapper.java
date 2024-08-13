@@ -20,7 +20,6 @@ import java.util.List;
 public interface PedidoDTOMapper {
   Pedido cadastrarToPedido(CadastrarPedidoDTO cadastrar);
 
-  @Mapping(source = "pedidos.situacaoPedido", target = "situacaoPedidoDTO", qualifiedByName = "situacaoDomainToSituacaoController")
   @Mapping(source = "pedidos.itens", target = "itens", qualifiedByName = "itensDomainToItensResponse")
   List<PedidoResponseDTO> pedidosToPedidosResponseDTO(List<Pedido> pedidos);
 
@@ -34,11 +33,6 @@ public interface PedidoDTOMapper {
     });
 
     return itensResponseDto;
-  }
-
-  @Named("situacaoDomainToSituacaoController")
-  default SituacaoPedidoDTO situacaoDomainToSituacaoController(SituacaoPedido situacaoPedido) {
-    return SituacaoPedidoDTO.valueOf(situacaoPedido.name());
   }
 
 }
