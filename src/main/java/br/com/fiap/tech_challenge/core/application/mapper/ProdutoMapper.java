@@ -13,9 +13,12 @@ import org.mapstruct.ReportingPolicy;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProdutoMapper {
 
+    @Mapping(source = "entity.produtoId", target = "produtoId")
     @Mapping(source = "entity.categoriaProduto", target = "categoria")
     ProdutoDTO toDTO(ProdutoEntity entity);
 
+    @Mapping(source = "produtoDTO.produtoId", target = "produtoId")
     @Mapping(source = "produtoDTO.categoria", target = "categoriaProduto")
     ProdutoEntity toEntity(ProdutoDTO produtoDTO);
+
 }

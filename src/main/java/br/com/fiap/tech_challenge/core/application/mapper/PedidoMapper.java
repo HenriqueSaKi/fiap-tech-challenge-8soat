@@ -4,7 +4,6 @@ import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ItemPedi
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import org.mapstruct.*;
 import org.springframework.beans.BeanUtils;
 
@@ -31,7 +30,7 @@ public interface PedidoMapper {
         entities.forEach(item -> {
             ItemPedidoDTO itemDTO = new ItemPedidoDTO();
             BeanUtils.copyProperties(item, itemDTO);
-            itemDTO.getValorTotalItem();
+            itemDTO.setIdProduto(item.getId());
             itemPedidoDTOList.add(itemDTO);
         });
         return itemPedidoDTOList;
@@ -43,6 +42,7 @@ public interface PedidoMapper {
         itensDTO.forEach(item -> {
             ItemPedidoEntity entity = new ItemPedidoEntity();
             BeanUtils.copyProperties(item, entity);
+            entity.setId(item.getIdProduto());
             itemPedidoEntities.add(entity);
         });
 

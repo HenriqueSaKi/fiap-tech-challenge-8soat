@@ -1,9 +1,8 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
 import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
-import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
+import br.com.fiap.tech_challenge.core.application.ports.repository.ProdutoRepositoryPort;
 import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import br.com.fiap.tech_challenge.core.domain.mock.ItemPedidoMock;
 import br.com.fiap.tech_challenge.core.application.ports.repository.PedidoRepositoryPort;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
@@ -15,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +24,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class PedidoServicePortImplTest {
 
-    @Mock private PedidoRepositoryPort repositoryPort;
+    @Mock private PedidoRepositoryPort pedidoRepositoryPort;
+    @Mock private ProdutoRepositoryPort produtoRepositoryPort;
     @Mock private PedidoMapper pedidoMapper;
     @InjectMocks private PedidoServicePortImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new PedidoServicePortImpl(repositoryPort, pedidoMapper);
+        service = new PedidoServicePortImpl(pedidoRepositoryPort, produtoRepositoryPort, pedidoMapper);
     }
 
     @Test
@@ -44,7 +43,7 @@ public class PedidoServicePortImplTest {
         when(pedidoMapper.toEntity(any())).thenReturn(entity);
         service.cadastrarPedido(dto);
 
-        verify(repositoryPort, times(1))
+        verify(pedidoRepositoryPort, times(1))
                 .cadastrarPedidos(any());
 
     }
@@ -53,10 +52,10 @@ public class PedidoServicePortImplTest {
     public void whenListaPedidosIsNotEmpty_thenReturnPedidos() {
         PedidoEntity pedidoEntity = PedidoEntityMock.getPedidoEntity();
 
-        when(repositoryPort.listaPedidos()).thenReturn(List.of(pedidoEntity));
+        when(pedidoRepositoryPort.listaPedidos()).thenReturn(List.of(pedidoEntity));
         List<PedidoDTO> pedidoDTOS = service.listarPedidos();
 
-        verify(repositoryPort, times(1))
+        verify(pedidoRepositoryPort, times(1))
                 .listaPedidos();
         verify(pedidoMapper, times(1))
                 .toDTO(any());
@@ -65,7 +64,7 @@ public class PedidoServicePortImplTest {
 
     @Test
     public void whenListaPedidosEmpty_thenReturnEmptyList() {
-        when(repositoryPort.listaPedidos()).thenReturn(new ArrayList<>());
+        when(pedidoRepositoryPort.listaPedidos()).thenReturn(new ArrayList<>());
         List<PedidoDTO> pedidoDTOS = service.listarPedidos();
 
         assertTrue(pedidoDTOS.isEmpty());

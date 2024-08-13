@@ -11,7 +11,7 @@ public class ItemPedidoEntityMock {
         entity.setDescricao("Item Entity Teste");
         entity.setQuantidade(2);
         entity.setValorUnitario(new BigDecimal("22.44"));
-        entity.setValorTotalItem(new BigDecimal("44.88"));
+        entity.setValorTotalPedido(new BigDecimal("44.88"));
         return entity;
 
     }

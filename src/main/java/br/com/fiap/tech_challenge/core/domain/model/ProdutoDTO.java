@@ -10,22 +10,22 @@ import java.math.BigDecimal;
 @Data
 public class ProdutoDTO {
 
-    @Schema(name = "id", description = "Número de identificação do pedido", example = "1L")
-    private Long id;
+    @Schema(name = "produtoId", description = "Número de identificação do produto", example = "1L")
+    private Long produtoId;
 
     @JsonProperty(required = true)
-    @Schema(name = "nomeProduto", description = "Nome do produto", example = "Nome do Produto")
+    @Schema(name = "nome", description = "Nome do produto", example = "X-Tudo")
     private String nome;
 
     @JsonProperty(required = true)
-    @Schema(name = "nomeDoProduto", description = "Descrição do produto", example = "Descrição do Produto")
+    @Schema(name = "descricao", description = "Descrição do produto", example = "Lanche com hambúrguer, alface, tomate, cebola, bacon e maionese.")
     private String descricao;
 
     @JsonProperty(required = true)
-    @Schema(name = "precoProduto", description = "Preço do produto", example = "Preço do Produto")
+    @Schema(name = "preco", description = "Preço do produto", example = "15.99")
     private BigDecimal preco;
 
     @JsonProperty(required = true)
-    @Schema(name = "categoriaDoProduto", description = "Categoria do produto", example = "Categoria do Produto")
+    @Schema(name = "categoria", description = "Categoria do produto")
     private CategoriaProduto categoria;
 }
