@@ -3,13 +3,11 @@ package br.com.fiap.tech_challenge.core.domain.model;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 public class PedidoDTO {
@@ -28,11 +26,5 @@ public class PedidoDTO {
 
     @Schema(name = "itens", description = "Lista de itens do pedido")
     private List<ItemPedidoDTO> itens = new ArrayList<>();
-
-    public BigDecimal getValorTotalPedido() {
-        return itens.stream()
-                .map(ItemPedidoDTO::getValorTotalItem)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 
 }

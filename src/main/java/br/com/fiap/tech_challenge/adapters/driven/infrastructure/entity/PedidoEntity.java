@@ -16,7 +16,7 @@ public class PedidoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "data_pedido", nullable = false)
     private Date dataPedido;

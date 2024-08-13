@@ -10,22 +10,20 @@ import java.math.BigDecimal;
 public class ItemPedidoDTO {
 
     @JsonProperty(required = true)
-    @Schema(name = "descricao", description = "Valor total do pedido", example = "Item Teste")
+    @Schema(name = "idProduto", description = "Id do Produto", example = "1L")
+    private Long idProduto;
+
+    @Schema(name = "descricao", description = "Descrição do Produto", example = "Lanche Natural")
     private String descricao;
 
-    @JsonProperty(required = true)
-    @Schema(name = "valorUnitario", description = "Valor unitário", example = "50.11")
+    @Schema(name = "valorUnitario", description = "Valor do Produto", example = "15.99")
     private BigDecimal valorUnitario;
 
     @JsonProperty(required = true)
     @Schema(name = "quantidade", description = "Quantidade", example = "2")
     private int quantidade;
 
-    @Schema(name = "valorTotalItem", description = "Valor total", example = "100.22")
-    private BigDecimal valorTotalItem;
-
-    public BigDecimal getValorTotalItem() {
-        return valorUnitario.multiply(BigDecimal.valueOf(quantidade, 0));
-    }
+    @Schema(name = "valorTotalProduto", description = "Valor total do produto", example = "30.98")
+    private BigDecimal valorTotalPedido;
 
 }

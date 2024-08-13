@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Tag(name = "Produto", description = "Serviços relacionados ao cadastro dos produtos")
 public interface ProdutoSwaggerInterface {
 
@@ -38,8 +40,8 @@ public interface ProdutoSwaggerInterface {
     @Operation(description = "Lista todos os produtos de determinada categoria.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados com sucesso!", content =
-                @Content(mediaType = "application/text", schema =
-                @Schema(implementation = ProdutoDTO.class))),
+                @Content(mediaType = "application/json", schema =
+                @Schema(implementation = List.class))),
             @ApiResponse(responseCode = "404", description = "Nenhum produto encontrado", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Não foram encontrados produtos para essa categoria."))),
@@ -50,17 +52,17 @@ public interface ProdutoSwaggerInterface {
     @RequestMapping(
             value = "/categoria/{categoria}",
             method = RequestMethod.GET)
-    ResponseEntity<Object> consultaPorCategoria(@PathVariable CategoriaProduto categoria);
+    ResponseEntity<Object> consultaPorCategoria(@PathVariable("categoria") CategoriaProduto categoria);
 
     @Operation(description = "Atualiza as informações de determinado produto.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "Produto atualizado com sucesso!", content =
-                @Content(mediaType = "application/json", examples =
+                @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Produto atualizado com sucesso!"))),
             @ApiResponse(responseCode = "404", description = "Nenhum produto encontrado", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Não foram encontrados produtos para essa categoria."))),
-            @ApiResponse(responseCode = "500", description = "Erro ao consultar produto", content =
+            @ApiResponse(responseCode = "500", description = "Erro ao atualizar produto", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Ocorreu um erro inesperado ao atualizar esse produto.")))
     })

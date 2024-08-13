@@ -1,6 +1,7 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ProdutoEntity;
+import br.com.fiap.tech_challenge.core.application.exception.produto.ErroAoConsultarProdutosPorCategoriaException;
 import br.com.fiap.tech_challenge.core.application.exception.produto.*;
 import br.com.fiap.tech_challenge.core.application.mapper.ProdutoMapper;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ProdutoRepositoryPort;
@@ -37,21 +38,26 @@ public class ProdutoServicePortImpl implements ProdutoServicePort {
 
     @Override
     public List<ProdutoDTO> buscarProdutosPorCategoria(CategoriaProduto categoriaProduto) {
-        List<ProdutoEntity> produtoEntities = produtoRepositoryPort.findProdutosByCategoria(categoriaProduto);
-        if (produtoEntities.isEmpty()) {
-            log.warn("Nenhum produto encontrado para a categoria {}", categoriaProduto);
-            throw new NenhumProdutoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
-        }
+        try {
+            List<ProdutoEntity> produtoEntities = produtoRepositoryPort.findProdutosByCategoria(categoriaProduto);
+            if (produtoEntities.isEmpty()) {
+                log.warn("Nenhum produto encontrado para a categoria {}", categoriaProduto);
+                throw new NenhumProdutoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
+            }
 
-        return produtoEntities.stream()
+            return produtoEntities.stream()
                 .map(produtoMapper::toDTO)
                 .collect(Collectors.toList());
+        }
+        catch (Exception e) {
+            throw new ErroAoConsultarProdutosPorCategoriaException(ERRO_AO_CONSULTAR_POR_CATEGORIA_EXCEPTION);
+        }
     }
 
     @Override
     public void atualizarProduto(ProdutoDTO produtoDTO) {
-        if (produtoRepositoryPort.findById(produtoDTO.getId()).isEmpty()) {
-            log.warn("Produto com ID {} não encontrado", produtoDTO.getId());
+        if (produtoRepositoryPort.findById(produtoDTO.getProdutoId()).isEmpty()) {
+            log.warn("Produto com ID {} não encontrado", produtoDTO.getProdutoId());
             throw new ProdutoNaoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
         }
 

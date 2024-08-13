@@ -19,15 +19,15 @@ public class ProdutoEntity {
 
     @Column(name = "nome", nullable = false, length = 50)
     @NotBlank(message = "Informe o nome do produto")
-    private String nomeProduto;
+    private String nome;
 
-    @Column(name = "descricao", nullable = true, length = 200)
-    private String descricaoProduto;
+    @Column(name = "descricao", length = 200)
+    private String descricao;
 
     @Column(name = "preco", nullable = false)
     @DecimalMin(value = "0.01", message = "O preço deve ser maior que zero")
     @Digits(integer = 10, fraction = 2)
-    private BigDecimal precoProduto;
+    private BigDecimal preco;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria", nullable = false)
