@@ -3,9 +3,9 @@ package br.com.fiap.tech_challenge.core.application.mapper;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ClienteEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.EnderecoEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.TelefoneEntity;
-import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
-import br.com.fiap.tech_challenge.core.domain.model.EnderecoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.TelefoneDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Cliente;
+import br.com.fiap.tech_challenge.core.domain.model.Endereco;
+import br.com.fiap.tech_challenge.core.domain.model.Telefone;
 import org.mapstruct.*;
 import org.springframework.beans.BeanUtils;
 
@@ -18,42 +18,42 @@ import java.util.List;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ClienteMapper {
 
-    @Mapping(source = "entity.telefones", target = "telefoneDTOS", qualifiedByName = "telefoneEntityToTelefoneDto")
-    @Mapping(source = "entity.enderecos", target = "enderecoDTOS", qualifiedByName = "enderecoEntityToEnderecoDto")
-    ClienteDTO toDTO(ClienteEntity entity);
+    @Mapping(source = "entity.telefones", target = "telefones", qualifiedByName = "telefoneEntityToTelefone")
+    @Mapping(source = "entity.enderecos", target = "enderecos", qualifiedByName = "enderecoEntityToEndereco")
+    Cliente toDTO(ClienteEntity entity);
 
-    @Mapping(source = "clienteDTO.telefoneDTOS", target = "telefones", qualifiedByName = "telefoneDtoToTelefoneEntity")
-    @Mapping(source = "clienteDTO.enderecoDTOS", target = "enderecos", qualifiedByName = "enderecoDtoToEnderecoEntity")
-    ClienteEntity toEntity(ClienteDTO clienteDTO);
+    @Mapping(source = "cliente.telefones", target = "telefones", qualifiedByName = "telefoneToTelefoneEntity")
+    @Mapping(source = "cliente.enderecos", target = "enderecos", qualifiedByName = "enderecoToEnderecoEntity")
+    ClienteEntity toEntity(Cliente cliente);
 
-    @Named("telefoneEntityToTelefoneDto")
-    default List<TelefoneDTO> telefoneEntityToTelefoneDto(List<TelefoneEntity> telefoneEntities) {
-        List<TelefoneDTO> telefoneDTOList = new ArrayList<>();
+    @Named("telefoneEntityToTelefone")
+    default List<Telefone> telefoneEntityToTelefoneDto(List<TelefoneEntity> telefoneEntities) {
+        List<Telefone> telefoneList = new ArrayList<>();
         telefoneEntities.forEach(telefone -> {
-            TelefoneDTO telefoneDTO = new TelefoneDTO();
+            Telefone telefoneDTO = new Telefone();
             BeanUtils.copyProperties(telefone, telefoneDTO);
-            telefoneDTOList.add(telefoneDTO);
+            telefoneList.add(telefoneDTO);
         });
 
-        return telefoneDTOList;
+        return telefoneList;
     }
 
-    @Named("enderecoEntityToEnderecoDto")
-    default List<EnderecoDTO> enderecoEntityToEnderecoDto(List<EnderecoEntity> enderecoEntities) {
-        List<EnderecoDTO> enderecoDTOList = new ArrayList<>();
+    @Named("enderecoEntityToEndereco")
+    default List<Endereco> enderecoEntityToEnderecoDto(List<EnderecoEntity> enderecoEntities) {
+        List<Endereco> enderecoList = new ArrayList<>();
         enderecoEntities.forEach(endereco -> {
-            EnderecoDTO enderecoDTO = new EnderecoDTO();
+            Endereco enderecoDTO = new Endereco();
             BeanUtils.copyProperties(endereco, enderecoDTO);
-            enderecoDTOList.add(enderecoDTO);
+            enderecoList.add(enderecoDTO);
         });
 
-        return enderecoDTOList;
+        return enderecoList;
     }
 
-    @Named("telefoneDtoToTelefoneEntity")
-    default List<TelefoneEntity> telefoneDtoToTelefoneEntity(List<TelefoneDTO> telefoneDTOList) {
+    @Named("telefoneToTelefoneEntity")
+    default List<TelefoneEntity> telefoneToTelefoneEntity(List<Telefone> telefoneList) {
         List<TelefoneEntity> telefoneEntities = new ArrayList<>();
-        telefoneDTOList.forEach(telefone -> {
+        telefoneList.forEach(telefone -> {
             TelefoneEntity entity = new TelefoneEntity();
             BeanUtils.copyProperties(telefone, entity);
             telefoneEntities.add(entity);
@@ -62,10 +62,10 @@ public interface ClienteMapper {
         return telefoneEntities;
     }
 
-    @Named("enderecoDtoToEnderecoEntity")
-    default List<EnderecoEntity> enderecoDtoToEnderecoEntity(List<EnderecoDTO> enderecoDTOS) {
+    @Named("enderecoToEnderecoEntity")
+    default List<EnderecoEntity> enderecoToEnderecoEntity(List<Endereco> enderecos) {
         List<EnderecoEntity> enderecoEntities = new ArrayList<>();
-        enderecoDTOS.forEach(endereco -> {
+        enderecos.forEach(endereco -> {
             EnderecoEntity entity = new EnderecoEntity();
             BeanUtils.copyProperties(endereco, entity);
             enderecoEntities.add(entity);

@@ -1,8 +1,8 @@
 package br.com.fiap.tech_challenge.application;
 
 import br.com.fiap.tech_challenge.adapters.driver.controller.PedidoController;
-import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
+import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.mock.ItemPedidoMock;
 import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
 import com.google.gson.Gson;
@@ -41,28 +41,28 @@ public class PedidoControllerTest {
 
     @Test
     public void testCadastrarPedido() throws Exception {
-        ItemPedidoDTO itemPedidoDTO = ItemPedidoMock.getItemPedido();
+        ItemPedido itemPedido = ItemPedidoMock.getItemPedido();
 
-        PedidoDTO pedidoDTO = new PedidoDTO();
-        pedidoDTO.setItens(List.of(itemPedidoDTO));
+        Pedido pedido = new Pedido();
+        pedido.setItens(List.of(itemPedido));
 
         mockMvc.perform(
                         post("/pedido/")
                                 .contentType("application/json")
-                                .content(new Gson().toJson(pedidoDTO)))
+                                .content(new Gson().toJson(pedido)))
                 .andExpect(status().isCreated());
 
     }
 
     @Test
     public void testListarPedidosSuccess() throws Exception {
-        ItemPedidoDTO itemPedidoDTO = ItemPedidoMock.getItemPedido();
-        PedidoDTO pedidoDTO = new PedidoDTO();
+        ItemPedido itemPedido = ItemPedidoMock.getItemPedido();
+        Pedido pedido = new Pedido();
 
-        pedidoDTO.setItens(List.of(itemPedidoDTO));
+        pedido.setItens(List.of(itemPedido));
 
 
-        when(service.listarPedidos()).thenReturn(List.of(pedidoDTO));
+        when(service.listarPedidos()).thenReturn(List.of(pedido));
         mockMvc.perform(get("/pedido/listar"))
                 .andExpect(status().isOk());
 

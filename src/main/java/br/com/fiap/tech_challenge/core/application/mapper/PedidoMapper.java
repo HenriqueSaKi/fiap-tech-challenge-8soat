@@ -2,8 +2,8 @@ package br.com.fiap.tech_challenge.core.application.mapper;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ItemPedidoEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
-import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
+import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import org.mapstruct.*;
 import org.springframework.beans.BeanUtils;
 
@@ -16,30 +16,30 @@ import java.util.List;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface PedidoMapper {
 
-    @Mapping(source = "entity.itensPedido", target = "itens", qualifiedByName = "itensPedidoEntityToItensPedidoDto")
+    @Mapping(source = "entity.itensPedido", target = "itens", qualifiedByName = "itensPedidoEntityToItensPedido")
     @Mapping(source = "entity.situacao", target = "situacaoPedido")
-    PedidoDTO toDTO(PedidoEntity entity);
+    Pedido toDTO(PedidoEntity entity);
 
-    @Mapping(source = "pedidoDTO.itens", target = "itensPedido", qualifiedByName = "itensPedidoDtoToItensPedidoEntity")
-    @Mapping(source = "pedidoDTO.situacaoPedido", target = "situacao")
-    PedidoEntity toEntity(PedidoDTO pedidoDTO);
+    @Mapping(source = "pedido.itens", target = "itensPedido", qualifiedByName = "itensPedidoToItensPedidoEntity")
+    @Mapping(source = "pedido.situacaoPedido", target = "situacao")
+    PedidoEntity toEntity(Pedido pedido);
 
-    @Named("itensPedidoEntityToItensPedidoDto")
-    default List<ItemPedidoDTO> itensPedidoEntityToItensPedidoDto (List<ItemPedidoEntity> entities) {
-        List<ItemPedidoDTO> itemPedidoDTOList = new ArrayList<>();
+    @Named("itensPedidoEntityToItensPedido")
+    default List<ItemPedido> itensPedidoEntityToItensPedido (List<ItemPedidoEntity> entities) {
+        List<ItemPedido> itemPedidoList = new ArrayList<>();
         entities.forEach(item -> {
-            ItemPedidoDTO itemDTO = new ItemPedidoDTO();
-            BeanUtils.copyProperties(item, itemDTO);
-            itemDTO.setIdProduto(item.getId());
-            itemPedidoDTOList.add(itemDTO);
+            ItemPedido itemPedido = new ItemPedido();
+            BeanUtils.copyProperties(item, itemPedido);
+            itemPedido.setIdProduto(item.getId());
+            itemPedidoList.add(itemPedido);
         });
-        return itemPedidoDTOList;
+        return itemPedidoList;
     }
 
-    @Named("itensPedidoDtoToItensPedidoEntity")
-    default List<ItemPedidoEntity> itensPedidoDtoToItensPedidoEntity (List<ItemPedidoDTO> itensDTO) {
+    @Named("itensPedidoToItensPedidoEntity")
+    default List<ItemPedidoEntity> itensPedidoToItensPedidoEntity (List<ItemPedido> itens) {
         List<ItemPedidoEntity> itemPedidoEntities = new ArrayList<>();
-        itensDTO.forEach(item -> {
+        itens.forEach(item -> {
             ItemPedidoEntity entity = new ItemPedidoEntity();
             BeanUtils.copyProperties(item, entity);
             entity.setId(item.getIdProduto());

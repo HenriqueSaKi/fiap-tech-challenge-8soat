@@ -2,7 +2,7 @@ package br.com.fiap.tech_challenge.core.application.service;
 
 import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ProdutoRepositoryPort;
-import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.mock.ItemPedidoMock;
 import br.com.fiap.tech_challenge.core.application.ports.repository.PedidoRepositoryPort;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
@@ -37,7 +37,7 @@ public class PedidoServicePortImplTest {
     @Test
     public void testCadastrarPedido() {
         PedidoEntity entity = PedidoEntityMock.getPedidoEntity();
-        PedidoDTO dto = new PedidoDTO();
+        Pedido dto = new Pedido();
         dto.getItens().add(ItemPedidoMock.getItemPedido());
 
         when(pedidoMapper.toEntity(any())).thenReturn(entity);
@@ -53,7 +53,7 @@ public class PedidoServicePortImplTest {
         PedidoEntity pedidoEntity = PedidoEntityMock.getPedidoEntity();
 
         when(pedidoRepositoryPort.listaPedidos()).thenReturn(List.of(pedidoEntity));
-        List<PedidoDTO> pedidoDTOS = service.listarPedidos();
+        List<Pedido> pedidos = service.listarPedidos();
 
         verify(pedidoRepositoryPort, times(1))
                 .listaPedidos();
@@ -65,9 +65,9 @@ public class PedidoServicePortImplTest {
     @Test
     public void whenListaPedidosEmpty_thenReturnEmptyList() {
         when(pedidoRepositoryPort.listaPedidos()).thenReturn(new ArrayList<>());
-        List<PedidoDTO> pedidoDTOS = service.listarPedidos();
+        List<Pedido> pedidos = service.listarPedidos();
 
-        assertTrue(pedidoDTOS.isEmpty());
+        assertTrue(pedidos.isEmpty());
 
     }
 

@@ -1,11 +1,11 @@
 package br.com.fiap.tech_challenge.core.domain.ports.in;
 
-import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Cliente;
 
 public interface ClienteServicePort {
-    void cadastrarCliente(ClienteDTO clienteDTO);
-    ClienteDTO buscarClientePorCPF(String cpf);
-    void atualizarCliente(ClienteDTO clienteDTO);
+    void cadastrarCliente(Cliente cliente);
+    Cliente buscarClientePorCPF(String cpf);
+    void atualizarCliente(Cliente cliente);
     boolean existeCliente(Long id);
     String excluirCliente(Long id);
 }

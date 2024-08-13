@@ -1,6 +1,6 @@
-package br.com.fiap.tech_challenge.core.domain.model;
+package br.com.fiap.tech_challenge.adapters.driver.controller.model.request;
 
-import br.com.fiap.tech_challenge.core.domain.model.enums.TipoTelefone;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.TipoTelefone;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -20,7 +20,4 @@ public class TelefoneDTO {
     @Schema(name = "numero", description = "Número de telefone", example = "912341234")
     private String numero;
 
-    public String getNumero() {
-        return numero.replace("-", "");
-    }
 }

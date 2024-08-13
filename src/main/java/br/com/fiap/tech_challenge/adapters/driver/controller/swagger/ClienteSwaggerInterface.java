@@ -1,6 +1,8 @@
 package br.com.fiap.tech_challenge.adapters.driver.controller.swagger;
 
-import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.AtualizarClienteDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarClienteDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Cliente;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -32,16 +34,15 @@ public interface ClienteSwaggerInterface {
                         value = "Ocorreu um erro inesperado na hora de cadastrar o cliente.")))
     })
     @RequestMapping(
-            value = "/",
             produces = "application/text",
             method = RequestMethod.POST)
-    ResponseEntity<String> cadastrarCliente(@RequestBody ClienteDTO clienteDTO);
+    ResponseEntity<String> cadastrarCliente(@RequestBody CadastrarClienteDTO cadastrar);
 
     @Operation(description = "Consulta cliente pelo número do documento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Cliente encontrado", content =
                 @Content(mediaType = "application/json", schema =
-                @Schema(implementation = ClienteDTO.class))),
+                @Schema(implementation = Cliente.class))),
             @ApiResponse(responseCode = "404", description = "Cliente não encontrado", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Não foi encontrado nenhum resultado para essa pesquisa.")))
@@ -49,22 +50,21 @@ public interface ClienteSwaggerInterface {
     @RequestMapping(
             value = "/{cpf}",
             method = RequestMethod.GET)
-    ResponseEntity<ClienteDTO> buscarClientePorCPF(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable String cpf);
+    ResponseEntity<Cliente> buscarClientePorCPF(@Parameter(in = ParameterIn.PATH, description = "Número do documento do cliente", required = true, schema = @Schema()) @PathVariable String cpf);
 
     @Operation(description = "Atualiza informações do cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "Cliente atualizado com sucesso", content =
                 @Content(mediaType = "application/json", schema =
-                @Schema(implementation = ClienteDTO.class))),
+                @Schema(implementation = Cliente.class))),
             @ApiResponse(responseCode = "404", description = "Não foi encontrado nenhum resultado para essa pesquisa.", content =
                 @Content(mediaType = "application/text")),
             @ApiResponse(responseCode = "500", description = "Erro ao atualizar as informações do cliente.", content =
                 @Content(mediaType = "application/text"))
     })
     @RequestMapping(
-            value = "/",
             method = RequestMethod.PUT)
-    ResponseEntity<ClienteDTO> atualizarCliente(@RequestBody ClienteDTO clienteDTO);
+    ResponseEntity<Cliente> atualizarCliente(@RequestBody AtualizarClienteDTO atualizar);
 
     @Operation(description = "Exclui as informações do cliente")
     @ApiResponses(value = {
