@@ -5,7 +5,7 @@ import br.com.fiap.tech_challenge.core.application.exception.produto.ErroAoConsu
 import br.com.fiap.tech_challenge.core.application.exception.produto.*;
 import br.com.fiap.tech_challenge.core.application.mapper.ProdutoMapper;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ProdutoRepositoryPort;
-import br.com.fiap.tech_challenge.core.domain.model.ProdutoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
 import br.com.fiap.tech_challenge.core.domain.ports.in.ProdutoServicePort;
 import lombok.AllArgsConstructor;
@@ -26,9 +26,9 @@ public class ProdutoServicePortImpl implements ProdutoServicePort {
     private final ProdutoMapper produtoMapper;
 
     @Override
-    public void cadastrarProduto(ProdutoDTO produtoDTO) {
+    public void cadastrarProduto(Produto produto) {
         try {
-            ProdutoEntity produtoEntity = produtoMapper.toEntity(produtoDTO);
+            ProdutoEntity produtoEntity = produtoMapper.toEntity(produto);
             produtoRepositoryPort.save(produtoEntity);
         } catch (Exception e) {
             log.error("Erro ao cadastrar produto", e);
@@ -37,7 +37,7 @@ public class ProdutoServicePortImpl implements ProdutoServicePort {
     }
 
     @Override
-    public List<ProdutoDTO> buscarProdutosPorCategoria(CategoriaProduto categoriaProduto) {
+    public List<Produto> buscarProdutosPorCategoria(CategoriaProduto categoriaProduto) {
         try {
             List<ProdutoEntity> produtoEntities = produtoRepositoryPort.findProdutosByCategoria(categoriaProduto);
             if (produtoEntities.isEmpty()) {
@@ -55,14 +55,14 @@ public class ProdutoServicePortImpl implements ProdutoServicePort {
     }
 
     @Override
-    public void atualizarProduto(ProdutoDTO produtoDTO) {
-        if (produtoRepositoryPort.findById(produtoDTO.getProdutoId()).isEmpty()) {
-            log.warn("Produto com ID {} não encontrado", produtoDTO.getProdutoId());
+    public void atualizarProduto(Produto produto) {
+        if (produtoRepositoryPort.findById(produto.getProdutoId()).isEmpty()) {
+            log.warn("Produto com ID {} não encontrado", produto.getProdutoId());
             throw new ProdutoNaoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
         }
 
         try {
-            ProdutoEntity produtoEntity = produtoMapper.toEntity(produtoDTO);
+            ProdutoEntity produtoEntity = produtoMapper.toEntity(produto);
             produtoRepositoryPort.save(produtoEntity);
         } catch (Exception e) {
             log.error("Erro ao atualizar produto", e);

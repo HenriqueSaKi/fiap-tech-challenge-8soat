@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.core.application.mapper;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ProdutoEntity;
-import br.com.fiap.tech_challenge.core.domain.model.ProdutoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
@@ -15,10 +15,10 @@ public interface ProdutoMapper {
 
     @Mapping(source = "entity.produtoId", target = "produtoId")
     @Mapping(source = "entity.categoriaProduto", target = "categoria")
-    ProdutoDTO toDTO(ProdutoEntity entity);
+    Produto toDTO(ProdutoEntity entity);
 
-    @Mapping(source = "produtoDTO.produtoId", target = "produtoId")
-    @Mapping(source = "produtoDTO.categoria", target = "categoriaProduto")
-    ProdutoEntity toEntity(ProdutoDTO produtoDTO);
+    @Mapping(source = "produto.produtoId", target = "produtoId")
+    @Mapping(source = "produto.categoria", target = "categoriaProduto")
+    ProdutoEntity toEntity(Produto produto);
 
 }

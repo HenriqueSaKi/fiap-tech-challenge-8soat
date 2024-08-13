@@ -1,18 +1,17 @@
 package br.com.fiap.tech_challenge.core.domain.ports.in;
 
-import br.com.fiap.tech_challenge.core.domain.model.ProdutoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProdutoServicePort {
 
-    void cadastrarProduto(ProdutoDTO produtoDTO);
+    void cadastrarProduto(Produto produto);
 
-    List<ProdutoDTO> buscarProdutosPorCategoria(CategoriaProduto categoriaProduto);
+    List<Produto> buscarProdutosPorCategoria(CategoriaProduto categoriaProduto);
 
-    void atualizarProduto(ProdutoDTO produtoDTO);
+    void atualizarProduto(Produto produto);
 
     void excluirProduto(Long produtoId);
 }

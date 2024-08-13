@@ -8,7 +8,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class ProdutoDTO {
+public class Produto {
 
     @Schema(name = "produtoId", description = "Número de identificação do produto", example = "1L")
     private Long produtoId;

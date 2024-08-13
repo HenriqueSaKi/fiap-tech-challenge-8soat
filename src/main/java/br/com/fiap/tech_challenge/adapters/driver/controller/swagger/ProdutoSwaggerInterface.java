@@ -1,6 +1,7 @@
 package br.com.fiap.tech_challenge.adapters.driver.controller.swagger;
 
-import br.com.fiap.tech_challenge.core.domain.model.ProdutoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.AtualizarProdutoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarProdutoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,9 +34,8 @@ public interface ProdutoSwaggerInterface {
                 @ExampleObject(value = "Ocorreu um erro inesperado ao cadastrar o produto.")))
     })
     @RequestMapping(
-            value = "/",
             method = RequestMethod.POST)
-    ResponseEntity<String> cadastrarProduto(@RequestBody ProdutoDTO produtoDTO);
+    ResponseEntity<String> cadastrarProduto(@RequestBody CadastrarProdutoDTO cadastrar);
 
     @Operation(description = "Lista todos os produtos de determinada categoria.")
     @ApiResponses(value = {
@@ -67,9 +67,8 @@ public interface ProdutoSwaggerInterface {
                 @ExampleObject(value = "Ocorreu um erro inesperado ao atualizar esse produto.")))
     })
     @RequestMapping(
-            value = "/",
             method = RequestMethod.PUT)
-    ResponseEntity<String> atualizaInformacoesProduto(@RequestBody ProdutoDTO produtoDTO);
+    ResponseEntity<String> atualizaInformacoesProduto(@RequestBody AtualizarProdutoDTO atualizar);
 
     @Operation(description = "Exclui determinado produto pelo número id.")
     @ApiResponses(value = {
@@ -87,6 +86,5 @@ public interface ProdutoSwaggerInterface {
             value = "/id/{id}",
             method = RequestMethod.DELETE)
     ResponseEntity<String> excluirProduto(@PathVariable Long id);
-
 
 }
