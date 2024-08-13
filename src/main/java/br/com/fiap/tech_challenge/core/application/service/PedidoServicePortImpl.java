@@ -9,8 +9,7 @@ import br.com.fiap.tech_challenge.core.application.exception.produto.NenhumProdu
 import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
 import br.com.fiap.tech_challenge.core.application.ports.repository.PedidoRepositoryPort;
 import br.com.fiap.tech_challenge.core.application.ports.repository.ProdutoRepositoryPort;
-import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +42,10 @@ public class PedidoServicePortImpl implements PedidoServicePort {
   }
 
   @Override
-  public void cadastrarPedido(PedidoDTO pedidoDTO) {
+  public void cadastrarPedido(Pedido pedido) {
     PedidoEntity entity = new PedidoEntity();
     try {
-      pedidoDTO.getItens().forEach(item -> {
+      pedido.getItens().forEach(item -> {
         if (produtoRepositoryPort.findById(item.getIdProduto()).isEmpty()) {
           throw new NenhumProdutoEncontradoException(
               ERRO_AO_CONSULTAR_PRODUTO_POR_ID_EXCEPTION +
@@ -76,19 +75,19 @@ public class PedidoServicePortImpl implements PedidoServicePort {
   }
 
   @Override
-  public List<PedidoDTO> listarPedidos() {
+  public List<Pedido> listarPedidos() {
     List<PedidoEntity> pedidoEntity = pedidoRepositoryPort.listaPedidos();
     if (pedidoEntity.isEmpty()) {
       throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
     }
 
-    List<PedidoDTO> pedidoDTOS = new ArrayList<>();
+    List<Pedido> pedidos = new ArrayList<>();
     pedidoEntity.forEach(entity -> {
-      PedidoDTO pedidoDTO = pedidoMapper.toDTO(entity);
-      pedidoDTOS.add(pedidoDTO);
+      Pedido pedido = pedidoMapper.toDTO(entity);
+      pedidos.add(pedido);
     });
 
-    return pedidoDTOS;
+    return pedidos;
   }
 
   private ItemPedidoEntity buildItemPedidoEntity(ProdutoEntity produtoEntity, int quantidade) {

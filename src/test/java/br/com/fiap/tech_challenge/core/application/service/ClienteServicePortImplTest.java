@@ -1,9 +1,9 @@
 package br.com.fiap.tech_challenge.core.application.service;
 
 import br.com.fiap.tech_challenge.core.application.mapper.ClienteMapper;
-import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
-import br.com.fiap.tech_challenge.core.domain.model.EnderecoDTO;
-import br.com.fiap.tech_challenge.core.domain.model.TelefoneDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Cliente;
+import br.com.fiap.tech_challenge.core.domain.model.Endereco;
+import br.com.fiap.tech_challenge.core.domain.model.Telefone;
 import br.com.fiap.tech_challenge.core.domain.mock.ClienteMock;
 import br.com.fiap.tech_challenge.core.domain.mock.EnderecoMock;
 import br.com.fiap.tech_challenge.core.domain.mock.TelefoneMock;
@@ -42,13 +42,13 @@ public class ClienteServicePortImplTest {
 
     @Test
     public void testCadastrarCliente() {
-        ClienteDTO clienteDTO = ClienteMock.getCliente();
-        TelefoneDTO telefoneDTO = TelefoneMock.getTelefone();
-        EnderecoDTO enderecoDTO = EnderecoMock.getEndereco();
-        clienteDTO.setTelefoneDTOS(List.of(telefoneDTO));
-        clienteDTO.setEnderecoDTOS(List.of(enderecoDTO));
+        Cliente cliente = ClienteMock.getCliente();
+        Telefone telefone = TelefoneMock.getTelefone();
+        Endereco endereco = EnderecoMock.getEndereco();
+        cliente.setTelefones(List.of(telefone));
+        cliente.setEnderecos(List.of(endereco));
 
-        service.cadastrarCliente(clienteDTO);
+        service.cadastrarCliente(cliente);
         verify(repositoryPort, times(1))
                 .save(any());
 
@@ -60,11 +60,11 @@ public class ClienteServicePortImplTest {
 
         when(repositoryPort.buscarPorCpf(any()))
                 .thenReturn(Optional.of(clienteEntity));
-        when(clienteMapper.toDTO(any())).thenReturn(new ClienteDTO());
+        when(clienteMapper.toDTO(any())).thenReturn(new Cliente());
         var cliente = service.buscarClientePorCPF(clienteEntity.getCpf());
 
         assertNotNull(cliente);
-        assertInstanceOf(ClienteDTO.class, cliente);
+        assertInstanceOf(Cliente.class, cliente);
 
     }
 
@@ -86,15 +86,15 @@ public class ClienteServicePortImplTest {
         clienteEntity.setTelefones(List.of(telefoneEntity));
         clienteEntity.setEnderecos(List.of(enderecoEntity));
 
-        ClienteDTO clienteDTO = ClienteMock.getCliente();
-        TelefoneDTO telefoneDTO = TelefoneMock.getTelefone();
-        EnderecoDTO enderecoDTO = EnderecoMock.getEndereco();
-        clienteDTO.setTelefoneDTOS(List.of(telefoneDTO));
-        clienteDTO.setEnderecoDTOS(List.of(enderecoDTO));
+        Cliente cliente = ClienteMock.getCliente();
+        Telefone telefone = TelefoneMock.getTelefone();
+        Endereco endereco = EnderecoMock.getEndereco();
+        cliente.setTelefones(List.of(telefone));
+        cliente.setEnderecos(List.of(endereco));
 
         when(repositoryPort.findById(any()))
                 .thenReturn(Optional.of(clienteEntity));
-        service.atualizarCliente(clienteDTO);
+        service.atualizarCliente(cliente);
 
         verify(repositoryPort, times(1))
                 .findById(any());
@@ -105,14 +105,14 @@ public class ClienteServicePortImplTest {
 
     @Test
     public void testAtualizarCliente_whenClienteEntityIsNotPresent() {
-        ClienteDTO clienteDTO = ClienteMock.getCliente();
-        TelefoneDTO telefoneDTO = TelefoneMock.getTelefone();
-        EnderecoDTO enderecoDTO = EnderecoMock.getEndereco();
-        clienteDTO.setTelefoneDTOS(List.of(telefoneDTO));
-        clienteDTO.setEnderecoDTOS(List.of(enderecoDTO));
+        Cliente cliente = ClienteMock.getCliente();
+        Telefone telefone = TelefoneMock.getTelefone();
+        Endereco endereco = EnderecoMock.getEndereco();
+        cliente.setTelefones(List.of(telefone));
+        cliente.setEnderecos(List.of(endereco));
 
         when(repositoryPort.findById(any())).thenReturn(Optional.empty());
-        service.atualizarCliente(clienteDTO);
+        service.atualizarCliente(cliente);
 
         verify(repositoryPort, times(1))
                 .findById(any());

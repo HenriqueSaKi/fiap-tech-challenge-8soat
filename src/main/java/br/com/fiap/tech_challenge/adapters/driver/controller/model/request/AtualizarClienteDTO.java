@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.core.domain.model;
+package br.com.fiap.tech_challenge.adapters.driver.controller.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ClienteDTO {
+public class AtualizarClienteDTO {
 
     @Schema(name = "id", description = "Número de identificação do cliente", example = "1L")
     private Long id;
@@ -24,13 +24,10 @@ public class ClienteDTO {
     @Schema(name = "email", description = "E-mail", example = "teste@exemplo.com")
     private String email;
 
-    @Schema(name = "telefoneDTOS", description = "Números de telefone")
-    private List<TelefoneDTO> telefoneDTOS;
+    @Schema(name = "telefones", description = "Números de telefone")
+    private List<TelefoneDTO> telefones;
 
-    @Schema(name = "enderecoDTOS", description = "Endereços do cliente")
-    private List<EnderecoDTO> enderecoDTOS;
+    @Schema(name = "enderecos", description = "Endereços do cliente")
+    private List<EnderecoDTO> enderecos;
 
-    public String getCpf() {
-        return cpf.replaceAll("[./-]", "");
-    }
 }

@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.core.domain.model;
+package br.com.fiap.tech_challenge.adapters.driver.controller.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,10 +27,7 @@ public class EnderecoDTO {
     private String cidade;
 
     @JsonProperty(required = true)
-    @Schema(name = "estado", description = "Estado", examples = "SP")
+    @Schema(name = "estado", description = "Estado", example = "SP")
     private String estado;
 
-    public String getCep() {
-        return cep.replace("-", "");
-    }
 }

@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.adapters.driver.controller.swagger;
 
-import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
-import br.com.fiap.tech_challenge.core.domain.model.PedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidosResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -27,15 +27,14 @@ public interface PedidoSwaggerInterface {
                 @ExampleObject(value = "Ocorreu um erro inesperado ao cadastrar o pedido.")))
     })
     @RequestMapping(
-            value = "/",
             method = RequestMethod.POST)
-    ResponseEntity<String> cadastrarPedido(@RequestBody PedidoDTO pedidoDTO);
+    ResponseEntity<String> cadastrarPedido(@RequestBody CadastrarPedidoDTO cadastrar);
 
     @Operation(description = "Lista todos os pedidos em andamento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista pedidos", content =
                 @Content(mediaType = "application/json", schema =
-                @Schema(implementation = ClienteDTO.class))),
+                @Schema(implementation = PedidosResponseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Nenhum pedido foi encontrado", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Nenhum pedido foi encontrado")))

@@ -1,18 +1,18 @@
 package br.com.fiap.tech_challenge.core.domain.mock;
 
-import br.com.fiap.tech_challenge.core.domain.model.ItemPedidoDTO;
+import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
 
 import java.math.BigDecimal;
 
 public class ItemPedidoMock {
 
-    public static ItemPedidoDTO getItemPedido() {
-        ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
-        itemPedidoDTO.setDescricao("Item Teste");
-        itemPedidoDTO.setQuantidade(2);
-        itemPedidoDTO.setValorUnitario(new BigDecimal("12.34"));
+    public static ItemPedido getItemPedido() {
+        ItemPedido itemPedido = new ItemPedido();
+        itemPedido.setDescricao("Item Teste");
+        itemPedido.setQuantidade(2);
+        itemPedido.setValorUnitario(new BigDecimal("12.34"));
 
-        return itemPedidoDTO;
+        return itemPedido;
 
     }
 

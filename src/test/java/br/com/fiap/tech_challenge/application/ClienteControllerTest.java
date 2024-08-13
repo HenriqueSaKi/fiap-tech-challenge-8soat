@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.application;
 
 import br.com.fiap.tech_challenge.adapters.driver.controller.ClienteController;
-import br.com.fiap.tech_challenge.core.domain.model.ClienteDTO;
+import br.com.fiap.tech_challenge.core.domain.model.Cliente;
 import br.com.fiap.tech_challenge.core.domain.ports.in.ClienteServicePort;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,26 +45,26 @@ public class ClienteControllerTest {
 
     @Test
     public void testCadastrarCliente() throws Exception {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setCpf("12345678910");
-        clienteDTO.setNomeCompleto("Teste Teste");
-        clienteDTO.setEmail("teste@exemplo.com.br");
+        Cliente cliente = new Cliente();
+        cliente.setCpf("12345678910");
+        cliente.setNomeCompleto("Teste Teste");
+        cliente.setEmail("teste@exemplo.com.br");
 
         mockMvc.perform(
                         post("/cliente/")
                                 .contentType("application/json")
-                                .content(new Gson().toJson(clienteDTO)))
+                                .content(new Gson().toJson(cliente)))
                 .andExpect(status().isCreated());
 
     }
 
     @Test
     public void testBuscarClientePorCpfSuccess() throws Exception {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setCpf("12345678910");
+        Cliente cliente = new Cliente();
+        cliente.setCpf("12345678910");
 
 
-        when(service.buscarClientePorCPF(any())).thenReturn(clienteDTO);
+        when(service.buscarClientePorCPF(any())).thenReturn(cliente);
         mockMvc.perform(get("/cliente/{cpf}", "12345678910"))
                 .andExpect(status().isOk());
 
@@ -80,16 +80,16 @@ public class ClienteControllerTest {
 
     @Test
     public void testAtualizarCliente() throws Exception {
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setId(1L);
-        clienteDTO.setCpf("12345678910");
-        clienteDTO.setNomeCompleto("Teste Atualizar");
-        clienteDTO.setEmail("teste@exemplo.com.br");
+        Cliente cliente = new Cliente();
+        cliente.setId(1L);
+        cliente.setCpf("12345678910");
+        cliente.setNomeCompleto("Teste Atualizar");
+        cliente.setEmail("teste@exemplo.com.br");
 
         mockMvc.perform(
                         put("/cliente/")
                                 .contentType("application/json")
-                                .content(new Gson().toJson(clienteDTO)))
+                                .content(new Gson().toJson(cliente)))
                 .andExpect(status().isAccepted());
 
     }
