@@ -1,4 +1,4 @@
-package br.com.fiap.tech_challenge.application;
+package br.com.fiap.tech_challenge.adapters.driver.controller;
 
 import br.com.fiap.tech_challenge.adapters.driver.controller.PedidoController;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
