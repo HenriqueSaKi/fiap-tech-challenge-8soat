@@ -49,6 +49,9 @@ public class ProdutoServicePortImpl implements ProdutoServicePort {
                 .map(produtoMapper::toDTO)
                 .collect(Collectors.toList());
         }
+        catch (NenhumProdutoEncontradoException e) {
+            throw e;
+        }
         catch (Exception e) {
             throw new ErroAoConsultarProdutosPorCategoriaException(ERRO_AO_CONSULTAR_POR_CATEGORIA_EXCEPTION);
         }
