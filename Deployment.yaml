@@ -1,0 +1,26 @@
+# Define como a aplicação Java (app-lanchonete) será gerenciada e escalada no cluster. Lida com atualizações e rollbacks, e reinmplata aplicação quando falhar
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-lanchonete-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-lanchonete
+  template:
+    metadata:
+      labels:
+        app: app-lanchonete
+    spec:
+      containers:
+        - name: app-lanchonete
+          image: tech-challenge-1:latest
+          envFrom:
+            - configMapRef:
+                name: lanchonete-config
+            - secretRef:
+                name: lanchonete-secret
+          ports:
+            - containerPort: 8080
+          command: ["sh", "-c", "./wait-for-it.sh bd_lanchonete:3306 -t 0 -- ./run-project.sh"]
