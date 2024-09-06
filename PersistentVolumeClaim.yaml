@@ -1,4 +1,5 @@
-# Os pods utilizam-no para acessar o armazenamento persistente especificado, o que é usado pelo MySQL para armazenar dados de forma persistente.
+# Os pods utilizam-no para acessar o armazenamento persistente especificado,
+# o que é usado pelo MySQL para armazenar dados de forma persistente.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

@@ -5,6 +5,7 @@ kind: Service
 metadata:
   name: bd-lanchonete-service
 spec:
+  type: ClusterIP
   selector:
     app: bd-lanchonete
   ports:

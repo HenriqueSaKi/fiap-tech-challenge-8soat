@@ -1,4 +1,5 @@
-# Define como a aplicação Java (app-lanchonete) será gerenciada e escalada no cluster. Lida com atualizações e rollbacks, e reinmplata aplicação quando falhar
+# Define como a aplicação Java (app-lanchonete) será gerenciada e escalada no cluster.
+# Lida com atualizações e rollbacks, e reinmplata aplicação quando falhar
 apiVersion: apps/v1
 kind: Deployment
 metadata:

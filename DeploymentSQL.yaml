@@ -1,4 +1,5 @@
-# Define como o banco de dados (bd-lanchonete) será gerenciado e escalado no cluster. Garante sua disponibilidade podendo escalar conforme necessário
+# Define como o banco de dados (bd-lanchonete) será gerenciado e escalado no cluster.
+# Garante sua disponibilidade podendo escalar conforme necessário
 apiVersion: apps/v1
 kind: Deployment
 metadata:
