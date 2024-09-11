@@ -14,7 +14,7 @@ public class PedidoEntityMock {
         entity.setItensPedido(List.of(
                 ItemPedidoEntityMock.getItemPedidoEntity()
         ));
-        entity.setSituacao(SituacaoPedido.PAGO);
+        entity.setSituacao(SituacaoPedido.PAGAMENTO_RECEBIDO);
 
         return entity;
     }

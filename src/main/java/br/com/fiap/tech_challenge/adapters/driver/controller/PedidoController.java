@@ -3,6 +3,7 @@ package br.com.fiap.tech_challenge.adapters.driver.controller;
 import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.PedidoDTOMapper;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidosResponseDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.swagger.PedidoSwaggerInterface;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
@@ -41,6 +42,12 @@ public class PedidoController implements PedidoSwaggerInterface {
         List<Pedido> pedidos = service.listarPedidos();
         pedidoDTOS.setPedidos(pedidoDTOMapper.pedidosToPedidosResponseDTO(pedidos));
         return new ResponseEntity<>(pedidoDTOS, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Object> statusPedido(Long id) {
+        StatusPedidoReponseDTO statusPedido = service.consultaStatusPedido(id);
+        return new ResponseEntity<>(statusPedido, HttpStatus.OK);
     }
 
 }

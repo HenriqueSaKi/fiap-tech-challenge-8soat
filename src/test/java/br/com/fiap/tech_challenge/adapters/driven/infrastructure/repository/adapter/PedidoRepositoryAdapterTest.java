@@ -33,7 +33,7 @@ public class PedidoRepositoryAdapterTest {
     @Test
     public void testBuscarPorCpf() {
         adapter.listaPedidos();
-        verify(repository, times(1)).findAll();
+        verify(repository, times(1)).findAllWithActiveStatus();
     }
 
 }

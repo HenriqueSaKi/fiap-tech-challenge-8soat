@@ -1,12 +1,10 @@
 package br.com.fiap.tech_challenge.adapters.driver.controller.mapper;
 
-import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.ItemPedidoResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidoResponseDTO;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
-import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import org.mapstruct.*;
 import org.springframework.beans.BeanUtils;
 

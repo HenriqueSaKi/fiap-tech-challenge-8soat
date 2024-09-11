@@ -3,6 +3,8 @@ package br.com.fiap.tech_challenge.core.application.service;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ItemPedidoEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ProdutoEntity;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import br.com.fiap.tech_challenge.core.application.exception.pedido.ErroAoCadastrarPedidoException;
 import br.com.fiap.tech_challenge.core.application.exception.pedido.NenhumPedidoEncontradoException;
 import br.com.fiap.tech_challenge.core.application.exception.produto.NenhumProdutoEncontradoException;
@@ -62,7 +64,7 @@ public class PedidoServicePortImpl implements PedidoServicePort {
       });
 
       // Valor mockado por conta do FAKE CHECKOUT
-      entity.setSituacao(SituacaoPedido.PAGO);
+      entity.setSituacao(SituacaoPedido.PAGAMENTO_RECEBIDO);
       entity.setDataPedido(new Date());
       entity.setValorTotalPedido(getValorTotalPedido(entity.getItensPedido()));
 
@@ -88,6 +90,20 @@ public class PedidoServicePortImpl implements PedidoServicePort {
     });
 
     return pedidos;
+  }
+
+  @Override
+  public StatusPedidoReponseDTO consultaStatusPedido(Long id) {
+    Optional<PedidoEntity> pedidoEntity = pedidoRepositoryPort.consultaStatusPedidoPorId(id);
+    if(pedidoEntity.isPresent()) {
+        SituacaoPedido situacaoPedido = pedidoEntity.stream().findFirst().get().getSituacao();
+        SituacaoPedidoDTO situacaoPedidoDTO = SituacaoPedidoDTO.valueOf(situacaoPedido.name());
+        StatusPedidoReponseDTO responseDTO = new StatusPedidoReponseDTO();
+        responseDTO.setSituacaoPedidoDTO(situacaoPedidoDTO);
+        return responseDTO;
+    }
+    throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
+
   }
 
   private ItemPedidoEntity buildItemPedidoEntity(ProdutoEntity produtoEntity, int quantidade) {
