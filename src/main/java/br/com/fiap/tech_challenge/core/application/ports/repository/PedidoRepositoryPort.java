@@ -1,7 +1,6 @@
 package br.com.fiap.tech_challenge.core.application.ports.repository;
 
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
-import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.PedidoEntity;
 
 import java.util.List;
 import java.util.Optional;

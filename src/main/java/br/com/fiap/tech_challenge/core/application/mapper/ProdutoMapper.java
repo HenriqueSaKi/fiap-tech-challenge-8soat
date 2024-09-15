@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.core.application.mapper;
 
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ProdutoEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ProdutoEntity;
 import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

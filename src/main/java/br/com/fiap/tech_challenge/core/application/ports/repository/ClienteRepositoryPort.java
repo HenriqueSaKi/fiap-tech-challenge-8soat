@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.core.application.ports.repository;
 
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ClienteEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ClienteEntity;
 
 import java.util.Optional;
 

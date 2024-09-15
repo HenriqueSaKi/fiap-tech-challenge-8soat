@@ -7,7 +7,7 @@ import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.Cadas
 import br.com.fiap.tech_challenge.adapters.driver.controller.swagger.ProdutoSwaggerInterface;
 import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
-import br.com.fiap.tech_challenge.core.domain.ports.in.ProdutoServicePort;
+import br.com.fiap.tech_challenge.core.application.usecase.ProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,38 +20,38 @@ import java.util.List;
 @RequestMapping("/produtos")
 public class ProdutoController implements ProdutoSwaggerInterface {
 
-    private final ProdutoServicePort produtoServicePort;
+    private final ProdutoUseCase produtoUseCase;
     private final ProdutoDTOMapper produtoDTOMapper;
 
     @Autowired
-    public ProdutoController(ProdutoServicePort service, ProdutoDTOMapper produtoDTOMapper) {
-        this.produtoServicePort = service;
+    public ProdutoController(ProdutoUseCase service, ProdutoDTOMapper produtoDTOMapper) {
+        this.produtoUseCase = service;
         this.produtoDTOMapper = produtoDTOMapper;
     }
 
     @Override
     public ResponseEntity<String> cadastrarProduto(CadastrarProdutoDTO cadastrar) {
         Produto produto = produtoDTOMapper.cadastrarToProdutoDTO(cadastrar);
-        produtoServicePort.cadastrarProduto(produto);
+        produtoUseCase.cadastrarProduto(produto);
         return new ResponseEntity<>("Produto cadastrado com sucesso!", HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Object> consultaPorCategoria(CategoriaProduto categoriaProduto) {
-        List<Produto> produtosPorCategoria = produtoServicePort.buscarProdutosPorCategoria(categoriaProduto);
+        List<Produto> produtosPorCategoria = produtoUseCase.buscarProdutosPorCategoria(categoriaProduto);
         return new ResponseEntity<>(produtosPorCategoria, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<String> atualizaInformacoesProduto(AtualizarProdutoDTO atualizar) {
         Produto produto = produtoDTOMapper.atualizarToProdutoDTO(atualizar);
-        produtoServicePort.atualizarProduto(produto);
+        produtoUseCase.atualizarProduto(produto);
         return new ResponseEntity<>("Produto atualizado com sucesso!", HttpStatus.ACCEPTED);
     }
 
     @Override
     public ResponseEntity<String> excluirProduto(Long id) {
-        produtoServicePort.excluirProduto(id);
+        produtoUseCase.excluirProduto(id);
         return new ResponseEntity<>("Produto excluido com sucesso!", HttpStatus.OK);
     }
 }

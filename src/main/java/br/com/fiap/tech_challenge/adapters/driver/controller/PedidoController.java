@@ -6,7 +6,7 @@ import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.Pedi
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.swagger.PedidoSwaggerInterface;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
-import br.com.fiap.tech_challenge.core.domain.ports.in.PedidoServicePort;
+import br.com.fiap.tech_challenge.core.application.usecase.PedidoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +19,19 @@ import java.util.List;
 @RequestMapping("/pedido")
 public class PedidoController implements PedidoSwaggerInterface {
 
-    private final PedidoServicePort service;
+    private final PedidoUseCase pedidoUseCase;
     private final PedidoDTOMapper pedidoDTOMapper;
 
     @Autowired
-    public PedidoController(PedidoServicePort service, PedidoDTOMapper pedidoDTOMapper) {
-        this.service = service;
+    public PedidoController(PedidoUseCase pedidoUseCase, PedidoDTOMapper pedidoDTOMapper) {
+        this.pedidoUseCase = pedidoUseCase;
         this.pedidoDTOMapper = pedidoDTOMapper;
     }
 
     @Override
     public ResponseEntity<String> cadastrarPedido(CadastrarPedidoDTO cadastrar) {
         Pedido pedido = pedidoDTOMapper.cadastrarToPedido(cadastrar);
-        service.cadastrarPedido(pedido);
+        pedidoUseCase.cadastrarPedido(pedido);
         return new ResponseEntity<>("Pedido cadastrado com sucesso",
                 HttpStatus.CREATED);
     }
@@ -39,14 +39,14 @@ public class PedidoController implements PedidoSwaggerInterface {
     @Override
     public ResponseEntity<Object> listarPedidos() {
         PedidosResponseDTO pedidoDTOS = new PedidosResponseDTO();
-        List<Pedido> pedidos = service.listarPedidos();
+        List<Pedido> pedidos = pedidoUseCase.listarPedidos();
         pedidoDTOS.setPedidos(pedidoDTOMapper.pedidosToPedidosResponseDTO(pedidos));
         return new ResponseEntity<>(pedidoDTOS, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Object> statusPedido(Long id) {
-        StatusPedidoReponseDTO statusPedido = service.consultaStatusPedido(id);
+        StatusPedidoReponseDTO statusPedido = pedidoUseCase.consultaStatusPedido(id);
         return new ResponseEntity<>(statusPedido, HttpStatus.OK);
     }
 

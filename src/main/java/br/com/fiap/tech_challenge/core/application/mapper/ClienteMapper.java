@@ -1,8 +1,8 @@
 package br.com.fiap.tech_challenge.core.application.mapper;
 
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ClienteEntity;
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.EnderecoEntity;
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.TelefoneEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ClienteEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.EnderecoEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.TelefoneEntity;
 import br.com.fiap.tech_challenge.core.domain.model.Cliente;
 import br.com.fiap.tech_challenge.core.domain.model.Endereco;
 import br.com.fiap.tech_challenge.core.domain.model.Telefone;
@@ -20,11 +20,11 @@ public interface ClienteMapper {
 
     @Mapping(source = "entity.telefones", target = "telefones", qualifiedByName = "telefoneEntityToTelefone")
     @Mapping(source = "entity.enderecos", target = "enderecos", qualifiedByName = "enderecoEntityToEndereco")
-    Cliente toDTO(ClienteEntity entity);
+    Cliente toCliente(ClienteEntity entity);
 
     @Mapping(source = "cliente.telefones", target = "telefones", qualifiedByName = "telefoneToTelefoneEntity")
     @Mapping(source = "cliente.enderecos", target = "enderecos", qualifiedByName = "enderecoToEnderecoEntity")
-    ClienteEntity toEntity(Cliente cliente);
+    ClienteEntity toClienteEntity(Cliente cliente);
 
     @Named("telefoneEntityToTelefone")
     default List<Telefone> telefoneEntityToTelefoneDto(List<TelefoneEntity> telefoneEntities) {

@@ -1,7 +1,7 @@
 package br.com.fiap.tech_challenge.core.application.mapper;
 
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.ItemPedidoEntity;
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.entity.PedidoEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ItemPedidoEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.PedidoEntity;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import org.mapstruct.*;
