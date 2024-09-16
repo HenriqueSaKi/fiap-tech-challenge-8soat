@@ -1,6 +1,5 @@
 package br.com.fiap.tech_challenge.adapters.driven.infrastructure.gateway;
 
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.ClienteRepository;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.PedidoRepository;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ClienteEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.PedidoEntity;

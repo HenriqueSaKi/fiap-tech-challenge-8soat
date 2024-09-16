@@ -64,6 +64,7 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
 
         item.setDescricao(produto.getDescricao());
         item.setValorUnitario(produto.getPreco());
+        item.setValorTotalPedido(getValorTotalItem(item));
       });
 
       // Valor mockado por conta do FAKE CHECKOUT
@@ -104,15 +105,8 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
 
   }
 
-  private ItemPedidoEntity buildItemPedidoEntity(ProdutoEntity produtoEntity, int quantidade) {
-    return ItemPedidoEntity.builder()
-        .nome(produtoEntity.getNome())
-        .descricao(produtoEntity.getDescricao())
-        .valorUnitario(produtoEntity.getPreco())
-        .quantidade(quantidade)
-        .valorTotalPedido(produtoEntity.getPreco()
-            .multiply(BigDecimal.valueOf(quantidade)))
-        .build();
+  private BigDecimal getValorTotalItem(ItemPedido item) {
+    return item.getValorUnitario().multiply(BigDecimal.valueOf(item.getQuantidade()));
   }
 
   public BigDecimal getValorTotalPedido(List<ItemPedido> itensPedido) {
