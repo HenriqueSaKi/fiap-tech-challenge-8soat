@@ -31,8 +31,8 @@ public class PedidoController implements PedidoSwaggerInterface {
     @Override
     public ResponseEntity<String> cadastrarPedido(CadastrarPedidoDTO cadastrar) {
         Pedido pedido = pedidoDTOMapper.cadastrarToPedido(cadastrar);
-        pedidoUseCase.cadastrarPedido(pedido);
-        return new ResponseEntity<>("Pedido cadastrado com sucesso",
+        Long id = pedidoUseCase.cadastrarPedido(pedido);
+        return new ResponseEntity<>("Pedido cadastrado com sucesso. Código: " + id,
                 HttpStatus.CREATED);
     }
 

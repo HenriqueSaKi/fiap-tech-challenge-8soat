@@ -27,7 +27,7 @@ public class PedidoEntity {
     @Column(name = "situacao", nullable = false)
     private SituacaoPedido situacao;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "pedido_id")
     private List<ItemPedidoEntity> itensPedido = new ArrayList<>();
 

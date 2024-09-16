@@ -23,7 +23,7 @@ public interface PedidoSwaggerInterface {
 
     @Operation(description = "Realiza o cadastro do pedido do cliente")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Pedido cadastrado com sucesso!", content =
+            @ApiResponse(responseCode = "201", description = "Pedido cadastrado com sucesso. Código: 1", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Pedido cadastrado com sucesso!"))),
             @ApiResponse(responseCode = "500", description = "Erro ao cadastrar pedido", content =

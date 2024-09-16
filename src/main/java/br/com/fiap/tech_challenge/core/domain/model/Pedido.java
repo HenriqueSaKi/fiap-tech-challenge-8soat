@@ -12,6 +12,7 @@ import java.util.List;
 public class Pedido {
 
     private String id;
+    private Long clientId;
     private Date dataPedido;
     private BigDecimal valorTotalPedido;
     private SituacaoPedido situacaoPedido;
