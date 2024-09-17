@@ -1,0 +1,14 @@
+# Expoe o BD dentro do Cluster para que o app se conecte a ele. Ele cria um endpoint estável para o banco de dados,
+# permitindo que o app se conecte ao MySQL usando um endereço fixo (bd-lanchonete-service).
+apiVersion: v1
+kind: Service
+metadata:
+  name: bd-lanchonete-service
+spec:
+  type: ClusterIP
+  selector:
+    app: bd-lanchonete
+  ports:
+    - protocol: TCP
+      port: 3306
+      # targetPort: 3306

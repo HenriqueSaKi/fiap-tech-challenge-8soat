@@ -1,0 +1,34 @@
+# Define como o banco de dados (bd-lanchonete) será gerenciado e escalado no cluster.
+# Garante sua disponibilidade podendo escalar conforme necessário
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bd-lanchonete-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bd-lanchonete
+  template:
+    metadata:
+      labels:
+        app: bd-lanchonete
+    spec:
+      containers:
+        - name: bd-lanchonete
+          image: mysql:8.4.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lanchonete-secret
+                  key: DATASOURCE_PASSWORD
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-storage
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: pvc-lanchonete

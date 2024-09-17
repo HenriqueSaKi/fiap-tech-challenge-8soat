@@ -1,0 +1,13 @@
+# variáveis aqui são injetadas na sua aplicação para configurar o acesso ao banco de dados
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lanchonete-config
+data:
+  # URL de conexão ao banco de dados jdbc:mysql://bd_lanchonete:3306/lanchonete
+  DATASOURCE_URL: ${DATASOURCE_URL}
+  # Classe do JDBC "com.mysql.cj.jdbc.Driver" é a classe padrão do MYSQL
+  DATASOURCE_DRIVER_CLASS_NAME: ${DATASOURCE_DRIVER_CLASS_NAME}
+  # dialeto do SQL que o framework usará para consultas SQL ao banco.... admito que me perdi um pouco aqui, mas to seguindo a internet kkkk
+  # org.hibernate.dialect.MySQLDialect é o dialeto Hibernate para o MySQL
+  JPA_DIALECT: ${JPA_DIALECT}
