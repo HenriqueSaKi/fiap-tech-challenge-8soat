@@ -1,6 +1,8 @@
 package br.com.fiap.tech_challenge.adapters.driver.controller.swagger;
 
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.StatusPedidoRequestDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidosResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -60,7 +62,24 @@ public interface PedidoSwaggerInterface {
   @RequestMapping(
       value = "/{id}/status",
       method = RequestMethod.GET)
-  ResponseEntity<Object> statusPedido(@Parameter(in = ParameterIn.PATH, description = "Número de identificação do pedido", required = true, schema = @Schema()) @PathVariable Long id);
+  ResponseEntity<Object> consultaStatusPedido(@Parameter(in = ParameterIn.PATH, description = "Número de identificação do pedido", required = true, schema = @Schema()) @PathVariable Long id);
+
+  @Operation(description = "Atualiza status do pedido")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "202", description = "Status do pedido atualizado", content =
+      @Content(mediaType = "application/json", schema =
+      @Schema(implementation = StatusPedidoReponseDTO.class))),
+      @ApiResponse(responseCode = "404", description = "Nenhum pedido foi encontrado", content =
+      @Content(mediaType = "application/text", examples =
+      @ExampleObject(value = "Nenhum pedido foi encontrado"))),
+      @ApiResponse(responseCode = "500", description = "Ocorreu um erro inesperado ao atualizar o pedido.", content =
+      @Content(mediaType = "application/text", examples =
+      @ExampleObject(value = "Nenhum pedido foi encontrado")))
+  })
+  @RequestMapping(
+      value = "/{id}/status",
+      method = RequestMethod.PUT)
+  ResponseEntity<Object> atualizaStatusPedido(@PathVariable Long id, @RequestBody StatusPedidoRequestDTO request);
 
 
 }

@@ -2,6 +2,7 @@ package br.com.fiap.tech_challenge.adapters.driver.controller;
 
 import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.PedidoDTOMapper;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.StatusPedidoRequestDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidosResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.swagger.PedidoSwaggerInterface;
@@ -45,9 +46,15 @@ public class PedidoController implements PedidoSwaggerInterface {
     }
 
     @Override
-    public ResponseEntity<Object> statusPedido(Long id) {
+    public ResponseEntity<Object> consultaStatusPedido(Long id) {
         StatusPedidoReponseDTO statusPedido = pedidoUseCase.consultaStatusPedido(id);
         return new ResponseEntity<>(statusPedido, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Object> atualizaStatusPedido(Long id, StatusPedidoRequestDTO request) {
+        StatusPedidoReponseDTO statusPedido = pedidoUseCase.atualizarStatusPedido(id, request.getSituacaoPedido());
+        return new ResponseEntity<>(statusPedido, HttpStatus.ACCEPTED);
     }
 
 }

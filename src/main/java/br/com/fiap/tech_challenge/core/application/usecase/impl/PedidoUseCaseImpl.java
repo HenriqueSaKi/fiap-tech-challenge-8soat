@@ -1,10 +1,9 @@
 package br.com.fiap.tech_challenge.core.application.usecase.impl;
 
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ItemPedidoEntity;
-import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ProdutoEntity;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import br.com.fiap.tech_challenge.core.application.exception.cliente.ClienteNaoEncontradoException;
+import br.com.fiap.tech_challenge.core.application.exception.pedido.ErroAoAtualizarPedidoException;
 import br.com.fiap.tech_challenge.core.application.exception.pedido.ErroAoCadastrarPedidoException;
 import br.com.fiap.tech_challenge.core.application.exception.pedido.NenhumPedidoEncontradoException;
 import br.com.fiap.tech_challenge.core.application.exception.produto.NenhumProdutoEncontradoException;
@@ -26,8 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import static br.com.fiap.tech_challenge.core.application.constant.ClienteExceptionConstante.CLIENTE_NAO_ENCONTRADO_EXCEPTION;
-import static br.com.fiap.tech_challenge.core.application.constant.PedidoExceptionConstante.ERRO_AO_CADASTRAR_PEDIDO_EXCEPTION;
-import static br.com.fiap.tech_challenge.core.application.constant.PedidoExceptionConstante.NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION;
+import static br.com.fiap.tech_challenge.core.application.constant.PedidoExceptionConstante.*;
 import static br.com.fiap.tech_challenge.core.application.constant.ProdutoExceptionConstante.ERRO_AO_CONSULTAR_PRODUTO_POR_ID_EXCEPTION;
 
 @Service
@@ -94,15 +92,29 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
   @Override
   public StatusPedidoReponseDTO consultaStatusPedido(Long id) {
     Pedido pedido = pedidoGatewayPort.consultaStatusPedidoPorId(id);
-    if(pedido != null) {
+    if(pedido != null && !pedido.getSituacaoPedido().equals(SituacaoPedido.FINALIZADO)) {
         SituacaoPedido situacaoPedido = pedido.getSituacaoPedido();
         SituacaoPedidoDTO situacaoPedidoDTO = SituacaoPedidoDTO.valueOf(situacaoPedido.name());
         StatusPedidoReponseDTO responseDTO = new StatusPedidoReponseDTO();
+        responseDTO.setIdPedido(id);
         responseDTO.setSituacaoPedidoDTO(situacaoPedidoDTO);
         return responseDTO;
     }
     throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
 
+  }
+
+  @Override
+  public StatusPedidoReponseDTO atualizarStatusPedido(Long id, SituacaoPedidoDTO situacaoPedido) {
+    Pedido pedido = pedidoGatewayPort.consultaStatusPedidoPorId(id);
+    if (pedido != null) {
+      try {
+        return pedidoGatewayPort.atualizaStatusPedido(pedido, situacaoPedido);
+      } catch (Exception e) {
+        throw new ErroAoAtualizarPedidoException(ERRO_AO_ATUALIZAR_PEDIDO_EXCEPTION);
+      }
+    }
+    throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
   }
 
   private BigDecimal getValorTotalItem(ItemPedido item) {

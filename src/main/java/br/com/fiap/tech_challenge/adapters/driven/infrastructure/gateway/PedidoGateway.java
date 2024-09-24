@@ -3,11 +3,14 @@ package br.com.fiap.tech_challenge.adapters.driven.infrastructure.gateway;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.PedidoRepository;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ClienteEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.PedidoEntity;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import br.com.fiap.tech_challenge.core.application.mapper.ClienteMapper;
 import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.PedidoGatewayPort;
 import br.com.fiap.tech_challenge.core.domain.model.Cliente;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
+import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,5 +50,18 @@ public class PedidoGateway implements PedidoGatewayPort {
   public Pedido consultaStatusPedidoPorId(Long id) {
     Optional<PedidoEntity> pedidoEntity = pedidoRepository.findById(id.intValue());
     return pedidoEntity.map(pedidoMapper::toDTO).orElse(null);
+  }
+
+  @Override
+  public StatusPedidoReponseDTO atualizaStatusPedido(Pedido pedido, SituacaoPedidoDTO situacaoPedido) {
+      PedidoEntity pedidoEntity = pedidoMapper.toEntity(pedido);
+      pedidoEntity.setSituacao(SituacaoPedido.valueOf(situacaoPedido.name()));
+      pedidoEntity = pedidoRepository.save(pedidoEntity);
+
+      StatusPedidoReponseDTO response = new StatusPedidoReponseDTO();
+      response.setIdPedido(pedidoEntity.getId());
+      response.setSituacaoPedidoDTO(
+          SituacaoPedidoDTO.valueOf(pedidoEntity.getSituacao().name()));
+      return response;
   }
 }
