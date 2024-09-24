@@ -121,7 +121,7 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
     return item.getValorUnitario().multiply(BigDecimal.valueOf(item.getQuantidade()));
   }
 
-  public BigDecimal getValorTotalPedido(List<ItemPedido> itensPedido) {
+  private BigDecimal getValorTotalPedido(List<ItemPedido> itensPedido) {
     return itensPedido.stream()
         .map(item -> item.getValorUnitario().multiply(BigDecimal.valueOf(item.getQuantidade())))
         .reduce(BigDecimal.ZERO, BigDecimal::add);
