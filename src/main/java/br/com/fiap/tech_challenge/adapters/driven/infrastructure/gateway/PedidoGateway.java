@@ -14,6 +14,7 @@ import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,11 @@ public class PedidoGateway implements PedidoGatewayPort {
   @Override
   public List<Pedido> listaPedidos() {
     List<PedidoEntity> pedidoEntityList = pedidoRepository.findAllWithActiveStatus();
-    return pedidoEntityList.stream().map(pedidoMapper::toDTO).toList();
+    List<Pedido> pedidos = new ArrayList<>();
+    pedidoEntityList.forEach(
+        entity -> pedidos.add(pedidoMapper.toDTO(entity))
+    );
+    return pedidos;
   }
 
   @Override

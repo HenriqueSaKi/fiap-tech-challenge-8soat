@@ -1,10 +1,10 @@
 package br.com.fiap.tech_challenge.core.domain.model;
 
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +16,14 @@ public class Pedido {
     private Date dataPedido;
     private BigDecimal valorTotalPedido;
     private SituacaoPedido situacaoPedido;
-    private List<ItemPedido> itens = new ArrayList<>();
+    private List<ItemPedido> itens;
 
+    public Pedido(String id, Long clientId, Date dataPedido, BigDecimal valorTotalPedido, SituacaoPedido situacaoPedido, List<ItemPedido> itens) {
+        this.id = id;
+        this.clientId = clientId;
+        this.dataPedido = dataPedido;
+        this.valorTotalPedido = valorTotalPedido;
+        this.situacaoPedido = situacaoPedido;
+        this.itens = itens;
+    }
 }

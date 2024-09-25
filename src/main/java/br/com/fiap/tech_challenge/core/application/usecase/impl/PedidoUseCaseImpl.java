@@ -16,11 +16,15 @@ import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
+import com.google.gson.Gson;
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +35,7 @@ import static br.com.fiap.tech_challenge.core.application.constant.ProdutoExcept
 @Service
 public class PedidoUseCaseImpl implements PedidoUseCase {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(PedidoUseCaseImpl.class);
   private final ClienteGatewayPort clienteGatewayPort;
   private final PedidoGatewayPort pedidoGatewayPort;
   private final ProdutoGatewayPort produtoGatewayPort;
@@ -86,6 +91,11 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
     if (pedidos.isEmpty()) {
       throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
     }
+    pedidos.sort(
+        Comparator.comparingInt((Pedido p) -> p.getSituacaoPedido().getOrdem()).reversed()
+            .thenComparing(Pedido::getDataPedido));
+    LOGGER.info(new Gson().toJson(pedidos));
+
     return pedidos;
   }
 
