@@ -1,3 +1,5 @@
+package br.com.fiap.tech_challenge.webhook;
+
 public class PaymentStatusRequest {
     private String transactionId;
     private String status;
