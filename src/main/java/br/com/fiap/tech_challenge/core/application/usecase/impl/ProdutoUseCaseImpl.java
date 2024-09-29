@@ -1,5 +1,9 @@
 package br.com.fiap.tech_challenge.core.application.usecase.impl;
 
+import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.ProdutoDTOMapper;
+import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.ProdutoDTOMapperImpl;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.AtualizarProdutoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarProdutoDTO;
 import br.com.fiap.tech_challenge.core.application.exception.produto.*;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ProdutoGatewayPort;
 import br.com.fiap.tech_challenge.core.application.usecase.ProdutoUseCase;
@@ -20,15 +24,16 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     private final Logger LOGGER = LoggerFactory.getLogger(ProdutoUseCaseImpl.class);
     private final ProdutoGatewayPort produtoGatewayPort;
 
-    @Autowired
     public ProdutoUseCaseImpl(ProdutoGatewayPort produtoGatewayPort) {
         this.produtoGatewayPort = produtoGatewayPort;
     }
 
     @Override
-    public void cadastrarProduto(Produto produto) {
+    public void cadastrarProduto(CadastrarProdutoDTO cadastrarProdutoDTO) {
         try {
-            produtoGatewayPort.save(produto);
+            ProdutoDTOMapper produtoDTOMapper = new ProdutoDTOMapperImpl();
+            Produto produto = produtoDTOMapper.cadastrarDtoToProduto(cadastrarProdutoDTO);
+            this.produtoGatewayPort.save(produto);
         } catch (Exception e) {
             LOGGER.error("Erro ao cadastrar produto", e);
             throw new ErroAoCadastrarProdutoException(ERRO_AO_CADASTRAR_PRODUTO_EXCEPTION);
@@ -38,7 +43,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     @Override
     public List<Produto> buscarProdutosPorCategoria(CategoriaProduto categoriaProduto) {
         try {
-            List<Produto> produtos = produtoGatewayPort.findProdutosByCategoria(categoriaProduto);
+            List<Produto> produtos = this.produtoGatewayPort.findProdutosByCategoria(categoriaProduto);
             if (produtos.isEmpty()) {
                 LOGGER.warn("Nenhum produto encontrado para a categoria {}", categoriaProduto);
                 throw new NenhumProdutoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
@@ -54,14 +59,16 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     }
 
     @Override
-    public void atualizarProduto(Produto produto) {
-        if (produtoGatewayPort.findById(produto.getProdutoId()) == null) {
-            LOGGER.warn("Produto com ID {} não encontrado", produto.getProdutoId());
+    public void atualizarProduto(AtualizarProdutoDTO atualizar) {
+        if (this.produtoGatewayPort.findById(atualizar.getProdutoId()) == null) {
+            LOGGER.warn("Produto com ID {} não encontrado", atualizar.getProdutoId());
             throw new ProdutoNaoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
         }
 
         try {
-            produtoGatewayPort.save(produto);
+            ProdutoDTOMapper produtoDTOMapper = new ProdutoDTOMapperImpl();
+            Produto produto = produtoDTOMapper.atualizarProdutoDtoToProduto(atualizar);
+            this.produtoGatewayPort.save(produto);
         } catch (Exception e) {
             LOGGER.error("Erro ao atualizar produto", e);
             throw new ErroAoAtualizarProdutoException(ERRO_AO_ATUALIZAR_PRODUTO_EXCEPTION);
@@ -70,13 +77,13 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
 
     @Override
     public void excluirProduto(Long produtoId) {
-        if (produtoGatewayPort.findById(produtoId) == null) {
+        if (this.produtoGatewayPort.findById(produtoId) == null) {
             LOGGER.warn("Produto com ID {} não encontrado", produtoId);
             throw new ProdutoNaoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
         }
 
         try {
-            produtoGatewayPort.deleteById(produtoId);
+            this.produtoGatewayPort.deleteById(produtoId);
         } catch (Exception exception) {
             LOGGER.error("Erro ao excluir produto", exception);
             throw new ErroAoExcluirProdutoException(ERRO_AO_EXCLUIR_PRODUTO_EXCEPTION);

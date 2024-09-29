@@ -12,7 +12,7 @@ import org.mapstruct.ReportingPolicy;
     unmappedTargetPolicy = ReportingPolicy.IGNORE,
     nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProdutoDTOMapper {
-  Produto cadastrarToProdutoDTO(CadastrarProdutoDTO cadastrar);
-  Produto atualizarToProdutoDTO(AtualizarProdutoDTO atualizar);
+  Produto cadastrarDtoToProduto(CadastrarProdutoDTO cadastrar);
+  Produto atualizarProdutoDtoToProduto(AtualizarProdutoDTO atualizar);
 
 }
