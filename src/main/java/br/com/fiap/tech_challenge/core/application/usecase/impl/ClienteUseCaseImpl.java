@@ -1,10 +1,15 @@
 package br.com.fiap.tech_challenge.core.application.usecase.impl;
 
+import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.ClienteDTOMapper;
+import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.ClienteDTOMapperImpl;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.AtualizarClienteDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarClienteDTO;
 import br.com.fiap.tech_challenge.core.application.exception.cliente.*;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ClienteGatewayPort;
 import br.com.fiap.tech_challenge.core.application.usecase.ClienteUseCase;
+import br.com.fiap.tech_challenge.core.domain.exception.DomainException;
 import br.com.fiap.tech_challenge.core.domain.model.Cliente;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import static br.com.fiap.tech_challenge.core.application.constant.ClienteExceptionConstante.*;
@@ -14,18 +19,19 @@ public class ClienteUseCaseImpl implements ClienteUseCase {
 
     private final ClienteGatewayPort gatewayPort;
 
-    @Autowired
     public ClienteUseCaseImpl(ClienteGatewayPort clienteGatewayPort) {
         this.gatewayPort = clienteGatewayPort;
     }
 
     @Override
-    public void cadastrarCliente(Cliente cliente) {
-        if(gatewayPort.buscarPorCpf(cliente.getCpf()) != null) {
+    public void cadastrarCliente(CadastrarClienteDTO cadastrar) {
+        if(gatewayPort.buscarPorCpf(cadastrar.getCpf()) != null) {
             throw new ClienteJaCadastradoException(CLIENTE_JA_CADASTRADO_EXCEPTION);
         }
 
         try {
+            ClienteDTOMapper clienteDTOMapper = new ClienteDTOMapperImpl();
+            var cliente = clienteDTOMapper.cadastrarToCliente(cadastrar);
             gatewayPort.save(cliente);
         } catch (Exception e) {
             throw new ErroAoCadastrarClienteException(ERRO_AO_CADASTRAR_CLIENTE_EXCEPTION);
@@ -44,18 +50,27 @@ public class ClienteUseCaseImpl implements ClienteUseCase {
     }
 
     @Override
-    public void atualizarCliente(Cliente cliente) {
-        long clienteId = cliente.getId();
-        if(!gatewayPort.existsById(clienteId)) {
+    public void atualizarCliente(AtualizarClienteDTO atualizar) {
+        long clienteId = atualizar.getId();
+        if(gatewayPort.findById(clienteId) == null) {
             throw new ClienteNaoEncontradoException(CLIENTE_NAO_ENCONTRADO_EXCEPTION);
         }
 
         try {
+            Cliente cliente = gatewayPort.findById(clienteId);
+            cliente.validarDadosAtualizacao(atualizar);
+
+            ClienteDTOMapper clienteDTOMapper = new ClienteDTOMapperImpl();
+            cliente = clienteDTOMapper.atualizarToCliente(atualizar);
             gatewayPort.save(cliente);
+        }
+        catch (DomainException e) {
+            throw new ErroAoAtualizarAsInformacoesDoClienteException(
+                e.getMessage());
         }
         catch (Exception e) {
             throw new ErroAoAtualizarAsInformacoesDoClienteException(
-                    ERRO_AO_ATUALIZAR_AS_INFORMACOES_DO_CLIENTE_EXCEPTION);
+                ERRO_AO_ATUALIZAR_AS_INFORMACOES_DO_CLIENTE_EXCEPTION);
         }
     }
 

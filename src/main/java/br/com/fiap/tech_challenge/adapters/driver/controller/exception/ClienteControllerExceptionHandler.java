@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import static br.com.fiap.tech_challenge.core.application.constant.ClienteExceptionConstante.ERRO_AO_ATUALIZAR_AS_INFORMACOES_DO_CLIENTE_EXCEPTION;
+
 @RestControllerAdvice
 public class ClienteControllerExceptionHandler {
 
@@ -26,6 +28,8 @@ public class ClienteControllerExceptionHandler {
 
     @ExceptionHandler(ErroAoAtualizarAsInformacoesDoClienteException.class)
     public ResponseEntity<String> erroAoAtualizarAsInformacoesDoClienteException(ErroAoAtualizarAsInformacoesDoClienteException erroAoAtualizarAsInformacoesDoClienteException) {
+        if(!erroAoAtualizarAsInformacoesDoClienteException.getMessage().equals(ERRO_AO_ATUALIZAR_AS_INFORMACOES_DO_CLIENTE_EXCEPTION))
+            return new ResponseEntity<>(erroAoAtualizarAsInformacoesDoClienteException.getMessage(), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(erroAoAtualizarAsInformacoesDoClienteException.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

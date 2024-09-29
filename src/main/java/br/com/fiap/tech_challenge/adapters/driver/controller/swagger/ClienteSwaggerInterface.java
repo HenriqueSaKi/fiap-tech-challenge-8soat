@@ -55,8 +55,7 @@ public interface ClienteSwaggerInterface {
     @Operation(description = "Atualiza informações do cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "Cliente atualizado com sucesso", content =
-                @Content(mediaType = "application/json", schema =
-                @Schema(implementation = Cliente.class))),
+                @Content(mediaType = "application/text")),
             @ApiResponse(responseCode = "404", description = "Não foi encontrado nenhum resultado para essa pesquisa.", content =
                 @Content(mediaType = "application/text")),
             @ApiResponse(responseCode = "500", description = "Erro ao atualizar as informações do cliente.", content =
@@ -64,7 +63,7 @@ public interface ClienteSwaggerInterface {
     })
     @RequestMapping(
             method = RequestMethod.PUT)
-    ResponseEntity<Cliente> atualizarCliente(@RequestBody AtualizarClienteDTO atualizar);
+    ResponseEntity<String> atualizarCliente(@RequestBody AtualizarClienteDTO atualizar);
 
     @Operation(description = "Exclui as informações do cliente")
     @ApiResponses(value = {
