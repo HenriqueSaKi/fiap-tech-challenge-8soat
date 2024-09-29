@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProdutoGatewayPort {
   void deleteById(Long id);
-  void save(Produto produto);
+  Long save(Produto produto);
   Produto findById(Long produtoId);
   List<Produto> findProdutosByCategoria(CategoriaProduto categoriaProduto);
 

@@ -11,7 +11,6 @@ import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,11 +28,12 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     }
 
     @Override
-    public void cadastrarProduto(CadastrarProdutoDTO cadastrarProdutoDTO) {
+    public Long cadastrarProduto(CadastrarProdutoDTO cadastrarProdutoDTO) {
         try {
             ProdutoDTOMapper produtoDTOMapper = new ProdutoDTOMapperImpl();
             Produto produto = produtoDTOMapper.cadastrarDtoToProduto(cadastrarProdutoDTO);
-            this.produtoGatewayPort.save(produto);
+
+            return this.produtoGatewayPort.save(produto);
         } catch (Exception e) {
             LOGGER.error("Erro ao cadastrar produto", e);
             throw new ErroAoCadastrarProdutoException(ERRO_AO_CADASTRAR_PRODUTO_EXCEPTION);
@@ -59,7 +59,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     }
 
     @Override
-    public void atualizarProduto(AtualizarProdutoDTO atualizar) {
+    public Long atualizarProduto(AtualizarProdutoDTO atualizar) {
         if (this.produtoGatewayPort.findById(atualizar.getProdutoId()) == null) {
             LOGGER.warn("Produto com ID {} não encontrado", atualizar.getProdutoId());
             throw new ProdutoNaoEncontradoException(PRODUTO_NAO_ENCONTRADO_EXCEPTION);
@@ -68,7 +68,8 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         try {
             ProdutoDTOMapper produtoDTOMapper = new ProdutoDTOMapperImpl();
             Produto produto = produtoDTOMapper.atualizarProdutoDtoToProduto(atualizar);
-            this.produtoGatewayPort.save(produto);
+
+            return this.produtoGatewayPort.save(produto);
         } catch (Exception e) {
             LOGGER.error("Erro ao atualizar produto", e);
             throw new ErroAoAtualizarProdutoException(ERRO_AO_ATUALIZAR_PRODUTO_EXCEPTION);

@@ -31,8 +31,10 @@ public class ProdutoController implements ProdutoSwaggerInterface {
         var produtoGateway = new ProdutoGateway(this.produtoRepository);
         var produtoUseCase = new ProdutoUseCaseImpl(produtoGateway);
 
-        produtoUseCase.cadastrarProduto(cadastrar);
-        return new ResponseEntity<>("Produto cadastrado com sucesso!", HttpStatus.CREATED);
+        Long id = produtoUseCase.cadastrarProduto(cadastrar);
+        return new ResponseEntity<>(
+            String.format("Produto cadastrado com sucesso! Código do produto: %d", id),
+            HttpStatus.CREATED);
     }
 
     @Override
@@ -49,8 +51,10 @@ public class ProdutoController implements ProdutoSwaggerInterface {
         var produtoGateway = new ProdutoGateway(this.produtoRepository);
         var produtoUseCase = new ProdutoUseCaseImpl(produtoGateway);
 
-        produtoUseCase.atualizarProduto(atualizar);
-        return new ResponseEntity<>("Produto atualizado com sucesso!", HttpStatus.ACCEPTED);
+        Long id = produtoUseCase.atualizarProduto(atualizar);
+        return new ResponseEntity<>(
+            String.format("Produto ID: %d - Atualizado com sucesso!", id),
+            HttpStatus.ACCEPTED);
     }
 
     @Override

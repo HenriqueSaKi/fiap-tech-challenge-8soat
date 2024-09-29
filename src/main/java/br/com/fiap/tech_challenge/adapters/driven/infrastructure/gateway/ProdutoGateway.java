@@ -29,11 +29,11 @@ public class ProdutoGateway implements ProdutoGatewayPort {
   }
 
   @Override
-  public void save(Produto produto) {
+  public Long save(Produto produto) {
     ProdutoMapper produtoMapper = new ProdutoMapperImpl();
 
     ProdutoEntity entity = produtoMapper.toEntity(produto);
-    repository.save(entity);
+    return repository.save(entity).getProdutoId();
   }
 
   @Override

@@ -25,7 +25,7 @@ public interface ProdutoSwaggerInterface {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Produto cadastrado com sucesso!", content =
                 @Content(mediaType = "application/text", examples =
-                @ExampleObject(value = "Produto cadastrado com sucesso!"))),
+                @ExampleObject(value = "Produto cadastrado com sucesso! Código do produto: 1"))),
             @ApiResponse(responseCode = "400", description = "Produto já cadastrado.", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Produto já cadastrado."))),
@@ -58,7 +58,7 @@ public interface ProdutoSwaggerInterface {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "Produto atualizado com sucesso!", content =
                 @Content(mediaType = "application/text", examples =
-                @ExampleObject(value = "Produto atualizado com sucesso!"))),
+                @ExampleObject(value = "Produto ID: 1 - Atualizado com sucesso!"))),
             @ApiResponse(responseCode = "404", description = "Nenhum produto encontrado", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Não foram encontrados produtos para essa categoria."))),
