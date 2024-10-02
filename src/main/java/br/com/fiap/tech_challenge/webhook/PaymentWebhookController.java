@@ -22,6 +22,10 @@ public class PaymentWebhookController {
     return ResponseEntity.ok("Pagamento recebido com sucesso");
   }
 
+  public ResponseEntity<String> handlePaymentWebhook(@RequestBody String payload) {
+    return ResponseEntity.ok("Received");
+  }
+
   private boolean isValidToken(String token) {
     // ainda estou um pouco perdido em como fazer a validação do token
 
