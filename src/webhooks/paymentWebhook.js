@@ -17,8 +17,7 @@ app.post('/webhook/payment', async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     console.error(`Erro ao processar a notificação para o backend: ${err.message}`);
-    res.status;
-    (500).send('Erro ao processar a notificação');
+    res.status(500).send('Erro ao processar a notificação');
   }
 
   if (payment.status === 'approved') {
