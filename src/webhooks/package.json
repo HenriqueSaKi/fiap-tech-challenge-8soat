@@ -1,0 +1,16 @@
+{
+  "name": "fiap-tech-challenge-webhooks",
+  "version": "1.0.0",
+  "description": "Webhooks for Mercado Pago payment confirmation and QR code generation",
+  "main": "paymentWebhook.js",
+  "scripts": {
+    "start": "node paymentWebhook.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mercadopago": "^1.5.17"
+  },
+  "author": "FIAP Tech Challenge",
+  "license": "MIT"
+}
