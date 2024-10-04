@@ -26,7 +26,7 @@ app.post('/webhook/payment', async (req, res) => {
     console.log('Pagamento recusado');
   }
 
-  //   res.sendStatus(200);
+  // res.sendStatus(200);
 });
 
 const PORT = process.env.port || 8080;
