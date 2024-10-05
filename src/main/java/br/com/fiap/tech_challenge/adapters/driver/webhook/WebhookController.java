@@ -3,8 +3,10 @@ package br.com.fiap.tech_challenge.adapters.driver.webhook;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.gateway.PedidoGateway;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.PedidoRepository;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.webhook.model.WebhookRequestDTO;
 import br.com.fiap.tech_challenge.adapters.driver.webhook.swagger.WebhookSwaggerInterface;
 import br.com.fiap.tech_challenge.core.application.usecase.impl.PedidoUseCaseImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,16 +22,16 @@ public class WebhookController implements WebhookSwaggerInterface {
   }
 
   @Override
-  public ResponseEntity<String> notificationReceiver(Body body) {
-    if(body.getStatus().equals("200")) {
+  public ResponseEntity<String> notificationReceiver(WebhookRequestDTO requestDTO) {
+    if(requestDTO.getStatus().equals("200")) {
       var pedidoGateway = new PedidoGateway(this.pedidoRepository);
       var pedidoUseCase = new PedidoUseCaseImpl(pedidoGateway);
       pedidoUseCase.atualizarStatusPedido(1L, SituacaoPedidoDTO.PAGAMENTO_RECEBIDO);
 
-      return "Pagamento Recebido";
+      return new ResponseEntity<>("Pagamento Recebido", HttpStatus.OK);
     }
     else {
-      return "Pagamento Negado";
+      return new ResponseEntity<>("Pagamento Negado", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

@@ -1,5 +1,6 @@
 package br.com.fiap.tech_challenge.adapters.driver.webhook.swagger;
 
+import br.com.fiap.tech_challenge.adapters.driver.webhook.model.WebhookRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,7 +23,7 @@ public interface WebhookSwaggerInterface {
         method = RequestMethod.POST,
         value = "/payment"
     )
-    ResponseEntity<String> notificationReceiver(@RequestBody );
+    ResponseEntity<String> notificationReceiver(@RequestBody WebhookRequestDTO requestDTO);
     //FIXME: No request body eu imagino que será necessário incluir o tipo do objeto recebido do mercado pago..
 
 }
