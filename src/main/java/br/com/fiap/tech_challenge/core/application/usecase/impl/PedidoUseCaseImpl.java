@@ -20,6 +20,8 @@ import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import com.google.gson.Gson;
+import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.resources.payment.Payment;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,10 +74,12 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
         item.setValorTotalPedido(getValorTotalItem(item));
       });
 
-      // Valor mockado por conta do FAKE CHECKOUT
-      pedido.setSituacaoPedido(SituacaoPedido.PAGAMENTO_RECEBIDO);
+      pedido.setSituacaoPedido(SituacaoPedido.AGUARDANDO_PAGAMENTO);
       pedido.setDataPedido(new Date());
       pedido.setValorTotalPedido(getValorTotalPedido(pedido.getItens()));
+
+      Long mercadoPagoId = mercadoPagoDoc();
+      pedido.setMercadoPagoId(mercadoPagoId);
 
       return pedidoGatewayPort.cadastrarPedidos(pedido, cliente);
 
@@ -85,6 +89,32 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
       throw new ErroAoCadastrarPedidoException(ERRO_AO_CADASTRAR_PEDIDO_EXCEPTION);
     }
 
+  }
+
+  private static Long mercadoPagoDoc() {
+    MercadoPagoConfig.setAccessToken("YOUR_ACCESS_TOKEN");
+
+    Payment payment = new Payment();
+    payment.setTransactionAmount(Float.valueOf(request.getParameter("transactionAmount")))
+        .setToken(request.getParameter("token"))
+        .setDescription(request.getParameter("description"))
+        .setInstallments(Integer.valueOf(request.getParameter("installments")))
+        .setPaymentMethodId(request.getParameter("paymentMethodId"))
+        .setNotificationUrl("http://requestbin.fullcontact.com/1ogudgk1");
+
+    Identification identification = new Identification();
+    identification.setType(request.getParameter("docType"))
+        .setNumber(request.getParameter("docNumber"));
+
+    Payer payer = new Payer();
+    payer.setEmail(request.getParameter("email"))
+        .setIdentification(identification);
+
+    payment.setPayer(payer);
+
+    payment.save();
+
+    return payment.getId();
   }
 
   @Override
