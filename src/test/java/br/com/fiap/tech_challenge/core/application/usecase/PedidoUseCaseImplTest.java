@@ -1,5 +1,6 @@
 package br.com.fiap.tech_challenge.core.application.usecase;
 
+import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.PedidoDTOMapperImpl;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ClienteGatewayPort;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.PedidoGatewayPort;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ProdutoGatewayPort;
@@ -58,7 +59,7 @@ public class PedidoUseCaseImplTest {
 
     when(pedidoGatewayPort.listaPedidos()).thenReturn(pedidos);
     var retorno = pedidoUseCase.listarPedidos();
-    assertEquals(resultadoEsperado, retorno);
+    assertEquals(new PedidoDTOMapperImpl().pedidosToPedidosResponseDTO(resultadoEsperado), retorno);
 
   }
 
