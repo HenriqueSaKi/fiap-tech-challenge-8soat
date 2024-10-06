@@ -21,6 +21,11 @@ import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import com.google.gson.Gson;
 import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.payment.PaymentClient;
+import com.mercadopago.client.payment.PaymentCreateRequest;
+import com.mercadopago.client.payment.PaymentPayerRequest;
+import com.mercadopago.exceptions.MPApiException;
+import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.payment.Payment;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
@@ -94,25 +99,28 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
   private static Long mercadoPagoDoc() {
     MercadoPagoConfig.setAccessToken("YOUR_ACCESS_TOKEN");
 
+    PaymentClient client = new PaymentClient();
+
+    PaymentCreateRequest createRequest =
+        PaymentCreateRequest.builder()
+            .transactionAmount(new BigDecimal(1000))
+            .token("your_cardtoken")
+            .description("description")
+            .installments(1)
+            .paymentMethodId("visa")
+            .payer(PaymentPayerRequest.builder().email("dummy_email").build())
+            .build();
+
     Payment payment = new Payment();
-    payment.setTransactionAmount(Float.valueOf(request.getParameter("transactionAmount")))
-        .setToken(request.getParameter("token"))
-        .setDescription(request.getParameter("description"))
-        .setInstallments(Integer.valueOf(request.getParameter("installments")))
-        .setPaymentMethodId(request.getParameter("paymentMethodId"))
-        .setNotificationUrl("http://requestbin.fullcontact.com/1ogudgk1");
-
-    Identification identification = new Identification();
-    identification.setType(request.getParameter("docType"))
-        .setNumber(request.getParameter("docNumber"));
-
-    Payer payer = new Payer();
-    payer.setEmail(request.getParameter("email"))
-        .setIdentification(identification);
-
-    payment.setPayer(payer);
-
-    payment.save();
+    try {
+      payment = client.create(createRequest);
+    } catch (MPApiException ex) {
+      System.out.printf(
+          "MercadoPago Error. Status: %s, Content: %s%n",
+          ex.getApiResponse().getStatusCode(), ex.getApiResponse().getContent());
+    } catch (MPException ex) {
+      ex.printStackTrace();
+    }
 
     return payment.getId();
   }
