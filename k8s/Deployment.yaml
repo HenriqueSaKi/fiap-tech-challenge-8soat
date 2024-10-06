@@ -17,7 +17,12 @@ spec:
       containers:
         - name: app-lanchonete
           image: tech-challenge-1:latest
-          envFrom:
+          env:
+            - name: ACCESS_TOKEN_MP
+              valueFrom:
+                secretKeyRef:
+                  name: lanchonete-secrets
+                  key: ACCESS_TOKEN_MP
             - configMapRef:
                 name: lanchonete-config
             - secretRef:
