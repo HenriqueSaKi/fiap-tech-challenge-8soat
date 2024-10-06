@@ -11,6 +11,6 @@ public interface PedidoGatewayPort {
   Long cadastrarPedidos(Pedido pedido, Cliente cliente);
   List<Pedido> listaPedidos();
   Pedido consultaStatusPedidoPorId(Long id);
-  StatusPedidoReponseDTO atualizaStatusPedido(Pedido pedido, SituacaoPedidoDTO situacaoPedido) throws Exception;
+  StatusPedidoReponseDTO atualizaStatusPedido(Pedido pedido, SituacaoPedidoDTO situacaoPedido);
 
 }
