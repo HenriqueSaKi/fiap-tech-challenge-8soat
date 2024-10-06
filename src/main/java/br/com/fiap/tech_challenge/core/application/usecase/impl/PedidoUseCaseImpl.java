@@ -1,6 +1,9 @@
 package br.com.fiap.tech_challenge.core.application.usecase.impl;
 
+import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.PedidoDTOMapperImpl;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidoResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import br.com.fiap.tech_challenge.core.application.exception.cliente.ClienteNaoEncontradoException;
 import br.com.fiap.tech_challenge.core.application.exception.pedido.ErroAoAtualizarPedidoException;
@@ -20,7 +23,6 @@ import com.google.gson.Gson;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -40,7 +42,6 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
   private final PedidoGatewayPort pedidoGatewayPort;
   private final ProdutoGatewayPort produtoGatewayPort;
 
-  @Autowired
   public PedidoUseCaseImpl(ClienteGatewayPort clienteGatewayPort,
                            PedidoGatewayPort pedidoGatewayPort,
                            ProdutoGatewayPort produtoGatewayPort) {
@@ -50,8 +51,9 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
   }
 
   @Override
-  public Long cadastrarPedido(Pedido pedido) {
+  public Long cadastrarPedido(CadastrarPedidoDTO cadastrar) {
     try {
+      Pedido pedido = new PedidoDTOMapperImpl().cadastrarToPedido(cadastrar);
       Cliente cliente = clienteGatewayPort.findById(pedido.getClientId());
       if(cliente == null) {
         throw new EntityNotFoundException();
@@ -86,7 +88,7 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
   }
 
   @Override
-  public List<Pedido> listarPedidos() {
+  public List<PedidoResponseDTO> listarPedidos() {
     List<Pedido> pedidos = pedidoGatewayPort.listaPedidos();
     if (pedidos.isEmpty()) {
       throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
@@ -96,7 +98,7 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
             .thenComparing(Pedido::getDataPedido));
     LOGGER.info(new Gson().toJson(pedidos));
 
-    return pedidos;
+    return new PedidoDTOMapperImpl().pedidosToPedidosResponseDTO(pedidos);
   }
 
   @Override

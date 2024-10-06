@@ -5,13 +5,12 @@ import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.enti
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.PedidoEntity;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
-import br.com.fiap.tech_challenge.core.application.mapper.ClienteMapper;
-import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapper;
+import br.com.fiap.tech_challenge.core.application.mapper.ClienteMapperImpl;
+import br.com.fiap.tech_challenge.core.application.mapper.PedidoMapperImpl;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.PedidoGatewayPort;
 import br.com.fiap.tech_challenge.core.domain.model.Cliente;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,23 +19,16 @@ import java.util.Optional;
 
 @Component
 public class PedidoGateway implements PedidoGatewayPort {
-  private final ClienteMapper clienteMapper;
   private final PedidoRepository pedidoRepository;
-  private final PedidoMapper pedidoMapper;
 
-  @Autowired
-  public PedidoGateway(ClienteMapper clienteMapper,
-                       PedidoRepository pedidoRepository,
-                       PedidoMapper pedidoMapper) {
-    this.clienteMapper = clienteMapper;
+  public PedidoGateway(PedidoRepository pedidoRepository) {
     this.pedidoRepository = pedidoRepository;
-    this.pedidoMapper = pedidoMapper;
   }
 
   @Override
   public Long cadastrarPedidos(Pedido pedido, Cliente cliente) {
-    PedidoEntity entity = pedidoMapper.toEntity(pedido);
-    ClienteEntity clienteEntity = clienteMapper.toClienteEntity(cliente);
+    PedidoEntity entity = new PedidoMapperImpl().toEntity(pedido);
+    ClienteEntity clienteEntity = new ClienteMapperImpl().toClienteEntity(cliente);
     entity.setCliente(clienteEntity);
     return pedidoRepository.save(entity).getId();
   }
@@ -46,7 +38,7 @@ public class PedidoGateway implements PedidoGatewayPort {
     List<PedidoEntity> pedidoEntityList = pedidoRepository.findAllWithActiveStatus();
     List<Pedido> pedidos = new ArrayList<>();
     pedidoEntityList.forEach(
-        entity -> pedidos.add(pedidoMapper.toDTO(entity))
+        entity -> pedidos.add(new PedidoMapperImpl().toDTO(entity))
     );
     return pedidos;
   }
@@ -54,12 +46,12 @@ public class PedidoGateway implements PedidoGatewayPort {
   @Override
   public Pedido consultaStatusPedidoPorId(Long id) {
     Optional<PedidoEntity> pedidoEntity = pedidoRepository.findById(id.intValue());
-    return pedidoEntity.map(pedidoMapper::toDTO).orElse(null);
+    return pedidoEntity.map(new PedidoMapperImpl()::toDTO).orElse(null);
   }
 
   @Override
   public StatusPedidoReponseDTO atualizaStatusPedido(Pedido pedido, SituacaoPedidoDTO situacaoPedido) {
-      PedidoEntity pedidoEntity = pedidoMapper.toEntity(pedido);
+      PedidoEntity pedidoEntity = new PedidoMapperImpl().toEntity(pedido);
       pedidoEntity.setSituacao(SituacaoPedido.valueOf(situacaoPedido.name()));
       pedidoEntity = pedidoRepository.save(pedidoEntity);
 

@@ -22,10 +22,6 @@ public class ItemPedidoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 100)
-    @NotBlank(message = "Nome do produto")
-    private String nome;
-
     @Column(name = "descricao", nullable = false, length = 100)
     @NotBlank(message = "Descrição do produto")
     private String descricao;
