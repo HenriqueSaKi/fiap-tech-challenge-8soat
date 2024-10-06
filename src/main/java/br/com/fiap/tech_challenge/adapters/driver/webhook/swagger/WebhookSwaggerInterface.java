@@ -1,6 +1,6 @@
 package br.com.fiap.tech_challenge.adapters.driver.webhook.swagger;
 
-import br.com.fiap.tech_challenge.adapters.driver.webhook.model.WebhookRequestDTO;
+import br.com.fiap.tech_challenge.adapters.driver.webhook.model.request.WebhookRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

@@ -2,7 +2,7 @@ package br.com.fiap.tech_challenge.adapters.driver.webhook;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.gateway.PedidoGateway;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.PedidoRepository;
-import br.com.fiap.tech_challenge.adapters.driver.webhook.model.WebhookRequestDTO;
+import br.com.fiap.tech_challenge.adapters.driver.webhook.model.request.WebhookRequestDTO;
 import br.com.fiap.tech_challenge.adapters.driver.webhook.swagger.WebhookSwaggerInterface;
 import br.com.fiap.tech_challenge.core.application.usecase.impl.WebhookUseCaseImpl;
 import org.springframework.http.HttpStatus;
@@ -29,10 +29,10 @@ public class WebhookController implements WebhookSwaggerInterface {
 
   @Override
   public ResponseEntity<String> notificationReceiver(WebhookRequestDTO requestDTO) {
-    if(requestDTO.getStatus().equals("200")) {
+    if("payment.created".equals(requestDTO.getAction())) {
       var pedidoGateway = new PedidoGateway(this.pedidoRepository);
       var webhookUseCase = new WebhookUseCaseImpl(pedidoGateway);
-      webhookUseCase.atualizarStatusPedido(requestDTO.getId());
+      webhookUseCase.atualizarStatusPedido(requestDTO.getData().getId());
 
       return new ResponseEntity<>("Pagamento Recebido", HttpStatus.OK);
     }
