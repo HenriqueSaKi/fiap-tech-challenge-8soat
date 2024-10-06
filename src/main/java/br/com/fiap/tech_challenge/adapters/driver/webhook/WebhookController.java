@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
 @RequestMapping("/webhook")
+/*
+{
+  "data": {
+     "id": "999999999"
+ }
+}
+*/
 public class WebhookController implements WebhookSwaggerInterface {
 
   private final PedidoRepository pedidoRepository;

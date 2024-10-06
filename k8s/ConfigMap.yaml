@@ -11,3 +11,4 @@ data:
   # dialeto do SQL que o framework usará para consultas SQL ao banco.... admito que me perdi um pouco aqui, mas to seguindo a internet kkkk
   # org.hibernate.dialect.MySQLDialect é o dialeto Hibernate para o MySQL
   JPA_DIALECT: ${JPA_DIALECT}
+  ACCESS_TOKEN_MP: APP_USR-8545713758528260-100119-dd8431af090a168092b9e26ba9bcd3f2-135728192
