@@ -13,6 +13,7 @@ import br.com.fiap.tech_challenge.core.application.exception.produto.NenhumProdu
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ClienteGatewayPort;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.PedidoGatewayPort;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ProdutoGatewayPort;
+import br.com.fiap.tech_challenge.core.application.ports.gateway.WebhookGatewayPort;
 import br.com.fiap.tech_challenge.core.application.usecase.PedidoUseCase;
 import br.com.fiap.tech_challenge.core.domain.model.Cliente;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
@@ -20,13 +21,6 @@ import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import com.google.gson.Gson;
-import com.mercadopago.MercadoPagoConfig;
-import com.mercadopago.client.payment.PaymentClient;
-import com.mercadopago.client.payment.PaymentCreateRequest;
-import com.mercadopago.client.payment.PaymentPayerRequest;
-import com.mercadopago.exceptions.MPApiException;
-import com.mercadopago.exceptions.MPException;
-import com.mercadopago.resources.payment.Payment;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,13 +43,16 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
   private final ClienteGatewayPort clienteGatewayPort;
   private final PedidoGatewayPort pedidoGatewayPort;
   private final ProdutoGatewayPort produtoGatewayPort;
+  private final WebhookGatewayPort webhookGatewayPort;
 
   public PedidoUseCaseImpl(ClienteGatewayPort clienteGatewayPort,
                            PedidoGatewayPort pedidoGatewayPort,
-                           ProdutoGatewayPort produtoGatewayPort) {
+                           ProdutoGatewayPort produtoGatewayPort,
+                           WebhookGatewayPort webhookGatewayPort) {
     this.clienteGatewayPort = clienteGatewayPort;
     this.pedidoGatewayPort = pedidoGatewayPort;
     this.produtoGatewayPort = produtoGatewayPort;
+    this.webhookGatewayPort = webhookGatewayPort;
   }
 
   @Override
@@ -87,8 +84,8 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
       pedido.setDataPedido(new Date());
       pedido.setValorTotalPedido(getValorTotalPedido(pedido.getItens()));
 
-//      Long mercadoPagoId = mercadoPagoDoc();
-      pedido.setMercadoPagoId(1L);
+      Long mercadoPagoId = webhookGatewayPort.processarPagamentoWebhookMP(pedido);
+      pedido.setMercadoPagoId(mercadoPagoId);
 
       return pedidoGatewayPort.cadastrarPedidos(pedido, cliente);
 
@@ -98,35 +95,6 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
       throw new ErroAoCadastrarPedidoException(ERRO_AO_CADASTRAR_PEDIDO_EXCEPTION);
     }
 
-  }
-
-  private static Long mercadoPagoDoc() {
-    MercadoPagoConfig.setAccessToken(System.getenv("ACCESS_TOKEN_MP"));
-
-    PaymentClient client = new PaymentClient();
-
-    PaymentCreateRequest createRequest =
-        PaymentCreateRequest.builder()
-            .transactionAmount(new BigDecimal(1000))
-            .token("your_cardtoken")
-            .description("description")
-            .installments(1)
-            .paymentMethodId("visa")
-            .payer(PaymentPayerRequest.builder().email("dummy_email").build())
-            .build();
-
-    Payment payment = new Payment();
-    try {
-      payment = client.create(createRequest);
-    } catch (MPApiException ex) {
-      System.out.printf(
-          "MercadoPago Error. Status: %s, Content: %s%n",
-          ex.getApiResponse().getStatusCode(), ex.getApiResponse().getContent());
-    } catch (MPException ex) {
-      ex.printStackTrace();
-    }
-
-    return payment.getId();
   }
 
   @Override

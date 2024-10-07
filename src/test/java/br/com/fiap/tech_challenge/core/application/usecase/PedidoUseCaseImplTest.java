@@ -38,7 +38,7 @@ public class PedidoUseCaseImplTest {
     pedidoUseCase = new PedidoUseCaseImpl(
         clienteGatewayPort,
         pedidoGatewayPort,
-        produtoGatewayPort);
+        produtoGatewayPort, webhookGatewayPort);
   }
 
   @Test
