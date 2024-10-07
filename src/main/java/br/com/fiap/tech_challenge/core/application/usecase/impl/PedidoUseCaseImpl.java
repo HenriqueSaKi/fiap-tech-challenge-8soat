@@ -30,10 +30,10 @@ import com.mercadopago.resources.payment.Payment;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +67,8 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
         throw new EntityNotFoundException();
       }
 
-      pedido.getItens().forEach(item -> {
+      List<ItemPedido> itemPedidos = new ArrayList<>();
+      for(ItemPedido item: pedido.getItens()) {
         Produto produto = produtoGatewayPort.findById(item.getIdProduto());
         if (produto == null) {
           throw new NenhumProdutoEncontradoException(
@@ -78,14 +79,16 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
         item.setDescricao(produto.getDescricao());
         item.setValorUnitario(produto.getPreco());
         item.setValorTotalPedido(getValorTotalItem(item));
-      });
+        itemPedidos.add(item);
+      }
 
+      pedido.setItens(itemPedidos);
       pedido.setSituacaoPedido(SituacaoPedido.AGUARDANDO_PAGAMENTO);
       pedido.setDataPedido(new Date());
       pedido.setValorTotalPedido(getValorTotalPedido(pedido.getItens()));
 
-      Long mercadoPagoId = mercadoPagoDoc();
-      pedido.setMercadoPagoId(mercadoPagoId);
+//      Long mercadoPagoId = mercadoPagoDoc();
+      pedido.setMercadoPagoId(1L);
 
       return pedidoGatewayPort.cadastrarPedidos(pedido, cliente);
 
