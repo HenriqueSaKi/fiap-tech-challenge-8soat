@@ -4,6 +4,7 @@ import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.PedidoDTOMap
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ClienteGatewayPort;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.PedidoGatewayPort;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ProdutoGatewayPort;
+import br.com.fiap.tech_challenge.core.application.ports.gateway.WebhookGatewayPort;
 import br.com.fiap.tech_challenge.core.application.usecase.impl.PedidoUseCaseImpl;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
@@ -32,13 +33,15 @@ public class PedidoUseCaseImplTest {
   @Mock private ClienteGatewayPort clienteGatewayPort;
   @Mock private PedidoGatewayPort pedidoGatewayPort;
   @Mock private ProdutoGatewayPort produtoGatewayPort;
+  @Mock private WebhookGatewayPort webhookGatewayPort;
 
   @BeforeEach
   public void setUp() {
     pedidoUseCase = new PedidoUseCaseImpl(
         clienteGatewayPort,
         pedidoGatewayPort,
-        produtoGatewayPort, webhookGatewayPort);
+        produtoGatewayPort,
+        webhookGatewayPort);
   }
 
   @Test

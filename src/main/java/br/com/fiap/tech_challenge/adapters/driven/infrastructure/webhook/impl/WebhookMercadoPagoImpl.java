@@ -1,8 +1,9 @@
 package br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.impl;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.WebhookPagamento;
-import br.com.fiap.tech_challenge.core.application.usecase.PagamentoDTO;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.entity.PagamentoDTO;
 import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.common.IdentificationRequest;
 import com.mercadopago.client.payment.PaymentClient;
 import com.mercadopago.client.payment.PaymentCreateRequest;
 import com.mercadopago.client.payment.PaymentPayerRequest;
@@ -11,8 +12,9 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.payment.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.math.BigDecimal;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WebhookMercadoPagoImpl implements WebhookPagamento {
 
   private final static Logger LOGGER = LoggerFactory.getLogger(WebhookMercadoPagoImpl.class);
@@ -25,13 +27,22 @@ public class WebhookMercadoPagoImpl implements WebhookPagamento {
 
     PaymentCreateRequest createRequest =
         PaymentCreateRequest.builder()
-            .transactionAmount(pagamentoDTO.getValor()) //TODO: Colocar o valor do pedido, vai precisar incluir parametros no metodo
-            .token("your_cardtoken") //TODO: Não sei o que é
-            .description("Mock da descrição do pedido") //TODO: Pode remover ou colocar algo como o nome da loja/projeto
-            .installments(1) //TODO: Remover
+            .transactionAmount(pagamentoDTO.getValor())
+            .description("Loja Tech Challenge")
+            .installments(1)
             .paymentMethodId("pix")
-            .binaryMode(true)
-            .payer(PaymentPayerRequest.builder().email(pagamentoDTO.getEmailCliente()).build()) //TODO: passar email do cliente
+            .payer(
+                PaymentPayerRequest.builder()
+                    .email(pagamentoDTO.getEmailCliente())
+                    .firstName(pagamentoDTO.getPrimeiroNome())
+                    .lastName(pagamentoDTO.getSobrenome())
+                    .identification(
+                        IdentificationRequest.builder()
+                            .type("CPF")
+                            .number(pagamentoDTO.getCpf())
+                            .build()
+                    )
+                    .build())
             .build();
 
     Payment payment = new Payment();

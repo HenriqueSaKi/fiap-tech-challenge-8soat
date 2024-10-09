@@ -17,8 +17,12 @@ public class AtualizarClienteDTO {
     private String cpf;
 
     @JsonProperty(required = true)
-    @Schema(name = "nomeCompleto", description = "Nome completo", example = "Nome Teste")
-    private String nomeCompleto;
+    @Schema(name = "primeiroNome", description = "Primeiro nome", example = "Nome")
+    private String primeiroNome;
+
+    @JsonProperty(required = true)
+    @Schema(name = "sobrenome", description = "Sobrenome", example = "Teste")
+    private String sobrenome;
 
     @JsonProperty(required = true)
     @Schema(name = "email", description = "E-mail", example = "teste@exemplo.com")

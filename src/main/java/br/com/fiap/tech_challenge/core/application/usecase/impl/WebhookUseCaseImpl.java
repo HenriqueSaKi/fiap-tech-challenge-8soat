@@ -30,7 +30,7 @@ public class WebhookUseCaseImpl implements WebhookUseCase {
     if (SituacaoPedidoDTO.PAGAMENTO_RECEBIDO.equals(situacao)) {
       pedidoGatewayPort.atualizaStatusPedido(pedido, SituacaoPedidoDTO.PAGAMENTO_RECEBIDO);
     } else if (SituacaoPedidoDTO.FINALIZADO.equals(situacao)) {
-      pedidoGatewayPort.atualizaStatusPedido((pedido, SituacaoPedidoDTO.FINALIZADO);
+      pedidoGatewayPort.atualizaStatusPedido(pedido, SituacaoPedidoDTO.FINALIZADO);
     }
   }
 
