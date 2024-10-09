@@ -85,6 +85,7 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
       pedido.setValorTotalPedido(getValorTotalPedido(pedido.getItens()));
 
       Long mercadoPagoId = webhookGatewayPort.processarPagamentoWebhookMP(pedido);
+      // passar o cliente também junto do pedido
       pedido.setMercadoPagoId(mercadoPagoId);
 
       return pedidoGatewayPort.cadastrarPedidos(pedido, cliente);

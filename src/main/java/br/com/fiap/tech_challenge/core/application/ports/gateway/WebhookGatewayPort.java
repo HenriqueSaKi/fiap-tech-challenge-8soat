@@ -5,5 +5,4 @@ import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 public interface WebhookGatewayPort {
 
   Long processarPagamentoWebhookMP(Pedido pedido);
-
 }
