@@ -51,7 +51,7 @@ public class ClienteUseCaseImpl implements ClienteUseCase {
 
     @Override
     public void atualizarCliente(AtualizarClienteDTO atualizar) {
-        long clienteId = atualizar.getId();
+        Long clienteId = atualizar.getId();
         if(gatewayPort.findById(clienteId) == null) {
             throw new ClienteNaoEncontradoException(CLIENTE_NAO_ENCONTRADO_EXCEPTION);
         }
