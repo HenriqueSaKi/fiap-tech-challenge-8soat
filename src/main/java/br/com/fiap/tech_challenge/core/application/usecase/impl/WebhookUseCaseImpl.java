@@ -19,14 +19,19 @@ public class WebhookUseCaseImpl implements WebhookUseCase {
   }
 
   @Override
-  public void atualizarStatusPedido(String id) {
+  public void atualizarStatusPedido(String id, SituacaoPedidoDTO situacao) {
     Long idPedido = Long.valueOf(id);
     Pedido pedido = pedidoGatewayPort.consultaStatusPedidoPorId(idPedido);
+
     if(pedido == null) {
       throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
     }
-    pedidoGatewayPort.atualizaStatusPedido(pedido, SituacaoPedidoDTO.PAGAMENTO_RECEBIDO);
 
+    if (SituacaoPedidoDTO.PAGAMENTO_RECEBIDO.equals(situacao)) {
+      pedidoGatewayPort.atualizaStatusPedido(pedido, SituacaoPedidoDTO.PAGAMENTO_RECEBIDO);
+    } else if (SituacaoPedidoDTO.FINALIZADO.equals(situacao)) {
+      pedidoGatewayPort.atualizaStatusPedido((pedido, SituacaoPedidoDTO.FINALIZADO);
+    }
   }
 
 }
