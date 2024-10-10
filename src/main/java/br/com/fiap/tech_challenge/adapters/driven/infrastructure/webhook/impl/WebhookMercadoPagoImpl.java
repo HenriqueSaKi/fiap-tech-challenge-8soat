@@ -3,7 +3,6 @@ package br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.impl;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.WebhookPagamento;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.entity.PagamentoDTO;
 import com.mercadopago.MercadoPagoConfig;
-import com.mercadopago.client.common.IdentificationRequest;
 import com.mercadopago.client.payment.PaymentClient;
 import com.mercadopago.client.payment.PaymentCreateRequest;
 import com.mercadopago.client.payment.PaymentPayerRequest;
@@ -12,16 +11,19 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.payment.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class WebhookMercadoPagoImpl implements WebhookPagamento {
 
+  @Value("${webhook.mercado-pago.access-token}")
+  private String accessToken;
   private final static Logger LOGGER = LoggerFactory.getLogger(WebhookMercadoPagoImpl.class);
 
   @Override
   public Long processarPagamento(PagamentoDTO pagamentoDTO) {
-    MercadoPagoConfig.setAccessToken(System.getenv("ACCESS_TOKEN_MP"));
+    MercadoPagoConfig.setAccessToken(accessToken);
 
     PaymentClient client = new PaymentClient();
 
@@ -36,12 +38,6 @@ public class WebhookMercadoPagoImpl implements WebhookPagamento {
                     .email(pagamentoDTO.getEmailCliente())
                     .firstName(pagamentoDTO.getPrimeiroNome())
                     .lastName(pagamentoDTO.getSobrenome())
-                    .identification(
-                        IdentificationRequest.builder()
-                            .type("CPF")
-                            .number(pagamentoDTO.getCpf())
-                            .build()
-                    )
                     .build())
             .build();
 

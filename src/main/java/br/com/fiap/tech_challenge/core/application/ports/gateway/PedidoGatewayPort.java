@@ -12,5 +12,6 @@ public interface PedidoGatewayPort {
   List<Pedido> listaPedidos();
   Pedido consultaStatusPedidoPorId(Long id);
   StatusPedidoReponseDTO atualizaStatusPedido(Pedido pedido, SituacaoPedidoDTO situacaoPedido);
+  Pedido consultaStatusPedidoPorMercadoPagoId(Long mercadoPagoId);
 
 }

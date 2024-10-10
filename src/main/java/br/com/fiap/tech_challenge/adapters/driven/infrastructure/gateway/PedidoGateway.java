@@ -61,4 +61,11 @@ public class PedidoGateway implements PedidoGatewayPort {
           SituacaoPedidoDTO.valueOf(pedidoEntity.getSituacao().name()));
       return response;
   }
+
+  @Override
+  public Pedido consultaStatusPedidoPorMercadoPagoId(Long mercadoPagoId) {
+    Optional<PedidoEntity> pedido = pedidoRepository.findByMercadoPagoId(mercadoPagoId);
+    return pedido.map(new PedidoMapperImpl()::toDTO).orElse(null);
+  }
+
 }
