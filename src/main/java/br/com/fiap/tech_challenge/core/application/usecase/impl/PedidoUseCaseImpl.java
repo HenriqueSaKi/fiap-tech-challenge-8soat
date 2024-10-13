@@ -3,6 +3,7 @@ package br.com.fiap.tech_challenge.core.application.usecase.impl;
 import br.com.fiap.tech_challenge.adapters.driver.controller.mapper.PedidoDTOMapperImpl;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.CadastrarPedidoResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidoResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import br.com.fiap.tech_challenge.core.application.exception.cliente.ClienteNaoEncontradoException;
@@ -21,6 +22,7 @@ import br.com.fiap.tech_challenge.core.domain.model.Pedido;
 import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.SituacaoPedido;
 import com.google.gson.Gson;
+import com.mercadopago.resources.payment.Payment;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +58,7 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
   }
 
   @Override
-  public Long cadastrarPedido(CadastrarPedidoDTO cadastrar) {
+  public CadastrarPedidoResponseDTO cadastrarPedido(CadastrarPedidoDTO cadastrar) {
     try {
       Pedido pedido = new PedidoDTOMapperImpl().cadastrarToPedido(cadastrar);
       Cliente cliente = clienteGatewayPort.findById(pedido.getClientId());
@@ -84,15 +86,24 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
       pedido.setDataPedido(new Date());
       pedido.setValorTotalPedido(getValorTotalPedido(pedido.getItens()));
 
-      Long mercadoPagoId = webhookGatewayPort.processarPagamentoWebhookMP(pedido, cliente);
-      pedido.setMercadoPagoId(mercadoPagoId);
+      Payment pagamento = webhookGatewayPort.processarPagamentoWebhookMP(pedido, cliente);
+      pedido.setMercadoPagoId(pagamento.getId());
 
-      return pedidoGatewayPort.cadastrarPedidos(pedido, cliente);
+      Long idPedido = pedidoGatewayPort.cadastrarPedidos(pedido, cliente);
+
+      return CadastrarPedidoResponseDTO.builder()
+          .idPedido(idPedido)
+          .qrCode(pagamento.getPointOfInteraction().getTransactionData().getQrCode())
+          .qrCodeBase64(pagamento.getPointOfInteraction().getTransactionData().getQrCodeBase64())
+          .qrCodeUrl(pagamento.getPointOfInteraction().getTransactionData().getTicketUrl())
+          .build();
 
     } catch (EntityNotFoundException e) {
-      throw new ClienteNaoEncontradoException(CLIENTE_NAO_ENCONTRADO_EXCEPTION);
+      LOGGER.error(e.getMessage(), e);
+      throw new ClienteNaoEncontradoException(CLIENTE_NAO_ENCONTRADO_EXCEPTION, e);
     } catch (Exception e) {
-      throw new ErroAoCadastrarPedidoException(ERRO_AO_CADASTRAR_PEDIDO_EXCEPTION);
+      LOGGER.error(e.getMessage(), e);
+      throw new ErroAoCadastrarPedidoException(ERRO_AO_CADASTRAR_PEDIDO_EXCEPTION, e);
     }
 
   }
@@ -133,7 +144,7 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
       try {
         return pedidoGatewayPort.atualizaStatusPedido(pedido, situacaoPedido);
       } catch (Exception e) {
-        throw new ErroAoAtualizarPedidoException(ERRO_AO_ATUALIZAR_PEDIDO_EXCEPTION);
+        throw new ErroAoAtualizarPedidoException(ERRO_AO_ATUALIZAR_PEDIDO_EXCEPTION, e);
       }
     }
     throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);

@@ -10,6 +10,7 @@ import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.Prod
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.WebhookPagamento;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.StatusPedidoRequestDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.CadastrarPedidoResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidoResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidosResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
@@ -42,7 +43,7 @@ public class PedidoController implements PedidoSwaggerInterface {
     }
 
     @Override
-    public ResponseEntity<String> cadastrarPedido(CadastrarPedidoDTO cadastrar) {
+    public ResponseEntity<CadastrarPedidoResponseDTO> cadastrarPedido(CadastrarPedidoDTO cadastrar) {
         var clienteGateway = new ClienteGateway(this.clienteRepository);
         var produtoGateway = new ProdutoGateway(this.produtoRepository);
         var pedidoGateway = new PedidoGateway(this.pedidoRepository);
@@ -51,8 +52,9 @@ public class PedidoController implements PedidoSwaggerInterface {
         var pedidoUseCase = new PedidoUseCaseImpl(
             clienteGateway, pedidoGateway, produtoGateway, webhookGateway);
 
-        Long id = pedidoUseCase.cadastrarPedido(cadastrar);
-        return new ResponseEntity<>("Pedido cadastrado com sucesso. Código: " + id,
+        CadastrarPedidoResponseDTO responseDTO = pedidoUseCase.cadastrarPedido(cadastrar);
+        responseDTO.setMensagem("Pedido cadastrado com sucesso.");
+        return new ResponseEntity<>(responseDTO,
                 HttpStatus.CREATED);
     }
 

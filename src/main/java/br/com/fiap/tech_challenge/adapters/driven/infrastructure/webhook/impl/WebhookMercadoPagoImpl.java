@@ -20,15 +20,17 @@ public class WebhookMercadoPagoImpl implements WebhookPagamento {
 
   @Value("${webhook.mercado-pago.access-token}")
   private String accessToken;
+  @Value("${tech-challenge.host}")
+  private String hostNgrok;
+
   private final static Logger LOGGER = LoggerFactory.getLogger(WebhookMercadoPagoImpl.class);
 
   @Override
-  public Long processarPagamento(PagamentoDTO pagamentoDTO) {
+  public Payment processarPagamento(PagamentoDTO pagamentoDTO) {
     MercadoPagoConfig.setAccessToken(accessToken);
 
     PaymentClient client = new PaymentClient();
 
-    String hostNgrok = "http://localhost:8080/api/v1"; //TODO: Preencher com o host do Ngrok
     String endpointWebhook = "/webhook/notification";
 
     PaymentCreateRequest createRequest =
@@ -50,7 +52,7 @@ public class WebhookMercadoPagoImpl implements WebhookPagamento {
     Payment payment = new Payment();
     try {
       payment = client.create(createRequest);
-      LOGGER.info("Mercado Pago: Pedido criado com sucesso! {}", new Gson().toJson(payment));
+      LOGGER.info("Mercado Pago: Pedido criado com sucesso! {}", payment);
     } catch (MPApiException ex) {
       LOGGER.error(String.format("MercadoPago Error. Status: %s, Content: %s%n",
           ex.getApiResponse().getStatusCode(), ex.getApiResponse().getContent()));
@@ -62,7 +64,7 @@ public class WebhookMercadoPagoImpl implements WebhookPagamento {
     LOGGER.info("Mercado Pago: Qr Code Base 64: {}", payment.getPointOfInteraction().getTransactionData().getQrCodeBase64());
     LOGGER.info("Mercado Pago: Página de acesso do QR Code: {}", payment.getPointOfInteraction().getTransactionData().getTicketUrl());
 
-    return payment.getId();
+    return payment;
   }
 
 }

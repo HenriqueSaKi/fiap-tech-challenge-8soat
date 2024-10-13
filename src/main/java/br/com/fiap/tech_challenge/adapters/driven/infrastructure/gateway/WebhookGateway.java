@@ -5,6 +5,7 @@ import br.com.fiap.tech_challenge.core.application.ports.gateway.WebhookGatewayP
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.entity.PagamentoDTO;
 import br.com.fiap.tech_challenge.core.domain.model.Cliente;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
+import com.mercadopago.resources.payment.Payment;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +18,7 @@ public class WebhookGateway implements WebhookGatewayPort {
   }
 
   @Override
-  public Long processarPagamentoWebhookMP(Pedido pedido, Cliente cliente) {
+  public Payment processarPagamentoWebhookMP(Pedido pedido, Cliente cliente) {
     PagamentoDTO pagamentoDTO = new PagamentoDTO();
 
     pagamentoDTO.setIdPedido(pedido.getId());

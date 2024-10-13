@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DataDTO {
 
-  @Schema(name = "data.id", description = "ID do recurso associado ao evento, como um pagamento ou assinatura", example = "987654321")
-  private Long dataId;
+  @Schema(name = "id", description = "ID do recurso associado ao evento, como um pagamento ou assinatura", example = "987654321")
+  private Long id;
 
 }

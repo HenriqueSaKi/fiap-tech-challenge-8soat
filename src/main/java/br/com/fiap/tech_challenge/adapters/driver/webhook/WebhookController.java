@@ -29,7 +29,7 @@ public class WebhookController implements WebhookSwaggerInterface {
       var pedidoGateway = new PedidoGateway(this.pedidoRepository);
       var webhookUseCase = new WebhookUseCaseImpl(pedidoGateway);
 
-      webhookUseCase.atualizarStatusPedido(requestDTO.getData().getId(), situacao);
+      webhookUseCase.atualizarStatusPedido(requestDTO.getId().toString(), situacao);
       return new ResponseEntity<>("Pagamento atualizado", HttpStatus.OK);
     } else {
       return new ResponseEntity<>("Ação desconhecida", HttpStatus.CREATED);

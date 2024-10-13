@@ -3,6 +3,9 @@ server:
   servlet:
     context-path: /api/v1
 
+tech-challenge:
+  host: ${tech_challenge_host}
+
 spring:
   application:
     name: tech-challenge
