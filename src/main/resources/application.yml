@@ -17,9 +17,9 @@ spring:
     driverClassName: ${DATASOURCE_DRIVER_CLASS_NAME}
   jpa:
     show-sql: false
+    database-platform: ${JPA_DIALECT}
     hibernate:
       ddl-auto: update
-    database-platform: ${JPA_DIALECT}
   h2:
     console:
       enabled: true

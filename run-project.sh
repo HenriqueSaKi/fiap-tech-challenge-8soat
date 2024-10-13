@@ -8,5 +8,5 @@ if [ -z "$JAR_FILE" ]; then
     echo "Nenhum arquivo .jar encontrado."
 else
     echo "Executando o arquivo: $JAR_FILE"
-    java -jar "$JAR_FILE"
+    exec java -jar "$JAR_FILE"
 fi
