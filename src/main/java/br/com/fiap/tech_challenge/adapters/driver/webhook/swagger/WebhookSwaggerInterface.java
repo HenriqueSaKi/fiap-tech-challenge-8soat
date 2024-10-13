@@ -21,9 +21,8 @@ public interface WebhookSwaggerInterface {
     @RequestMapping(
         produces = "application/text",
         method = RequestMethod.POST,
-        value = "/payment"
+        value = "/notification"
     )
     ResponseEntity<String> notificationReceiver(@RequestBody WebhookRequestDTO requestDTO);
-    //FIXME: No request body eu imagino que será necessário incluir o tipo do objeto recebido do mercado pago..
 
 }

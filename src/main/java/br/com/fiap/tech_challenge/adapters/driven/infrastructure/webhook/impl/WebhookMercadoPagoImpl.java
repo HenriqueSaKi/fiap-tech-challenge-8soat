@@ -2,6 +2,7 @@ package br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.impl;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.WebhookPagamento;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.webhook.entity.PagamentoDTO;
+import com.google.gson.Gson;
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.payment.PaymentClient;
 import com.mercadopago.client.payment.PaymentCreateRequest;
@@ -27,29 +28,40 @@ public class WebhookMercadoPagoImpl implements WebhookPagamento {
 
     PaymentClient client = new PaymentClient();
 
+    String hostNgrok = "http://localhost:8080/api/v1"; //TODO: Preencher com o host do Ngrok
+    String endpointWebhook = "/webhook/notification";
+
     PaymentCreateRequest createRequest =
         PaymentCreateRequest.builder()
             .transactionAmount(pagamentoDTO.getValor())
             .description("Loja Tech Challenge")
             .installments(1)
             .paymentMethodId("pix")
+            .binaryMode(true)
             .payer(
                 PaymentPayerRequest.builder()
                     .email(pagamentoDTO.getEmailCliente())
                     .firstName(pagamentoDTO.getPrimeiroNome())
                     .lastName(pagamentoDTO.getSobrenome())
                     .build())
+//            .notificationUrl(hostNgrok + endpointWebhook)
             .build();
 
     Payment payment = new Payment();
     try {
       payment = client.create(createRequest);
+      LOGGER.info("Mercado Pago: Pedido criado com sucesso! {}", new Gson().toJson(payment));
     } catch (MPApiException ex) {
       LOGGER.error(String.format("MercadoPago Error. Status: %s, Content: %s%n",
           ex.getApiResponse().getStatusCode(), ex.getApiResponse().getContent()));
     } catch (MPException ex) {
       LOGGER.error(ex.getMessage());
     }
+
+    LOGGER.info("Mercado Pago: Qr Code: {}", payment.getPointOfInteraction().getTransactionData().getQrCode());
+    LOGGER.info("Mercado Pago: Qr Code Base 64: {}", payment.getPointOfInteraction().getTransactionData().getQrCodeBase64());
+    LOGGER.info("Mercado Pago: Página de acesso do QR Code: {}", payment.getPointOfInteraction().getTransactionData().getTicketUrl());
+
     return payment.getId();
   }
 
