@@ -26,12 +26,12 @@ public class PedidoGateway implements PedidoGatewayPort {
   }
 
   @Override
-  public Long cadastrarPedidos(Pedido pedido, Cliente cliente) {
-    PedidoEntity entity = new PedidoMapperImpl().toEntity(pedido);
-    ClienteEntity clienteEntity = new ClienteMapperImpl().toClienteEntity(cliente);
-    entity.setCliente(clienteEntity);
-    return pedidoRepository.save(entity).getId();
-  }
+    public Long cadastrarPedidos(Pedido pedido, Cliente cliente) {
+      PedidoEntity entity = new PedidoMapperImpl().toEntity(pedido);
+      ClienteEntity clienteEntity = new ClienteMapperImpl().toClienteEntity(cliente);
+      entity.setCliente(clienteEntity);
+      return pedidoRepository.save(entity).getId();
+    }
 
   @Override
   public List<Pedido> listaPedidos() {
