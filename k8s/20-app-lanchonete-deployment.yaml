@@ -1,0 +1,79 @@
+# Define como a aplicação Java (app-lanchonete) será gerenciada e escalada no cluster.
+# Lida com atualizações e rollbacks, e reinmplata aplicação quando falhar
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-lanchonete-deployment
+  namespace: ns-lanchonete
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-lanchonete
+  template:
+    metadata:
+      labels:
+        app: app-lanchonete
+    spec:
+      containers:
+        - name: app-lanchonete
+          image: jonathanssoarez/tech-challenge-1:v11
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_ROOT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: MYSQL_ROOT_HOST
+            - name: DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: DATASOURCE_URL
+            - name: DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: DATASOURCE_USERNAME
+            - name: DATASOURCE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: DATASOURCE_PASSWORD
+            - name: DATASOURCE_DRIVER_CLASS_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: DATASOURCE_DRIVER_CLASS_NAME
+            - name: JPA_DIALECT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: JPA_DIALECT
+            - name: ACCESS_TOKEN_MP
+              valueFrom:
+                secretKeyRef:
+                  name: lanchonete-secret  # Nome do Secret
+                  key: ACCESS_TOKEN_MP
+          ports:
+            - containerPort: 8080
+          #command: ["sh", "-c", "./wait-for-it.sh bd_lanchonete:3306 -t 0 -- ./run-project.sh"]
