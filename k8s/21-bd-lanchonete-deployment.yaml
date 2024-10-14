@@ -39,11 +39,6 @@ spec:
                 configMapKeyRef:
                   name: app-lanchonete-configmap
                   key: MYSQL_PASSWORD
-            - name: DATASOURCE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: app-lanchonete-configmap
-                  key: DATASOURCE_URL
           ports:
             - containerPort: 3306
           volumeMounts:
