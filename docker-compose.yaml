@@ -11,7 +11,7 @@ services:
       - dados_lanchonete:/var/lib/mysql
     ports:
       ## host:container
-      - "4050:3306"
+      - "3306:3306"
     expose:
       - "3306"
 
@@ -20,7 +20,6 @@ services:
     build:
       context: "./"
       dockerfile: Dockerfile
-    image: tech-challenge-1
     env_file:
       - .env
     ports:

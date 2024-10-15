@@ -4,9 +4,5 @@ metadata:
   name: app-lanchonete-configmap
   namespace: ns-lanchonete
 data:
-  tech_challenge_host: "http://localhost:8080"
-  DATASOURCE_URL: "jdbc:mysql://bd-lanchonete:3306/lanchonete"
-  DATASOURCE_USERNAME: "user_fiap"
-  DATASOURCE_PASSWORD: "password_fiap"
-  DATASOURCE_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
-  JPA_DIALECT: "org.hibernate.dialect.MySQLDialect"
+  datasource_url: jdbc:mysql://10.103.17.161:3306/lanchonete #Configurar com o IP da service de banco de dados local
+  ngrok_url: https://1c96-189-110-173-172.ngrok-free.app/ #Atualizar ngrok para testes de integração

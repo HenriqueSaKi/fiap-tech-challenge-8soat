@@ -1,5 +1,3 @@
-# configura um espaço de armazenamento fixo que pode ser montado em seus pods, garantindo que os dados do MySQL
-# não sejam perdidos quando o pod for reiniciado ou recriado. (Não sei bem se seria útil ainda, mas não custa tentar)
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -11,4 +9,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /mnt/data/mysql
+    path: "/mnt/data/mysql"

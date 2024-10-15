@@ -4,10 +4,9 @@ metadata:
   name: bd-lanchonete-service
   namespace: ns-lanchonete
 spec:
-  type: ClusterIP          # Tipo padrão, acessível somente dentro do cluster
-  selector:
-    app: bd-lanchonete    # Seleciona os pods do Deployment do banco de dados
+  type: ClusterIP
   ports:
-    - protocol: TCP
-      port: 3306           # Porta do serviço
-      targetPort: 3306      # Porta que o container MySQL está escutando
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: bd-lanchonete

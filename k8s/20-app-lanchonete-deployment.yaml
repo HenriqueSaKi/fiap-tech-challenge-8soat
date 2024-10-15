@@ -1,54 +1,64 @@
-# Define como a aplicação Java (app-lanchonete) será gerenciada e escalada no cluster.
-# Lida com atualizações e rollbacks, e reinmplata aplicação quando falhar
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-lanchonete-deployment
   namespace: ns-lanchonete
+  labels:
+    app: lanchonete
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app-lanchonete
+      app: lanchonete
   template:
     metadata:
       labels:
-        app: app-lanchonete
+        app: lanchonete
     spec:
       containers:
         - name: app-lanchonete
-          image: jonathanssoarez/tech-challenge-1:v11
+          image: localhost:5000/fiap-tech-challenge-8soat-app
+          ports:
+            - containerPort: 8080
           env:
+            - name: tech_challenge_host
+              valueFrom:
+                configMapKeyRef:
+                  name: app-lanchonete-configmap
+                  key: ngrok_url
+            - name: DATASOURCE_DRIVER_CLASS_NAME
+              value: com.mysql.cj.jdbc.Driver
+            - name: JPA_DIALECT
+              value: org.hibernate.dialect.MySQLDialect
             - name: DATASOURCE_URL
               valueFrom:
                 configMapKeyRef:
                   name: app-lanchonete-configmap
-                  key: DATASOURCE_URL
+                  key: datasource_url
             - name: DATASOURCE_USERNAME
               valueFrom:
-                configMapKeyRef:
-                  name: app-lanchonete-configmap
-                  key: DATASOURCE_USERNAME
+                secretKeyRef:
+                  name: lanchonete-secret
+                  key: datasource_username
             - name: DATASOURCE_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: app-lanchonete-configmap
-                  key: DATASOURCE_PASSWORD
-            - name: DATASOURCE_DRIVER_CLASS_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: app-lanchonete-configmap
-                  key: DATASOURCE_DRIVER_CLASS_NAME
-            - name: JPA_DIALECT
-              valueFrom:
-                configMapKeyRef:
-                  name: app-lanchonete-configmap
-                  key: JPA_DIALECT
-            - name: ACCESS_TOKEN_MP
+                secretKeyRef:
+                  name: lanchonete-secret
+                  key: datasource_password
+            - name: ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: lanchonete-secret  # Nome do Secret
-                  key: ACCESS_TOKEN_MP
-          ports:
-            - containerPort: 8080
-          #command: ["sh", "-c", "./wait-for-it.sh bd_lanchonete:3306 -t 0 -- ./run-project.sh"]
+                  name: lanchonete-secret
+                  key: access_token
+          readinessProbe:
+            httpGet:
+              path: /api/v1/actuator/health
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/v1/actuator/health
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 10

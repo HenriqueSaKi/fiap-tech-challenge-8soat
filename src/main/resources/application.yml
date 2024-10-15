@@ -27,3 +27,19 @@ spring:
 webhook:
   mercado-pago:
     access-token: ${ACCESS_TOKEN}
+
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+    endpoint:
+      health:
+        probes:
+          enabled: true
+        show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health

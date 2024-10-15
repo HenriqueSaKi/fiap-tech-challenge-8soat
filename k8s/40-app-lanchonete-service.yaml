@@ -5,10 +5,9 @@ metadata:
   namespace: ns-lanchonete
 spec:
   type: NodePort
-  selector:
-    app: app-lanchonete  # Seleciona os pods do Deployment da aplicação
   ports:
-    - protocol: TCP
-      port: 8080           # Porta do serviço
-      targetPort: 8080     # Porta que o container está escutando
-      nodePort: 30081      # Porta exposta no node
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080
+  selector:
+    app: lanchonete
