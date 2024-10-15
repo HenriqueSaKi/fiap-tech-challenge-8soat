@@ -10,7 +10,7 @@ Uma das premissas para esse projeto, foi desenvolver um sistema monolito, seguin
 Ou seja, a ideia principal é conseguir fornecer um sistema que favorece reusabilidade de código, alta coesão, baixo acoplamento, independência de tecnologia e que são mais fáceis de serem testados.
 
 ![img.png](img.png)
-<p style="text-align:center;">Arquitetura Kubernetes</p>
+<p align="center">Arquitetura Kubernetes</p>
 
 ### API's:
 - Cadastro do Cliente
