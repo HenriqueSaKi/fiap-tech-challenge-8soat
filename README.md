@@ -5,11 +5,14 @@
 Desenvolver um sistema para uma lanchonete, seguindo os pré-requisitos do Tech Challenge.  
 
 ## Requisitos do Tech Challenge
-#### Arquitetura:
-Uma das premissas para esse projeto, foi desenvolver um sistema monolito, seguindo a arquitetura hexagonal.</br>
+### Arquitetura:
+Uma das premissas para esse projeto, foi desenvolver um sistema monolito, seguindo a arquitetura hexagonal e clean architecture.</br>
 Ou seja, a ideia principal é conseguir fornecer um sistema que favorece reusabilidade de código, alta coesão, baixo acoplamento, independência de tecnologia e que são mais fáceis de serem testados.
 
-#### API's:
+![img.png](img.png)
+<p style="text-align:center;">Arquitetura Kubernetes</p>
+
+### API's:
 - Cadastro do Cliente
 - Identificação do Cliente via CPF
 - Criar, editar e remover produtos
@@ -17,7 +20,7 @@ Ou seja, a ideia principal é conseguir fornecer um sistema que favorece reusabi
 - Fake checkout, apenas enviar os produtos escolhidos para a fila. O checkout é a finalização do pedido.
 - Listar os pedidos
 
-#### Banco de dados:
+### Banco de dados:
 De livre escolha (utilizamos o MySQL).  
 
 ## Pré-requisitos para executar a aplicação
