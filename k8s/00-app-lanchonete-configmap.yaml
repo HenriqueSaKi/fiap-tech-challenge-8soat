@@ -4,5 +4,5 @@ metadata:
   name: app-lanchonete-configmap
   namespace: ns-lanchonete
 data:
-  datasource_url: jdbc:mysql://10.103.17.161:3306/lanchonete #Configurar com o IP da service de banco de dados local
+  datasource_url: jdbc:mysql://10.104.195.163:3306/lanchonete #Configurar com o IP da service de banco de dados local
   ngrok_url: https://1c96-189-110-173-172.ngrok-free.app/ #Atualizar ngrok para testes de integração
