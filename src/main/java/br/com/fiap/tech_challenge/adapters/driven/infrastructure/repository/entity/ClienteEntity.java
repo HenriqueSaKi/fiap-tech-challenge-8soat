@@ -21,9 +21,13 @@ public class ClienteEntity {
     @Size(min = 11, max = 11, message = "O cpf deve ter 11 caracteres")
     private String cpf;
 
-    @Column(name = "nome_completo", nullable = false, length = 120)
-    @NotBlank(message = "Informe o nome completo")
-    private String nomeCompleto;
+    @Column(name = "primeiro_nome", nullable = false, length = 120)
+    @NotBlank(message = "Informe o primeiro nome")
+    private String primeiroNome;
+
+    @Column(name = "sobrenome", nullable = false, length = 120)
+    @NotBlank(message = "Informe o sobrenome")
+    private String sobrenome;
 
     @Column(name = "email", nullable = true, length = 50)
     private String email;

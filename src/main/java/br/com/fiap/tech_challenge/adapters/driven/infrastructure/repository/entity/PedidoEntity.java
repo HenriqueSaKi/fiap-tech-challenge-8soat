@@ -27,6 +27,9 @@ public class PedidoEntity {
     @Column(name = "situacao", nullable = false)
     private SituacaoPedido situacao;
 
+    @Column(name = "mercadoPagoId", nullable = false)
+    private Long mercadoPagoId;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "pedido_id")
     private List<ItemPedidoEntity> itensPedido = new ArrayList<>();

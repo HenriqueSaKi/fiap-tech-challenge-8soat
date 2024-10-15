@@ -26,12 +26,12 @@ public class PedidoGateway implements PedidoGatewayPort {
   }
 
   @Override
-  public Long cadastrarPedidos(Pedido pedido, Cliente cliente) {
-    PedidoEntity entity = new PedidoMapperImpl().toEntity(pedido);
-    ClienteEntity clienteEntity = new ClienteMapperImpl().toClienteEntity(cliente);
-    entity.setCliente(clienteEntity);
-    return pedidoRepository.save(entity).getId();
-  }
+    public Long cadastrarPedidos(Pedido pedido, Cliente cliente) {
+      PedidoEntity entity = new PedidoMapperImpl().toEntity(pedido);
+      ClienteEntity clienteEntity = new ClienteMapperImpl().toClienteEntity(cliente);
+      entity.setCliente(clienteEntity);
+      return pedidoRepository.save(entity).getId();
+    }
 
   @Override
   public List<Pedido> listaPedidos() {
@@ -61,4 +61,11 @@ public class PedidoGateway implements PedidoGatewayPort {
           SituacaoPedidoDTO.valueOf(pedidoEntity.getSituacao().name()));
       return response;
   }
+
+  @Override
+  public Pedido consultaStatusPedidoPorMercadoPagoId(Long mercadoPagoId) {
+    Optional<PedidoEntity> pedido = pedidoRepository.findByMercadoPagoId(mercadoPagoId);
+    return pedido.map(new PedidoMapperImpl()::toDTO).orElse(null);
+  }
+
 }

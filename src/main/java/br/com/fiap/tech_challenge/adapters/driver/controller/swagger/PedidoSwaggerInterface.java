@@ -1,8 +1,8 @@
 package br.com.fiap.tech_challenge.adapters.driver.controller.swagger;
 
-import br.com.fiap.tech_challenge.adapters.driver.controller.model.enums.SituacaoPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.StatusPedidoRequestDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.CadastrarPedidoResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidosResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.StatusPedidoReponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,15 +26,15 @@ public interface PedidoSwaggerInterface {
     @Operation(description = "Realiza o cadastro do pedido do cliente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Pedido cadastrado com sucesso. Código: 1", content =
-                @Content(mediaType = "application/text", examples =
-                @ExampleObject(value = "Pedido cadastrado com sucesso!"))),
+                @Content(mediaType = "application/json", schema =
+                @Schema(implementation = CadastrarPedidoResponseDTO.class))),
             @ApiResponse(responseCode = "500", description = "Erro ao cadastrar pedido", content =
                 @Content(mediaType = "application/text", examples =
                 @ExampleObject(value = "Ocorreu um erro inesperado ao cadastrar o pedido.")))
     })
     @RequestMapping(
             method = RequestMethod.POST)
-    ResponseEntity<String> cadastrarPedido(@RequestBody CadastrarPedidoDTO cadastrar);
+    ResponseEntity<CadastrarPedidoResponseDTO> cadastrarPedido(@RequestBody CadastrarPedidoDTO cadastrar);
 
     @Operation(description = "Lista todos os pedidos em andamento")
     @ApiResponses(value = {

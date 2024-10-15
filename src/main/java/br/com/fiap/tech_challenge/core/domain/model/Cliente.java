@@ -11,7 +11,8 @@ public class Cliente {
 
     private Long id;
     private String cpf;
-    private String nomeCompleto;
+    private String primeiroNome;
+    private String sobrenome;
     private String email;
     private List<Telefone> telefones;
     private List<Endereco> enderecos;
@@ -26,9 +27,6 @@ public class Cliente {
         }
         if(!this.cpf.equals(atualizar.getCpf())) {
             throw new DomainException("Não é possível alterar cpf de cliente já existente");
-        }
-        if (nomeCompleto.split(" ").length < 2) {
-            throw new DomainException("Nome completo inválido.");
         }
         if (atualizar.getEmail().matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}")) {
             throw new DomainException("E-mail inválido!");

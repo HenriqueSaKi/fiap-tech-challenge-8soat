@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-lanchonete-configmap
+  namespace: ns-lanchonete
+data:
+  tech_challenge_host: "http://localhost:8080"
+  DATASOURCE_URL: "jdbc:mysql://bd-lanchonete-service.ns-lanchonete.svc.cluster.local:3307/lanchonete"
+  DATASOURCE_USERNAME: "user_fiap"
+  DATASOURCE_PASSWORD: "password_fiap"
+  DATASOURCE_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
+  JPA_DIALECT: "org.hibernate.dialect.MySQLDialect"
+
+  # Novas variáveis de ambiente para o MySQL
+  MYSQL_ROOT_PASSWORD: "root_password"
+  MYSQL_DATABASE: "lanchonete"
+  MYSQL_USER: "user_fiap"
+  MYSQL_PASSWORD: "password_fiap"
