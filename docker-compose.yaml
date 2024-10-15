@@ -11,9 +11,9 @@ services:
       - dados_lanchonete:/var/lib/mysql
     ports:
       ## host:container
-      - "4050:3306"
+      - "4050:3307"
     expose:
-      - "3306"
+      - "3307"
 
   app:
     container_name: app_lanchonete
