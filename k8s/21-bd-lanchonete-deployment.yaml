@@ -39,8 +39,6 @@ spec:
                 configMapKeyRef:
                   name: app-lanchonete-configmap
                   key: MYSQL_PASSWORD
-          ports:
-            - containerPort: 3306
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mysql-storage
