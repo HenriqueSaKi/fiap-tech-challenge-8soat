@@ -31,7 +31,7 @@ public class WebhookMercadoPagoImpl implements WebhookPagamento {
 
     PaymentClient client = new PaymentClient();
 
-    String endpointWebhook = "api/v1/webhook/notification";
+//    String endpointWebhook = "api/v1/webhook/notification";
 
     PaymentCreateRequest createRequest =
         PaymentCreateRequest.builder()
@@ -46,7 +46,7 @@ public class WebhookMercadoPagoImpl implements WebhookPagamento {
                     .firstName(pagamentoDTO.getPrimeiroNome())
                     .lastName(pagamentoDTO.getSobrenome())
                     .build())
-            .notificationUrl(hostNgrok + endpointWebhook)
+//            .notificationUrl(hostNgrok + endpointWebhook)
             .build();
 
     Payment payment = new Payment();

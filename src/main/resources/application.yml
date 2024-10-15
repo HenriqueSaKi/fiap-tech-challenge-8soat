@@ -10,10 +10,10 @@ spring:
   application:
     name: tech-challenge
   datasource:
-    url: jdbc:mysql://localhost:3307/lanchonete
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
-    driverClassName: ${DATASOURCE_DRIVER_CLASS_NAME}
+    url: ${DATASOURCE_URL:jdbc:h2:mem:testdb}
+    username: ${DATASOURCE_USERNAME:sa}
+    password: ${DATASOURCE_PASSWORD:password}
+    driverClassName: ${DATASOURCE_DRIVER_CLASS_NAME:org.h2.Driver}
   jpa:
     show-sql: false
     database-platform: ${JPA_DIALECT}

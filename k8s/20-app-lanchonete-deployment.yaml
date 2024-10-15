@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: app-lanchonete
-          image: tech-challenge-1:latest
+          image: jonathanssoarez/tech-challenge-1:v11
           env:
             - name: DATASOURCE_URL
               valueFrom:
@@ -49,6 +49,6 @@ spec:
                 secretKeyRef:
                   name: lanchonete-secret  # Nome do Secret
                   key: ACCESS_TOKEN_MP
-#          ports:
-#            - containerPort: 8080
-          #command: ["sh", "-c", "./wait-for-it.sh bd-lanchonete:3306 -t 0 -- ./run-project.sh"]
+          ports:
+            - containerPort: 8080
+          #command: ["sh", "-c", "./wait-for-it.sh bd_lanchonete:3306 -t 0 -- ./run-project.sh"]
