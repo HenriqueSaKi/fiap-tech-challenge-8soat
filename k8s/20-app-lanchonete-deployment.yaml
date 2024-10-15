@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: app-lanchonete
-          image: localhost:5000/fiap-tech-challenge-8soat-app
+          image: henriquesaki/fiap-tech-challenge-8soat-app:latest
           ports:
             - containerPort: 8080
           env:
