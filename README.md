@@ -7,9 +7,9 @@ Sumário
 - [Requisitos do Tech Challenge](#requisitos-do-tech-challenge)
   - [Entregáveis Fase 1](#entregáveis-fase-1)
   - [Entregáveis Fase 2](#entregáveis-fase-2)
-- [Passo-a-passo para build da aplicação localmente](#passo-a-passo-para-build-da-aplicação-localmente)
-- [Passo-a-passo para build da aplicação em container Docker](#passo-a-passo-para-build-da-aplicação-em-container-docker)
-- [Passo-a-passo para build da aplicação no cluster Kubernetes](#passo-a-passo-para-build-da-aplicação-no-cluster-kubernetes)
+- [Passo a passo para build da aplicação localmente](#passo-a-passo-para-build-da-aplicação-localmente)
+- [Passo a passo para build da aplicação em container Docker](#passo-a-passo-para-build-da-aplicação-em-container-docker)
+- [Passo a passo para build da aplicação no cluster Kubernetes](#passo-a-passo-para-build-da-aplicação-no-cluster-kubernetes)
 
 *******
 
@@ -43,10 +43,10 @@ Em relação à infraestrutura, ao invés de subirmos nossa aplicação e banco 
 ---
 
 #### Observação:
-Antes de seguir com o passo-a-passo de execução do serviço, vale ressaltar que, para todas as formas de execução da aplicação, será necessário realizar o clone do projeto (passo 1), para que possa ser realizado o build local, Docker ou em um cluster Kubernetes.
+Antes de seguir com o passo a passo de execução do serviço, vale ressaltar que, para todas as formas de execução da aplicação, será necessário realizar o clone do projeto (passo 1), para que possa ser realizado o build local, Docker ou em um cluster Kubernetes.
 
 ---
-## Passo-a-passo para build da aplicação localmente
+## Passo a passo para build da aplicação localmente
 
 1. Clone o projeto na sua máquina </br>
 **Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pelo terminal:**  
@@ -107,7 +107,7 @@ Antes de seguir com o passo-a-passo de execução do serviço, vale ressaltar qu
 5. Acesse o Swagger da aplicação, pelo link abaixo</br>
    http://localhost:8080/api/v1/swagger-ui/index.html
 ---
-## Passo-a-passo para build da aplicação em container Docker
+## Passo a passo para build da aplicação em container Docker
 1. Clone o projeto na sua máquina </br>
    **Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pelo terminal:**  
    ``git clone https://github.com/HenriqueSaKi/fiap-tech-challenge-8soat.git``
@@ -132,7 +132,7 @@ Antes de seguir com o passo-a-passo de execução do serviço, vale ressaltar qu
 3. Acesse o Swagger da aplicação, pelo link abaixo</br>
    http://localhost:8080/api/v1/swagger-ui/index.html
 ---
-## Passo-a-passo para build da aplicação no cluster Kubernetes
+## Passo a passo para build da aplicação no cluster Kubernetes
 1. Clone o projeto na sua máquina </br>
    **Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pelo terminal:**  
    ``git clone https://github.com/HenriqueSaKi/fiap-tech-challenge-8soat.git``
