@@ -1,99 +1,61 @@
 # PosTech - Software Architecture
-#### Projeto relacionado ao Tech Challenge fornecido como atividade avaliativa do curso de pós graduação em Arquitetura de Software da FIAP.  
+### Projeto relacionado ao Tech Challenge fornecido como atividade avaliativa do curso de pós graduação em Arquitetura de Software da FIAP.  
 
-## Objetivos
-Desenvolver um sistema para uma lanchonete, seguindo os pré-requisitos do Tech Challenge.  
+*******
+Sumário
+- [Objetivos](#objetivos)
+- [Requisitos do Tech Challenge](#requisitos-do-tech-challenge)
+  - [Entregáveis Fase 1](#entregáveis-fase-1)
+  - [Entregáveis Fase 2](#entregáveis-fase-2)
+- [Passo-a-passo para build da aplicação localmente](#passo-a-passo-para-build-da-aplicação-localmente)
+- [Passo-a-passo para build da aplicação em container Docker](#passo-a-passo-para-build-da-aplicação-em-container-docker)
+- [Passo-a-passo para build da aplicação no cluster Kubernetes](#passo-a-passo-para-build-da-aplicação-no-cluster-kubernetes)
 
-## Requisitos do Tech Challenge
-### Arquitetura:
-Uma das premissas para esse projeto, foi desenvolver um sistema monolito, seguindo a arquitetura hexagonal e clean architecture.</br>
-Ou seja, a ideia principal é conseguir fornecer um sistema que favorece reusabilidade de código, alta coesão, baixo acoplamento, independência de tecnologia e que são mais fáceis de serem testados.
+*******
 
-![img.png](img.png)
-<p align="center">Arquitetura Kubernetes</p>
+# Objetivos
+O objetivo principal desse projeto está em aprimorar as habilidades do grupo na construção de arquiteturas de software robustas e escaláveis. 
+Baseando-se no desenvolvimento de uma aplicação que simula o funcionamento de uma lanchonete, aplico princípios fundamentais de design de software, como separação de responsabilidades, alta coesão e baixo acoplamento.</br> 
+Além disso, o projeto nos permitiu aprofundar na orquestração de containers e microserviços, utilizando Docker e Kubernetes, tecnologias essenciais para arquiteturas modernas. O foco é consolidar práticas que garantam eficiência, manutenibilidade e escalabilidade, pilares de uma arquitetura bem projetada, com o intuito de me preparar para desafios mais complexos no papel de Arquiteto de Software.
 
-### API's:
-- Cadastro do Cliente
-- Identificação do Cliente via CPF
-- Criar, editar e remover produtos
-- Buscar produtos por categoria
-- Fake checkout, apenas enviar os produtos escolhidos para a fila. O checkout é a finalização do pedido.
-- Listar os pedidos
+# Requisitos do Tech Challenge
+## Entregáveis Fase 1
+Para a fase 1, foi solicitado o desenvolvimento de um sistema monolito, utilizando a arquitetura hexagonal + DDD, cujas responsabilidades eram executar as seguintes funcionalidades:
+- Cadastro do cliente e identificação via CPF;
+- Criar, buscar, editar e remover produtos;
+- Buscar produtos por categoria;
+- Criar pedidos simulando um fake checkout;
+- Listar os pedidos.
 
-### Banco de dados:
-De livre escolha (utilizamos o MySQL).  
+Além disso, foi necessário realizar a criação dos arquivos Dockerfile e docker-compose.yaml para realizar o build da nossa aplicação e banco de dados em containers no Docker.
 
-## Pré-requisitos para executar a aplicação
-  Você precisa ter o docker e o docker-compose instalados na sua máquina para poder rodar o projeto.<br>
-  Também vai precisar do git para poder clonar o projeto.<br>
-  As instruções citadas nesse documento foram testadas com:
-  - Linux Ubuntu 22.04.4 LTS;
-  - Docker 27.1.1;
-  - Docker Compose 1.26.0.
+## Entregáveis Fase 2
+Para a fase 2, foi necessário realizar a refatoração do código, incluindo novas funcionalidades e regras de negócio, além da implementação da Clean Architeture, conforme aprendido nas aulas da PosTech.</br>
+As features adicionadas nessa fase 2 foram:
+- Criação da API responsável por atualizar o status do pedido;
+- Ordenação dos pedidos por status, horário do pedido e a não listagem dos pedidos finalizados;
+- Por fim, a substituição do fake checkout, realizado na etapa anterior, por um webhook de pagamento, onde ao receber as informações, o mesmo seria responsável por atualizar o status do pedido.
+  - Obs: Para o webhook, resolvemos aceitar o desafio adicionar e implementamos o webhook do mercado pago
+  - Link: https://www.mercadopago.com.br/developers/pt/docs/your-integrations/notifications/webhooks
 
-## Roteiro para executar a aplicação
+Em relação à infraestrutura, ao invés de subirmos nossa aplicação e banco de dados em containes Docker, dessa vez foi necessário criarmos alguns arquivos de configuração (.yaml), para que pudéssemos deployar a nossa aplicação em um cluster Kubernetes.
+
+---
+
+#### Observação:
+Antes de seguir com o passo-a-passo de execução do serviço, vale ressaltar que, para todas as formas de execução da aplicação, será necessário realizar o clone do projeto (passo 1), para que possa ser realizado o build local, Docker ou em um cluster Kubernetes.
+
+---
+## Passo-a-passo para build da aplicação localmente
+
 1. Clone o projeto na sua máquina </br>
 **Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pelo terminal:**  
 ``git clone https://github.com/HenriqueSaKi/fiap-tech-challenge-8soat.git``
 
-
-2. Crie as imagens e suba os containeres</br>
-   **Acesse a pasta raiz do projeto e execute os comandos abaixo:**
-
-      ```sh
-      # Crie as imagens docker
-      docker-compose build
-      
-      # Suba os containeres
-      docker-compose up -d
-      
-      # Confira se os containeres foram iniciados corretamente
-      # O status deve estar 'Up'
-      docker-compose ps -a
-      ```
-
-3. Acesse o Swagger da aplicação, pelo link abaixo</br>
-   http://localhost:8080/api/v1/swagger-ui/index.html
-
-## Outros comandos relacionados a containeres, aplicação e banco de dados.
-
-#### 1. [Docker] Comando para reiniciar os containeres
-```sh
-# Reinicializa os containeres
-docker-compose restart
-```
-
-#### 2. [Docker] Comandos para visualizar os logs dos containeres
-```sh
-# Log do banco de dados
-docker logs bd_lanchonete
-
-# Log da aplicação
-docker logs app_lanchonete
-```
-
-#### 3. [Banco de dados] Testar o banco de dados individualmente
-Suba o container do banco de dados, abra o terminal e execute o comando abaixo.
-```sh
-# Executa o mysql pela interface de linha de comando (CLI)
-docker exec -it bd_lanchonete mysql -u user_fiap -p
-# Após inserir a senha, selecione o database
-use lanchonete;
-```
-Nota: se você subiu apenas o banco de dados e tentou testá-lo, provavelmente não encontrou nenhuma tabela no banco de dados. Isso ocorre porque as tabelas são criadas pela aplicação usando JPA.
-
-#### 4. [Banco de dados] Comando para apagar o volume de dados
-Cuidado: o procedimento abaixo apagará todos os registros do banco.
-```sh
-# Reinicia todos os containeres
-# Um novo volume de dados será criado durante a reinicialização
-docker-compose down -v && docker-compose up -d
-```
-
-#### 5. [Aplicação] Caso queira executar apenas a aplicação localmente, siga os passos abaixo:
-1. Instale as dependências:</br>
+2. Instale as dependências:</br>
    ``mvn clean install``
-2. Inclua as variáveis de ambiente relacionados ao banco de dados na sua IDE. </br>
+
+3. Inclua as variáveis de ambiente relacionados ao banco de dados na sua IDE. </br>
       ```
       DATASOURCE_URL=
       DATASOURCE_USERNAME=
@@ -142,3 +104,65 @@ docker-compose down -v && docker-compose up -d
   </details>
 
 4. Tudo pronto, só dar um <i>Run</i> :arrow_forward: na aplicação!
+5. Acesse o Swagger da aplicação, pelo link abaixo</br>
+   http://localhost:8080/api/v1/swagger-ui/index.html
+---
+## Passo-a-passo para build da aplicação em container Docker
+1. Clone o projeto na sua máquina </br>
+   **Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pelo terminal:**  
+   ``git clone https://github.com/HenriqueSaKi/fiap-tech-challenge-8soat.git``
+
+2. Crie as imagens e suba os containeres</br>
+   **Acesse a pasta raiz do projeto e execute os comandos abaixo:**
+
+      ```sh
+      # Crie as imagens docker, utilizando as configurações definidas no docker-compose
+      # Obs: Utilize --no-cache, na frente do comando, 
+      # caso queira garantir que a imagem será gerada do zero.
+      docker-compose build
+      
+      # Suba os containeres
+      docker-compose up -d
+      
+      # Confira se os containeres foram iniciados corretamente
+      # O status deve estar 'Up'
+      docker-compose ps -a
+      ```
+
+3. Acesse o Swagger da aplicação, pelo link abaixo</br>
+   http://localhost:8080/api/v1/swagger-ui/index.html
+---
+## Passo-a-passo para build da aplicação no cluster Kubernetes
+1. Clone o projeto na sua máquina </br>
+   **Certifique-se ter o git instalado em sua máquina e execute o comando abaixo pelo terminal:**  
+   ``git clone https://github.com/HenriqueSaKi/fiap-tech-challenge-8soat.git``
+
+
+2. Execute todos os arquivos de configuração do cluster, :
+   ```agsl
+   kubectl apply -f .\k8s\00-ns-lanchonete.yaml
+   kubectl apply -f .\k8s\10-secret-lanchonete.yaml
+   kubectl apply -f .\k8s\11-app-lanchonete-configmap.yaml
+   kubectl apply -f .\k8s\20-bd-lanchonete-service.yaml
+   kubectl apply -f .\k8s\21-app-lanchonete-service.yaml
+   kubectl apply -f .\k8s\30-pvc-lanchonete.yaml
+   kubectl apply -f .\k8s\31-pv-lanchonete.yaml
+   kubectl apply -f .\k8s\40-bd-lanchonete-deployment.yaml
+   kubectl apply -f .\k8s\41-app-lanchonete-deployment.yaml
+   kubectl apply -f .\k8s\50-app-lanchonete-hpa.yaml
+   ```
+   Obs: Antes de executar o arquivo 41-app-lanchonete-deployment.yaml,
+   aguarde a subida do Deployment bd-lanchonete-deployment, 
+   para evitar que o pod fique reiniciando por não encontrar o banco de dados.
+
+
+3. Acesse o Swagger da aplicação, pelo link abaixo</br>
+      http://localhost:30081/api/v1/swagger-ui/index.html </br>
+   Obs: A mudança de porta se dá, pois dentro do arquivo 20-bd-lanchonete-service.yaml,
+   foi configurado um NodePort que expõe a aplicação para ser acessada pela porta 30081.
+
+## Desenho da Arquitetura do Cluster Kubernetes
+![img.png](img.png)
+<p align="center">Arquitetura Kubernetes</p>
+
+---
