@@ -30,8 +30,8 @@ webhook:
 
 management:
   health:
-      livenessstate:
-        enabled: true
+    livenessstate:
+      enabled: true
     readinessstate:
       enabled: true
     endpoint:
