@@ -7,7 +7,6 @@ import br.com.fiap.tech_challenge.core.application.mapper.ProdutoMapperImpl;
 import br.com.fiap.tech_challenge.core.application.ports.gateway.ProdutoGatewayPort;
 import br.com.fiap.tech_challenge.core.domain.model.Produto;
 import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

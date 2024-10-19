@@ -25,7 +25,7 @@ public class WebhookUseCaseImpl implements WebhookUseCase {
       throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
     }
 
-    pedidoGatewayPort.atualizaStatusPedido(pedido, situacao);
+    pedidoGatewayPort.atualizaStatusPedido(Long.valueOf(id), situacao);
   }
 
 }

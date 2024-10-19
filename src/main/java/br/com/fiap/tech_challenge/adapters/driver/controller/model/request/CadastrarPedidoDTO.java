@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class CadastrarPedidoDTO {
 
-    @Schema(name = "clientId", description = "Identificação do cliente")
+    @Schema(name = "clientId", description = "Identificação do cliente", example = "1")
     @NotNull
     private Long clientId;
 
