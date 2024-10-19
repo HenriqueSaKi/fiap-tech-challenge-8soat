@@ -2,6 +2,7 @@ package br.com.fiap.tech_challenge.adapters.driver.controller.mapper;
 
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.request.CadastrarPedidoDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.ItemPedidoResponseDTO;
+import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.ItemProdutoResponseDTO;
 import br.com.fiap.tech_challenge.adapters.driver.controller.model.response.PedidoResponseDTO;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
@@ -27,6 +28,11 @@ public interface PedidoDTOMapper {
     itens.forEach(item -> {
       ItemPedidoResponseDTO itemPedidoResponseDTO = new ItemPedidoResponseDTO();
       BeanUtils.copyProperties(item, itemPedidoResponseDTO);
+
+      ItemProdutoResponseDTO produtoResponseDTO = new ItemProdutoResponseDTO();
+      BeanUtils.copyProperties(item.getProduto(), produtoResponseDTO);
+      itemPedidoResponseDTO.setProduto(produtoResponseDTO);
+
       itensResponseDto.add(itemPedidoResponseDTO);
     });
 

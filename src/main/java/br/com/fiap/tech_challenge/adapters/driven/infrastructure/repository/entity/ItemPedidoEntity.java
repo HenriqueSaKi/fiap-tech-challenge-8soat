@@ -2,16 +2,13 @@ package br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.ent
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,11 +16,15 @@ import java.math.BigDecimal;
 public class ItemPedidoEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "descricao", nullable = false, length = 100)
-    @NotBlank(message = "Descrição do produto")
-    private String descricao;
+    @ManyToOne
+    @JoinColumn(name = "produto_id", nullable = false)
+    private ProdutoEntity produto;
+
+    @ManyToOne
+    private PedidoEntity pedido;
 
     @Column(name = "valor_unitario", nullable = false)
     @DecimalMin(value = "0.01", message = "O valor unitário deve ser maior que zero")
@@ -36,8 +37,5 @@ public class ItemPedidoEntity {
     @Column(name = "valor_total_item", nullable = false)
     @DecimalMin(value = "0.01", message = "O valor total deve ser maior que zero")
     private BigDecimal valorTotalPedido;
-
-    @ManyToOne
-    private PedidoEntity pedido;
 
 }

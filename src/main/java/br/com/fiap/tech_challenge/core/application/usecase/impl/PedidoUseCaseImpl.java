@@ -68,14 +68,14 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
 
       List<ItemPedido> itemPedidos = new ArrayList<>();
       for(ItemPedido item: pedido.getItens()) {
-        Produto produto = produtoGatewayPort.findById(item.getIdProduto());
+        Produto produto = produtoGatewayPort.findById(item.getProduto().getProdutoId());
         if (produto == null) {
           throw new NenhumProdutoEncontradoException(
               ERRO_AO_CONSULTAR_PRODUTO_POR_ID_EXCEPTION +
-                  item.getIdProduto().toString());
+                  item.getProduto().getProdutoId().toString());
         }
 
-        item.setDescricao(produto.getDescricao());
+        item.setProduto(produto);
         item.setValorUnitario(produto.getPreco());
         item.setValorTotalPedido(getValorTotalItem(item));
         itemPedidos.add(item);
@@ -139,15 +139,12 @@ public class PedidoUseCaseImpl implements PedidoUseCase {
 
   @Override
   public StatusPedidoReponseDTO atualizarStatusPedido(Long id, SituacaoPedidoDTO situacaoPedido) {
-    Pedido pedido = pedidoGatewayPort.consultaStatusPedidoPorId(id);
-    if (pedido != null) {
-      try {
-        return pedidoGatewayPort.atualizaStatusPedido(pedido, situacaoPedido);
-      } catch (Exception e) {
-        throw new ErroAoAtualizarPedidoException(ERRO_AO_ATUALIZAR_PEDIDO_EXCEPTION, e);
-      }
+    try {
+      return pedidoGatewayPort.atualizaStatusPedido(id, situacaoPedido);
+    } catch (Exception e) {
+      LOGGER.error(e.getMessage());
+      throw new ErroAoAtualizarPedidoException(ERRO_AO_ATUALIZAR_PEDIDO_EXCEPTION, e);
     }
-    throw new NenhumPedidoEncontradoException(NENHUM_PEDIDO_FOI_ENCONTRADO_EXCEPTION);
   }
 
   private BigDecimal getValorTotalItem(ItemPedido item) {

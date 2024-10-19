@@ -4,9 +4,12 @@ import br.com.fiap.tech_challenge.core.domain.model.enums.TipoTelefone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 @Entity
+@Getter
+@Setter
 @Table(name = "TELEFONE")
 public class TelefoneEntity {
 
