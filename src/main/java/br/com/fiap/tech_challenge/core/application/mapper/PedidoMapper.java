@@ -2,8 +2,11 @@ package br.com.fiap.tech_challenge.core.application.mapper;
 
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ItemPedidoEntity;
 import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.PedidoEntity;
+import br.com.fiap.tech_challenge.adapters.driven.infrastructure.repository.entity.ProdutoEntity;
 import br.com.fiap.tech_challenge.core.domain.model.ItemPedido;
 import br.com.fiap.tech_challenge.core.domain.model.Pedido;
+import br.com.fiap.tech_challenge.core.domain.model.Produto;
+import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
 import org.mapstruct.*;
 import org.springframework.beans.BeanUtils;
 
@@ -30,7 +33,14 @@ public interface PedidoMapper {
         entities.forEach(item -> {
             ItemPedido itemPedido = new ItemPedido();
             BeanUtils.copyProperties(item, itemPedido);
-            itemPedido.setIdProduto(item.getId());
+
+            Produto produto = new Produto();
+            BeanUtils.copyProperties(item.getProduto(), produto);
+            produto.setCategoria(
+                CategoriaProduto.valueOf(
+                    item.getProduto().getCategoriaProduto().name()));
+            itemPedido.setProduto(produto);
+
             itemPedidoList.add(itemPedido);
         });
         return itemPedidoList;
@@ -42,7 +52,14 @@ public interface PedidoMapper {
         itens.forEach(item -> {
             ItemPedidoEntity entity = new ItemPedidoEntity();
             BeanUtils.copyProperties(item, entity);
-            entity.setId(item.getIdProduto());
+
+            ProdutoEntity produtoEntity = new ProdutoEntity();
+            BeanUtils.copyProperties(item.getProduto(), produtoEntity);
+            produtoEntity.setCategoriaProduto(
+                CategoriaProduto.valueOf(
+                    item.getProduto().getCategoria().name()));
+
+            entity.setProduto(produtoEntity);
             itemPedidoEntities.add(entity);
         });
 

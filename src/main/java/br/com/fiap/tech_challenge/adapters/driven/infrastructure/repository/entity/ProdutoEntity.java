@@ -7,9 +7,12 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import java.math.BigDecimal;
 import br.com.fiap.tech_challenge.core.domain.model.enums.CategoriaProduto;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "PRODUTO")
 public class ProdutoEntity {
 
