@@ -17,24 +17,19 @@ spec:
     spec:
       containers:
         - name: bd-lanchonete
-          image: mysql:8.4.0
+          image: postgres:15
           ports:
-            - containerPort: 3306
+            - containerPort: 5432
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: lanchonete-secret
-                  key: mysql_root_password
-            - name: MYSQL_DATABASE
+            - name: POSTGRES_DB
               value: lanchonete
-            - name: MYSQL_USER
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: lanchonete-secret
-                  key: mysql_user
-            - name: MYSQL_PASSWORD
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: lanchonete-secret
-                  key: mysql_password
+                  key: postgres_password
