@@ -4,5 +4,5 @@ metadata:
   name: app-lanchonete-configmap
   namespace: ns-lanchonete
 data:
-  datasource_url: jdbc:mysql://bd-lanchonete-service:3306/lanchonete
+  datasource_url: jdbc:postgresql://bd-lanchonete-service:5432/lanchonete
   ngrok_url: https://0ab6-189-110-173-172.ngrok-free.app/ #Atualizar ngrok para testes de integração

@@ -2,18 +2,18 @@ services:
   bd_lanchonete:
     platform: linux/x86_64
     container_name: bd_lanchonete
-    image: mysql:8.4.0
+    image: postgres:15
     env_file:
       - .env
     networks:
       - net_lanchonete
     volumes:
-      - dados_lanchonete:/var/lib/mysql
+      - dados_lanchonete:/var/lib/postgresql/data
     ports:
       ## host:container
-      - "3306:3306"
+      - "5432:5432"
     expose:
-      - "3306"
+      - "5432"
 
   app:
     container_name: app_lanchonete

@@ -27,9 +27,9 @@ spec:
                   name: app-lanchonete-configmap
                   key: ngrok_url
             - name: DATASOURCE_DRIVER_CLASS_NAME
-              value: com.mysql.cj.jdbc.Driver
+              value: org.postgresql.Driver
             - name: JPA_DIALECT
-              value: org.hibernate.dialect.MySQLDialect
+              value: org.hibernate.dialect.PostgreSQLDialect
             - name: DATASOURCE_URL
               valueFrom:
                 configMapKeyRef:
