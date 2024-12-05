@@ -46,11 +46,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      # - name: Build and push Docker image
-      #   env:
-      #     ECR_REPOSITORY: ecr-app-lanchonete
-      #     IMAGE_TAG: ${{ github.sha }}
-      #   run: |
-      #     docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-      #     docker tag $ECR_REPOSITORY:$IMAGE_TAG 526450568081.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
-      #     docker push 526450568081.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: Build and push Docker image
+        env:
+          ECR_REPOSITORY: ecr-app-lanchonete
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $image_tag:$image_version .
+          docker tag $image_tag:$image_version 010526276080.dkr.ecr.us-east-1.amazonaws.com/app-lanchonete:$image_version
+          docker push 010526276080.dkr.ecr.us-east-1.amazonaws.com/app-lanchonete:$image_version
