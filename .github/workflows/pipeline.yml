@@ -1,15 +1,14 @@
-name: Build and Push Docker Image to Amazon ECR
+name: Build ECR image
 
 on:
   push:
     branches:
-      - teste
-      - main
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
     environment:
-      name: aws-lab-fiap
+      name: aws
 
     permissions:
       actions: read
@@ -49,7 +48,7 @@ jobs:
 
       # - name: Build and push Docker image
       #   env:
-      #     ECR_REPOSITORY: rappidu-application
+      #     ECR_REPOSITORY: ecr-app-lanchonete
       #     IMAGE_TAG: ${{ github.sha }}
       #   run: |
       #     docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
