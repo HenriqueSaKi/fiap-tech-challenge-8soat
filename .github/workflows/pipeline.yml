@@ -48,6 +48,6 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t app-lanchonete/latest .
-          docker tag $image_tag:$image_version 010526276080.dkr.ecr.us-east-1.amazonaws.com/app-lanchonete/latest
-          docker push 010526276080.dkr.ecr.us-east-1.amazonaws.com/app-lanchonete/latest
+          docker build -t app-lanchonete:latest .
+          docker tag $image_tag:$image_version 010526276080.dkr.ecr.us-east-1.amazonaws.com/app-lanchonete:latest
+          docker push 010526276080.dkr.ecr.us-east-1.amazonaws.com/app-lanchonete:latest
