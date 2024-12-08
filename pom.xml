@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.fiap</groupId>
 	<artifactId>tech-challenge</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>tech-challenge</name>
 	<description>Tech Challenge - FIAP - Pós Tech - Software Architecture</description>
 	<packaging>jar</packaging>
