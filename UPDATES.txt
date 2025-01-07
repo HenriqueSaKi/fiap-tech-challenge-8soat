@@ -1,0 +1,26 @@
+1 - Microsserviço Pedido
+
+criaçao do ms-pedido/src/index.js
+criaçao do ms-pedido/src/controllers/pedidoController.js
+criaçao do ms-pedido/src/services/pedidoService.js
+criaçao do ms-pedido/src/config/database.js
+criaçao do ms-pedido/init.sql
+
+Adicionei um .env especifico para esse folder, com as informações de acesso do POSTGRES.
+
+Este Microsserviço irá gerenciar o cadastro, listagem e detalhes dos pedidos. Além de, claro, isolá-lo do núcleo principal, em Java, para facilitar a manutenção e escalabilidade.
+
+A ideia foi fazer a seguinte estrutura:
+
+ms-pedido/
+|-- src/
+|   |-- config/         # Configuração do banco
+|   |-- controllers/    # Controlador de rotas HTTP
+|   |-- models/         # São os similares às Entidades de Java
+|   |-- services/       # Lógica de negócios
+|   |-- index.js        # Inicalização do servidor Express, que roda o projeto
+|-- docker-compose.yaml
+|-- Dockerfile
+|-- package.json / package-lock.json # gerenciamento de dependências do Node
+|-- .env/
+|-- init.sql    # Um script de criação da tabela PEDIDOS
